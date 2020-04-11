@@ -27,7 +27,7 @@
 			</div>
 			<nav>
 				<ul>
-					<li>
+					<li class="active">
 						<a href="expense.html">
 							<span><i class="fa fa-exchange"></i></span>
 							<span>Expense</span>
@@ -76,7 +76,7 @@
 							<span>Annually Report</span>
 						</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="profile.html">
 							<span><i class="fa fa-user"></i></span>
 							<span>Profile</span>
@@ -95,44 +95,37 @@
 		<div class="main-content">
             
                 <div class="title-left">
-                    Profile
-				</div>
-				
-				<!-- <div class="title-right">
-					<div class="add">
-						<i class="fa fa-plus"></i> 
-						<a href="">Username</a>
-					</div>
-					<div class="password-delete">
-						<a href="">Change Password</a>
-						<a href="">Delete Account</a>
-					</div>
-				</div> -->
+                    <a href="expense.html" style="text-decoration: none; color: #333;">Expense</a>
+                    /Add
+                </div>
 
 
             <div class="table-top-space"></div>
             
             <form class="form" method="POST">
-				<input type="text" placeholder="First name">
-				<input type="text" placeholder="Last name">
-				<input type="email" placeholder="Email">
-				<input type="number" placeholder="Family member">
+                <select id = "myList">
+                    <option value="">--- Select Category ---</option>
+                    <option value = "1">Category one</option>
+                    <option value = "2">Category two</option>
+                    <option value = "3">Category three</option>
+                    <option value = "4">Category four</option>
+                </select>
+
+                <select id = "myList">
+                    <option value="">--- Select Product/Service ---</option>
+                    <option value = "1">Product one</option>
+                    <option value = "2">Service two</option>
+                    <option value = "3">Product three</option>
+                    <option value = "4">Service four</option>
+                </select>
+
+                <input type="text" placeholder="Price">
                 <div>
-                    <input class="button-primary" type="submit" value="Save">
+                    <input class="button-primary" type="submit" value="Create">
                 </div>
             </form>  
 
-			<div class="table-bottom-space"></div>
-			<div class="table-total">
-				<a href="#">
-					<button class="button-error">Delete Account</button>
-				</a>
-			</div>
-			<div class="table-total">
-				<a href="change-password.html">
-					<button class="button-error">Change Password</button>
-				</a>
-			</div>
+
 		</div>
 
 

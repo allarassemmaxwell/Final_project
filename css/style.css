@@ -218,6 +218,244 @@ figcaption {
 
 
 
+
+
+
+/* ===========================================================
+========================= LOGIN PAGE =========================
+============================================================ */
+.login {
+    width: 100%;
+    height: 100%;
+}
+.login-content {
+    padding-bottom: 30px;
+    width: 400px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+.login-title {
+    padding-top: 40px;
+    color: #00C2FF;
+    font-weight: bold;
+    font-size: 23px;
+    text-align: center;
+}
+.login-input {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+}   
+.login-form {
+    padding-top: 40px;
+}
+.login-submit {
+    text-decoration: none;
+    border-radius: 5em;
+    color: #fff;
+    background: #00C2FF;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-left: 35%;
+    font-size: 13px;
+}
+.login-submit:hover {
+    opacity: 0.5;
+}
+.forgot {
+    margin-top: -35px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+    color: #777;
+    padding-top: 15px;
+    text-align: right;
+}
+.forgot a:hover {
+    opacity: 0.5;
+}
+.forgot a {
+    color: #777;
+    text-decoration: none
+}
+.create-account {
+    color: #777;
+    padding-top: 15px;
+    text-align: center;
+}
+.create-account a:hover {
+    opacity: 0.5;
+}
+.create-account a {
+    color: #00C2FF;
+    text-decoration: none
+}
+
+
+
+
+
+
+/* ===========================================================
+===================== RESET PASSWORD PAGE ====================
+============================================================ */
+.reset-password {
+    width: 100%;
+    height: 100%;
+}
+.reset-password-content {
+    padding-bottom: 30px;
+    width: 400px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+.reset-password-title {
+    padding-top: 40px;
+    color: #00C2FF;
+    font-weight: bold;
+    font-size: 23px;
+    text-align: center;
+}
+
+.reset-password-input {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 37px;
+}   
+.reset-password-form {
+    padding-top: 40px;
+}
+.reset-password-submit {
+    text-decoration: none;
+    border-radius: 5em;
+    color: #fff;
+    background: #00C2FF;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-left: 28.2%;
+    font-size: 13px;
+}
+.reset-password-submit:hover {
+    opacity: 0.5;
+}
+.create-account {
+    color: #777;
+    padding-top: 15px;
+    text-align: center;
+}
+.create-account a:hover {
+    opacity: 0.5;
+}
+.create-account a {
+    color: #00C2FF;
+    text-decoration: none
+}
+
+
+
+
+
+
+
+
+/* ===========================================================
+===================== CREATE ACCOUNT PAGE ====================
+============================================================ */
+.register {
+    width: 100%;
+    height: 100%;
+}
+.register-content {
+    padding-bottom: 30px;
+    width: 400px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+.register-title {
+    padding-top: 40px;
+    color: #00C2FF;
+    font-weight: bold;
+    font-size: 23px;
+    text-align: center;
+}
+.register-input {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 30px;
+}   
+.register-form {
+    padding-top: 40px;
+}
+.register-submit {
+    text-decoration: none;
+    border-radius: 5em;
+    color: #fff;
+    background: #00C2FF;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-left: 29%;
+    font-size: 13px;
+}
+.register-submit:hover {
+    opacity: 0.5;
+}
+.go-to-login {
+    color: #777;
+    padding-top: 15px;
+    text-align: center;
+}
+.go-to-login a:hover {
+    opacity: 0.5;
+}
+.go-to-login a {
+    color: #00C2FF;
+    text-decoration: none
+}
+
+
+
+
+
+
 /* ==========================================================
 ========================= FOOTER =========================
 ========================================================== */
@@ -461,239 +699,6 @@ nav ul li a:hover {
 
 
 }
-
-
-
-/* ===========================================================
-========================= LOGIN PAGE =========================
-============================================================ */
-.login {
-    width: 100%;
-    height: 100%;
-}
-.login-content {
-    padding-bottom: 30px;
-    width: 400px;
-    margin: 7em auto;
-    border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-.login-title {
-    padding-top: 40px;
-    color: #00C2FF;
-    font-weight: bold;
-    font-size: 23px;
-    text-align: center;
-}
-.login-input {
-    width: 76%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-    margin-left: 46px;
-    text-align: center;
-    margin-bottom: 27px;
-}   
-.login-form {
-    padding-top: 40px;
-}
-.login-submit {
-    text-decoration: none;
-    border-radius: 5em;
-    color: #fff;
-    background: #00C2FF;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin-left: 35%;
-    font-size: 13px;
-}
-.login-submit:hover {
-    opacity: 0.5;
-}
-.forgot {
-    margin-top: -35px;
-    margin-right: 50px;
-    margin-bottom: 30px;
-    color: #777;
-    padding-top: 15px;
-    text-align: right;
-}
-.forgot a:hover {
-    opacity: 0.5;
-}
-.forgot a {
-    color: #777;
-    text-decoration: none
-}
-.create-account {
-    color: #777;
-    padding-top: 15px;
-    text-align: center;
-}
-.create-account a:hover {
-    opacity: 0.5;
-}
-.create-account a {
-    color: #00C2FF;
-    text-decoration: none
-}
-
-
-
-
-
-
-/* ===========================================================
-===================== RESET PASSWORD PAGE ====================
-============================================================ */
-.reset-password {
-    width: 100%;
-    height: 100%;
-}
-.reset-password-content {
-    padding-bottom: 30px;
-    width: 400px;
-    margin: 7em auto;
-    border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-
-.reset-password-title {
-    padding-top: 40px;
-    color: #00C2FF;
-    font-weight: bold;
-    font-size: 23px;
-    text-align: center;
-}
-
-.reset-password-input {
-    width: 76%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-    margin-left: 46px;
-    text-align: center;
-    margin-bottom: 37px;
-}   
-.reset-password-form {
-    padding-top: 40px;
-}
-.reset-password-submit {
-    text-decoration: none;
-    border-radius: 5em;
-    color: #fff;
-    background: #00C2FF;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin-left: 28.2%;
-    font-size: 13px;
-}
-.reset-password-submit:hover {
-    opacity: 0.5;
-}
-.create-account {
-    color: #777;
-    padding-top: 15px;
-    text-align: center;
-}
-.create-account a:hover {
-    opacity: 0.5;
-}
-.create-account a {
-    color: #00C2FF;
-    text-decoration: none
-}
-
-
-
-
-
-
-
-
-/* ===========================================================
-===================== CREATE ACCOUNT PAGE ====================
-============================================================ */
-.register {
-    width: 100%;
-    height: 100%;
-}
-.register-content {
-    padding-bottom: 30px;
-    width: 400px;
-    margin: 7em auto;
-    border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-.register-title {
-    padding-top: 40px;
-    color: #00C2FF;
-    font-weight: bold;
-    font-size: 23px;
-    text-align: center;
-}
-.register-input {
-    width: 76%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-    margin-left: 46px;
-    text-align: center;
-    margin-bottom: 30px;
-}   
-.register-form {
-    padding-top: 40px;
-}
-.register-submit {
-    text-decoration: none;
-    border-radius: 5em;
-    color: #fff;
-    background: #00C2FF;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin-left: 29%;
-    font-size: 13px;
-}
-.register-submit:hover {
-    opacity: 0.5;
-}
-.go-to-login {
-    color: #777;
-    padding-top: 15px;
-    text-align: center;
-}
-.go-to-login a:hover {
-    opacity: 0.5;
-}
-.go-to-login a {
-    color: #00C2FF;
-    text-decoration: none
-}
-
 
 
 

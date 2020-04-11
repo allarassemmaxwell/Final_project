@@ -52,7 +52,7 @@
 							<span>Category</span>
 						</a>
 					</li>
-					<li>
+					<li class="active">
 						<a href="product-service.html">
 							<span><i class="fa fa-product-hunt"></i></span>
 							<span>Product/Service</span>
@@ -76,7 +76,7 @@
 							<span>Annually Report</span>
 						</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="profile.html">
 							<span><i class="fa fa-user"></i></span>
 							<span>Profile</span>
@@ -93,57 +93,74 @@
 		</div>
 
 		<div class="main-content">
-            
-                <div class="title-left">
-                    Profile
+			<div class="title-left">
+				Product/Service
+			</div>
+
+			<div class="title-right">
+				<div class="add">
+					<i class="fa fa-plus"></i> 
+					<a href="product-service-add.html">Add Product</a>
 				</div>
+			</div>
+			
+			
+
+
+
+			<div class="table-top-space"></div>
+			<table>
+				<tr style="height: 65px; font-size: 18px;">
+					<th>Category</th>
+					<th>Product/Service</th>
+					<th>Date</th>
+					<th>Action</th>
+				</tr>
+				<tr>
+					<td>Food</td>
+					<td>Rice</td>
+					<td>20-03-2020</td>
+				  	<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Electricity</td>
+					<td>Maintenance</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Family member</td>
+					<td>Pocket Money</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
 				
-				<!-- <div class="title-right">
-					<div class="add">
-						<i class="fa fa-plus"></i> 
-						<a href="">Username</a>
-					</div>
-					<div class="password-delete">
-						<a href="">Change Password</a>
-						<a href="">Delete Account</a>
-					</div>
-				</div> -->
+			  </table>
 
-
-            <div class="table-top-space"></div>
+			  <div class="table-bottom-space"></div>
+			  <!-- <div class="table-total">
+				<button class="button-error-total">Total: ksh 5.500</button>
+              </div> -->
+              
+           
             
-            <form class="form" method="POST">
-				<input type="text" placeholder="First name">
-				<input type="text" placeholder="Last name">
-				<input type="email" placeholder="Email">
-				<input type="number" placeholder="Family member">
-                <div>
-                    <input class="button-primary" type="submit" value="Save">
-                </div>
-            </form>  
-
-			<div class="table-bottom-space"></div>
-			<div class="table-total">
-				<a href="#">
-					<button class="button-error">Delete Account</button>
-				</a>
-			</div>
-			<div class="table-total">
-				<a href="change-password.html">
-					<button class="button-error">Change Password</button>
-				</a>
-			</div>
 		</div>
 
-
-
-		<footer>
+        <footer>
             <div class="content">
                 © 2020 Copyright: Family Expenses Manager
             </div>
-		</footer>
-		
-		
+        </footer>
+
 		
         <!-- JAVASCRIPT -->
         <script

@@ -17,6 +17,8 @@
 				<span>FEM</span>
 			</div>
 			<a href="#" class="nav-trigger"><span></span></a>
+
+			
 		</div>
 		<div class="side-nav">
 			<div class="logo">
@@ -25,12 +27,12 @@
 			</div>
 			<nav>
 				<ul>
-					<li>
-						<a href="profile.html">
-							<span><i class="fa fa-user"></i></span>
-							<span>Profile</span>
+					<li class="active">
+						<a href="expense.html">
+							<span><i class="fa fa-exchange"></i></span>
+							<span>Expense</span>
 						</a>
-					</li>
+                    </li>
 					<li>
 						<a href="source.html">
 							<span><i class="fa fa-database"></i></span>
@@ -39,6 +41,7 @@
 					</li>
 					<li>
 						<a href="income.html">
+
 							<span><i class="fa fa-money"></i></span>
 							<span>Income</span>
 						</a>
@@ -50,15 +53,9 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="product-service.html">
 							<span><i class="fa fa-product-hunt"></i></span>
 							<span>Product/Service</span>
-						</a>
-                    </li>
-                    <li class="active">
-						<a href="expense.html">
-							<span><i class="fa fa-exchange"></i></span>
-							<span>Expense</span>
 						</a>
                     </li>
                     <li>
@@ -79,29 +76,124 @@
 							<span>Annually Report</span>
 						</a>
 					</li>
+					<li>
+						<a href="profile.html">
+							<span><i class="fa fa-user"></i></span>
+							<span>Profile</span>
+						</a>
+					</li>
+					<li>
+						<a href="../login.html">
+							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
+							<span class="danger">Log out</span>
+						</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
 
 		<div class="main-content">
-			<div class="title">
+			<div class="title-left">
 				Expense
 			</div>
-			<div class="main">
-				<div class="widget">
-					<div class="title">Number of views</div>
-					<div class="chart"></div>
-				</div>
-				<div class="widget">
-					<div class="title">Number of likes</div>
-					<div class="chart"></div>
-				</div>
-				<div class="widget">
-					<div class="title">Number of comments</div>
-					<div class="chart"></div>
+
+			<div class="title-right">
+				<div class="add">
+					<i class="fa fa-plus"></i> 
+					<a href="expense-add.html">Add expense</a>
 				</div>
 			</div>
+			
+			
+
+
+
+			<div class="table-top-space"></div>
+			<table>
+				<tr style="height: 65px; font-size: 18px;">
+					<th>Category</th>
+					<th>Product/Service</th>
+					<th>Price</th>
+					<th>Date</th>
+					<th>Action</th>
+				</tr>
+				<tr>
+					<td>Alfreds Futterkiste</td>
+					<td>Maria Anders</td>
+					<td>ksh 150</td>
+					<td>20-03-2020</td>
+				  	<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Centro comercial Moctezuma</td>
+					<td>Francisco Chang</td>
+					<td>ksh 200</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Ernst Handel</td>
+					<td>Roland Mendel</td>
+					<td>ksh 100</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Island Trading</td>
+					<td>Helen Bennett</td>
+					<td>ksh 250</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Laughing Bacchus Winecellars</td>
+					<td>Yoshi Tannamuri</td>
+					<td>ksh 350</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>Magazzini Alimentari Riuniti</td>
+					<td>Giovanni Rovelli</td>
+					<td>ksh 300</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+			  </table>
+
+			  <div class="table-bottom-space"></div>
+			  <div class="table-total">
+				<button class="button-error-total">Total: ksh 5.500</button>
+			  </div>
 		</div>
+
+
+
+		<footer>
+            <div class="content">
+                © 2020 Copyright: Family Expenses Manager
+            </div>
+		</footer>
+		
+		
 		
         <!-- JAVASCRIPT -->
         <script
