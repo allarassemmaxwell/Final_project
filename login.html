@@ -14,18 +14,37 @@
     
 </head>
 <body>
+
     <div class="login">
         <div class="login-content">
             <p class="login-title">Sign in</p>
-            <form class="login-form">
-                <input class="login-input" type="email" placeholder="Email">
-                <input class="login-input" type="password" placeholder="Password">
-                <p class="forgot"><a href="reset-password.html">Forgot Password?</p>
-                <a class="login-submit" href="dashboard/index.html">Sign in</a>
-                
-                <p class="create-account">Don't have account?<a href="create-account.html"> Create now</p>
-            </form>             
+            <form class="login-form" method="POST">
+                <div>
+                    <input class="login-input" type="email" name="email" placeholder="Email">
+                </div><br><br>
+                <div>
+                    <input class="login-input" type="password" name="password" placeholder="Password">
+                </div><br><br>
+
+                <p class="forgot"><a href="reset-password.html">Forgot Password?</a></p>
+                <button class="login-submit" type="submit">Sign in</button>
+
+                <p class="create-account">Don't have account? <a href="create-account.html"> Create now</a></p>
+            </form>                         
         </div>
     </div> 
+
+
+    
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/slick.js"></script>
 </body>
 </html>

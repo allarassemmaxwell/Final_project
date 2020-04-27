@@ -17,16 +17,44 @@
     <div class="register">
         <div class="register-content">
             <p class="register-title">Create Account</p>
-            <form class="register-form">
-                <input class="register-input" type="email" placeholder="Email">
-                <input class="register-input" type="password" placeholder="Password">
-                <input class="register-input" type="password" placeholder="Confirm password">
-                <div class="space"></div>
-                <a class="register-submit" href="#">Create Account</a>
+            <form class="register-form" method="POST">
+                <div>
+                    <input class="register-input" type="text" name="first_name" id="first_name" placeholder="First name">
+                </div><br><br>
+
+                <div>
+                    <input class="register-input" type="text" name="last_name" id="last_name" placeholder="Last name">
+                </div><br><br>
+
+                <div>
+                    <input class="register-input" type="email" name="email" id="email" placeholder="Email">
+                </div><br><br>
+
+                <div>
+                    <input class="register-input" type="password" name="password1" id="password1" placeholder="Password">
+                </div><br><br>
+
+                <div>
+                    <input class="register-input" type="password" name="password2" id="password2" placeholder="Retype password">
+                </div><br><br>
                 
-                <p class="go-to-login">Already have account?<a href="login.html"> Login</p>
+                <div class="space"></div>
+                <button class="register-submit" type="submit">Create Account</button>
+                
+                <p class="go-to-login">Already have account?<a href="login.html"> Login</a></p>
             </form>             
         </div>
     </div> 
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/slick.js"></script>
 </body>
 </html>
