@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	$("#year").text( (new Date).getFullYear() );
+
 
 	$('.nav-trigger').click(function() {
 		$('.side-nav').toggleClass('visible');
@@ -17,7 +19,6 @@ $(document).ready(function() {
 				number: true
 			}
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -27,7 +28,6 @@ $(document).ready(function() {
 		rules: {
 			name: 'required'
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -41,7 +41,6 @@ $(document).ready(function() {
 				number: true
 			}
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -51,7 +50,6 @@ $(document).ready(function() {
 		rules: {
 			name: 'required'
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -62,7 +60,6 @@ $(document).ready(function() {
 			category: 'required',
 			name: 'required'
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -82,7 +79,6 @@ $(document).ready(function() {
 				number: true
 			}
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 
@@ -100,9 +96,7 @@ $(document).ready(function() {
 				required: true,
 				equalTo : "#new_password"
 			}
-
 		}
-		// submitHandler: function() { alert("Submitted!") }
 	});
 
 

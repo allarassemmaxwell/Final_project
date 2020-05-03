@@ -7,19 +7,12 @@ body, h1, h2, h3, h4, h5, h6 {
 body, html {
     height: 100%;
     color: #777;
-    /* line-height: 1.8; */
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
 }
 
-p, blockquote {
+p {
     font-size: .9em;
     line-height: 1.6em;
 }
-
 
 .space {
     padding-top: 10px;
@@ -30,198 +23,6 @@ form .error {
     margin-left: 10%;
 }
 
-.container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-  }
-
-/* ==========================================================
-========================= CAROUSEL =========================
-========================================================== */
-.carousel {
-    width: 100%;
-}
-.carousel .image {
-    width: 100%;
-    height: 750px;
-    object-fit: fill;
-}
-
-
-
-
-
-
-.logo {
-    width: 130px;
-}
-
-.hide-mobile {
-    display: none;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.menu {
-    width: 25px;
-    margin-top: 45%;
-}
-
-h1, .subhead {
-    position: relative;
-    z-index: 3;
-}
-
-.subhead {
-    font-size: 1.1em;
-}
-
-
-
-
-
-/* ==========================================================
-========================= ABOUT US =========================
-========================================================== */
-.about-us-title {
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: bold;
-    margin: auto;
-    margin-bottom: 45px;
-    padding-top: 45px;
-}
-.about-us{
-    text-align: justify;
-    padding-bottom: 30px;
-}
-
-
-
-
-
-
-/* ==========================================================
-===================== SERVICES SECTION ======================
-========================================================== */
-.services {
-    width: 100%;
-    background: #00C2FF;
-    color: #fff;
-    /* margin-top: 15%; */
-    padding: 4em 0 2em;
-}
-.service-title {
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: -25px;
-    margin-bottom: 45px;
-}
-.services ul li {
-    margin-bottom: 3em;
-}
-.services ul li p {
-    padding: 0 .5em;
-}
-.services i {
-    font-size: 60px;
-}
-.service-content:hover {
-    border-top-left-radius: 15%;
-    border-bottom-right-radius: 15%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: white;
-    color: #00C2FF;
-}
-
-
-
-
-
-/* ==========================================================
-===================== TESTIMONY SECTION ======================
-========================================================== */
-.testimonial {
-    background: #F6F6F6;
-    /* padding: 4em 0 2em; */
-    margin-top: -3%;
-    margin: auto;
-}
-.testimonial-title {
-    font-size: 20px;
-    text-transform: uppercase;
-}
-.testimonial ul li:first-child {
-    margin-bottom: 2em;
-}
-.testimonial-carousel-content:hover {
-    border-top-left-radius: 15%;
-    border-bottom-right-radius: 15%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: white;
-}
-figure {
-    margin: 0;
-    padding: 0;
-}
-figcaption {
-    font-weight: bold;
-    color: #3082D6;
-}
-.testimonial-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-    object-fit: fill;
-}
-
-/* TESTIMNIAL */
-
-
-/* GET STARTED */
-.get-started {
-    background: #3082D6;
-    /* width: calc(100% - 10px); */
-    display: block;
-    color: #fff;
-    border-radius: 20px;
-    padding: .5em;
-    text-decoration: none;
-    font-size: 1.5em;
-    margin: 3% auto 7%;
-    position: relative;
-    /* z-index: 4; */
-}
-/* END OF GET STARTED */
 
 
 
@@ -262,8 +63,6 @@ figcaption {
     border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
-    text-align: center;
-    /* margin-bottom: 27px; */
 }   
 .login-form {
     padding-top: 40px;
@@ -280,6 +79,7 @@ figcaption {
     margin-left: 35%;
     font-size: 13px;
     opacity: 0.5;
+    cursor: pointer;
 }
 .login-submit:hover {
     opacity: 1;
@@ -339,8 +139,6 @@ figcaption {
     border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
-    text-align: center;
-    /* margin-bottom: 37px; */
 }   
 .reset-password-form {
     padding-top: 40px;
@@ -357,6 +155,7 @@ figcaption {
     margin-left: 28.2%;
     font-size: 13px;
     opacity: 0.5;
+    cursor: pointer;
 }
 .reset-password-submit:hover {
     opacity: 1;
@@ -386,7 +185,6 @@ figcaption {
 ============================================================ */
 .register {
     width: 100%;
-    /* height: 100%; */
 }
 .register-content {
     padding-bottom: 30px;
@@ -415,8 +213,6 @@ figcaption {
     border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
-    text-align: center;
-    /* margin-bottom: 30px; */
 }   
 .register-form {
     padding-top: 40px;
@@ -433,6 +229,7 @@ figcaption {
     margin-left: 29%;
     font-size: 13px;
     opacity: 0.5;
+    cursor: pointer;
 }
 .register-submit:hover {
     opacity: 1;
@@ -455,139 +252,9 @@ figcaption {
 
 
 
-/* ==========================================================
-========================= FOOTER =========================
-========================================================== */
-.footer-container {
-    width: 100%;
-    background: #3D444A;
-    color: #fff;
-    padding: 3em 0;
-}
-
-ul.footer-links {
-    margin: 0 auto;
-}
-
-ul.footer-links li {
-    display: inline-block;
-}
-
-ul.footer-links li a {
-    color: #9D9D9D;
-    font-size: .8em;
-    text-decoration: none;
-}
-
-ul.footer-links li a:hover {
-    color: #00C2FF;
-    font-size: .8em;
-}
-
-
-
-
-/* ==========================================================
-========================= NAV BAR =========================
-========================================================== */
-nav ul {
-    position: fixed;
-    width: 60%;
-    top: 0;
-    right: 0;
-    text-align: left;
-    background: rgb(36,41,44);
-    height: 100%;
-    z-index: 7;
-    padding-top: 3em;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    padding: 1em 2em;
-    background-color: rgb(49, 55, 59);
-}
-
-nav ul li a:hover {
-    background-color: rgb(65, 73, 78);
-}
-
-.exit-btn {
-    margin-bottom: 1em;
-    margin-top: -1.3em;
-    text-align: right;
-    padding: 0 1.4em;
-}
-
-.exit-btn img {
-    width: 15px;
-    cursor: pointer;
-}
-
-
-
-
-
-
-
 @media only screen and (min-width: 650px)  {
-    .carousel {
-        width: 100%;
-    }
-    .carousel .image {
-        width: 100%;
-        height: 400px;
-        object-fit: fill;
-    }
-
-    h1 {
-        font-size: 3em;
-        margin: 0;
-    }
-
-    .subhead {
-        font-size: 1.4em;
-        margin-bottom: 12%;
-    }
-
-    /* OUR SERVICES */
-    .services {
-        margin: 0;
-    }
-    .services ul {
-        display: flex;
-        margin-top: -1em;
-        align-items: center;
-    }
-    .services ul li {
-        margin-bottom: 0;
-    }
-    .services ul li p {
-        padding: 0 .8em;
-    }
-    /* END OF OUR SERVICES */
-
-
-
-    /* TESTIMONIAL */
-    .testimonial ul {
-        display: flex;
-    }
-    /* END OF TESTIMONIAL */
-
-    nav ul {
-        width: 40%;
-    }
-
-
-
     .login-content {
-        /* background-color: #FFFFFF; */
         width: 400px;
-        /* height: 400px; */
         margin: 7em auto;
         border-radius: 1.5em;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -597,107 +264,15 @@ nav ul li a:hover {
 
 
 
-@media only screen and (min-width: 875px)  {
-    .subhead {
-        margin-bottom: 15%;
-    }
-
-    /* OUR SERVICES */
-    .services ul {
-        margin: 0 0 4% 0;
-    }
-    /* END OF OUR SERVICES */
-
-
-    /* TESTIMONIAL */
-    .testimonial ul {
-        margin: 4% 0 0;
-    }
-    /* END OF TESTIMONIAL */
-}
+@media only screen and (min-width: 875px)  { }
 
 
 
-@media only screen and (min-width: 1024px)  {
-    /* GET STATED */
-    .get-started {
-        width: 50%;
-    }
-    /* END OF GET STARTED */
-
-    .container {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .show-desktop {
-        display: block;
-        margin: 0 auto 13% auto;
-    }
-
-    .hide-desktop {
-        display: none;
-    }
-
-    nav ul {
-        position: inherit;
-        width: auto;
-        background: none;
-        height: auto;
-        display: flex;
-        padding-top: 0;
-    }
-
-    nav ul li {
-        float: left;
-    }
-
-    nav ul li a {
-        color: black;
-        background-color: inherit;
-        text-align: right;
-        padding: 1em 2em;
-    }
-
-    nav ul li a:hover {
-        background-color: inherit;
-        /* color: #00C2FF; */
-    }
-
-}
+@media only screen and (min-width: 1024px)  { }
 
 
 
-@media only screen and (min-width: 1600px)  {
-
-    .container {
-        width: 70%;
-    }
-    
-
-    /* SERVICES */
-    .services {
-        padding: 7em 0 2em;
-    }
-    .services ul li p, blockquote {
-        font-size: 1.3em;
-    }
-    /* END OF SERVICES */
-
-
-
-    /* TESTIMONIAL */
-    .testimonial {
-        padding: 6em 0 4em;
-    }
-    /* END OR TESTIMONY */
-
-
-
-
-
-
-}
+@media only screen and (min-width: 1600px)  { }
 
 
 
