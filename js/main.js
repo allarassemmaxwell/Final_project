@@ -3,11 +3,11 @@ $(document).ready(function() {
     // LOGIN VALIDATION
     $(".login-form").validate({
         rules: {
-            email: {
+            user_email: {
                 required: true,
                 email: true
             },
-            password: 'required'
+            user_password: 'required'
         }
     });
 
@@ -17,17 +17,17 @@ $(document).ready(function() {
         rules: {
             first_name: 'required',
             last_name: 'required',
-            email: {
+            user_email: {
                 required: true,
                 email: true
             },
-            password1: {
+            password_1: {
                 required: true,
                 minlength: 6
             },
-            password2: {
+            password_2: {
                 required: true,
-                equalTo : "#password1"
+                equalTo : "#password_1"
             }
         }
         // submitHandler: function() { alert("Submitted!") }

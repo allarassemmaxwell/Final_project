@@ -18,10 +18,27 @@ p {
     padding-top: 10px;
 }
 
-form .error {
-    color: #dc3545;
+/* ERROR */
+.error {
+    margin: 0px auto; 
+    padding: 2px 2px;
+    border: 1px solid #a94442; 
+    color: #a94442; 
+    background: #f2dede; 
+    border-radius: 5px; 
+    width: 80%;
     margin-left: 10%;
+    margin-right: 10%;
 }
+
+/* SUCCESS */
+.success {
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    margin-bottom: 20px;
+}
+
 
 
 
@@ -37,10 +54,10 @@ form .error {
     height: 100%;
 }
 .login-content {
-    padding-bottom: 30px;
-    width: 400px;
-    margin: 7em auto;
-    border-radius: 1.5em;
+    padding-bottom: 20px;
+    width: 440px;
+    margin: 3em auto;
+    border-radius: 15px;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
 }
 .login-title {
@@ -51,35 +68,34 @@ form .error {
     text-align: center;
 }
 .login-input {
+    height: 30px;
     width: 80%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
+    padding: 10px 2px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }   
 .login-form {
     padding-top: 40px;
 }
 .login-submit {
     text-decoration: none;
-    border-radius: 5em;
     color: #fff;
     background: #00C2FF;
     padding-left: 40px;
     padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin-left: 35%;
+    padding-bottom: 14px;
+    padding-top: 13px;
+    margin-left: 32%;
     font-size: 13px;
     opacity: 0.5;
     cursor: pointer;
+    font-size: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 .login-submit:hover {
     opacity: 1;
@@ -127,35 +143,34 @@ form .error {
 }
 
 .reset-password-input {
+    height: 30px;
     width: 80%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
+    padding: 10px 2px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }   
 .reset-password-form {
     padding-top: 40px;
 }
 .reset-password-submit {
     text-decoration: none;
-    border-radius: 5em;
     color: #fff;
     background: #00C2FF;
     padding-left: 40px;
     padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin-left: 28.2%;
+    padding-bottom: 14px;
+    padding-top: 13px;
+    margin-left: 27%;
     font-size: 13px;
     opacity: 0.5;
     cursor: pointer;
+    font-size: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 .reset-password-submit:hover {
     opacity: 1;
@@ -187,10 +202,10 @@ form .error {
     width: 100%;
 }
 .register-content {
-    padding-bottom: 30px;
-    width: 400px;
-    margin: 7em auto;
-    border-radius: 1.5em;
+    padding-bottom: 20px;
+    width: 440px;
+    margin: 3em auto;
+    border-radius: 15px;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
 }
 .register-title {
@@ -201,35 +216,34 @@ form .error {
     text-align: center;
 }
 .register-input {
+    height: 30px;
     width: 80%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
     margin-left: 10%;
     margin-right: 10%;
+    padding: 10px 2px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }   
 .register-form {
     padding-top: 40px;
 }
 .register-submit {
     text-decoration: none;
-    border-radius: 5em;
     color: #fff;
     background: #00C2FF;
     padding-left: 40px;
     padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 14px;
+    padding-top: 13px;
     margin-left: 29%;
     font-size: 13px;
     opacity: 0.5;
     cursor: pointer;
+    font-size: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 .register-submit:hover {
     opacity: 1;
