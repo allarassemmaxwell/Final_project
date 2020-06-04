@@ -1,3 +1,13 @@
+<?php 
+	require_once('config/db_connection.php');
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -83,7 +93,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="login.php">
+						<a href="logout.php">
 							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
 							<span class="danger">Log out</span>
 						</a>
@@ -104,7 +114,7 @@
 					<input type="text" name="name" id="name" placeholder="Name">
 				</div><br><br>
                 <div>
-                    <input class="button-primary" type="submit" value="Create">
+                    <input class="button-primary" name="add-source" type="submit" value="Add Source">
                 </div>
             </form>  
 
@@ -114,11 +124,7 @@
 
 		
 
-		<footer>
-            <div class="content">
-                © <span id="year"></span> Copyright: Family Expenses Manager
-            </div>
-		</footer>
+		<?php include_once("footer.php"); ?>
 		
 
 		

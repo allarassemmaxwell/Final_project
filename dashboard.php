@@ -5,11 +5,6 @@
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
 	}
-	if (isset($_GET['logout'])) {
-		session_destroy();
-		unset($_SESSION['user_email']);
-		header("location: login.php");
-	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
+		
 		<div class="header">
 			<div class="logo">
 				<i class="fa fa-tachometer"></i>
@@ -96,7 +92,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="login.php">
+						<a href="logout.php">
 							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
 							<span class="danger">Log out</span>
 						</a>
@@ -117,8 +113,19 @@
 				</div>
 			</div>
 			
+			<div style="margin-left:20px">
+				<?php if (isset($_SESSION['success'])) : ?>
+					<div class="error success" >
+						<h3>
+							<?php 
+								echo $_SESSION['success']; 
+								unset($_SESSION['success']);
+							?>
+						</h3>
+					</div>
+				<?php endif ?>
+			</div>
 			
-
 
 
 			<div class="table-top-space"></div>
@@ -202,11 +209,7 @@
 
 		
 
-		<footer>
-            <div class="content">
-                © <span id="year"></span> Copyright: Family Expenses Manager
-            </div>
-		</footer>
+		<?php include_once("footer.php"); ?>
 		
 
 		

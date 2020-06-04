@@ -1,3 +1,17 @@
+<?php 
+  	session_start(); 
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['user_email']);
+		header("location: login.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -83,7 +97,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="login.php">
+						<a href="logout.php">
 							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
 							<span class="danger">Log out</span>
 						</a>
@@ -193,11 +207,7 @@
 
 		
 
-		<footer>
-            <div class="content">
-                © <span id="year"></span> Copyright: Family Expenses Manager
-            </div>
-		</footer>
+		<?php include_once("footer.php"); ?>
 		
 		
 		

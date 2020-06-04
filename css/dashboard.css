@@ -16,7 +16,7 @@ body {
 .button-error-total,
 .button-light-total,
 .button-primary-total {
-	border-radius: 10px;
+	border-radius: 5px;
 	border: 1px solid;
 	display: inline-block;
 	cursor: pointer;
@@ -94,18 +94,34 @@ body {
 
 
 /* FORM ERROR */
-form .error {
-    color: #dc3545;
+/* ERROR */
+.error {
+    margin: 0px auto; 
+    padding: 2px 2px;
+    border: 1px solid #a94442; 
+    color: #a94442; 
+    background: #f2dede; 
+    border-radius: 5px; 
+    width: 80%;
     margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* SUCCESS */
+.success {
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    margin-bottom: 20px;
 }
 
 /* COLORS */
 .danger {
 	color: #dc3545; 
 }
-.success {
+/* .success {
 	color: #28a745; 
-}
+} */
 .primary {
 	color: #00C2FF;
 }
@@ -345,20 +361,14 @@ background-color: #999;
 
 
 input {
+	height: 50px;
     width: 80%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-	margin-left: 10%;
-	margin-right: 10%;
-    text-align: center;
-    /* margin-bottom: 27px; */
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 15px 2px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 label {
@@ -366,20 +376,14 @@ label {
     padding-right: 10px;
 }
 select {
-    width: 80%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-	margin-left: 10%;
-	margin-right: 10%;
-    text-align: center;
-    /* margin-bottom: 27px; */
+	height: 50px;
+	width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px 2px;
+    font-size: 16px;
+    border-radius: 5px;
+	border: 1px solid gray;
 }
 
 footer {

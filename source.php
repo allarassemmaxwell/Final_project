@@ -16,7 +16,7 @@
 				<i class="fa fa-tachometer"></i>
 				<span>FEM</span>
 			</div>
-			<a href="#" class="nav-trigger"><span></span></a>
+			<a href="dashboard.php" class="nav-trigger"><span></span></a>
 
 			
 		</div>
@@ -83,7 +83,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="login.php">
+						<a href="logout.php">
 							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
 							<span class="danger">Log out</span>
 						</a>
@@ -142,12 +142,7 @@
 
 
 		
-
-		<footer>
-            <div class="content">
-                © <span id="year"></span> Copyright: Family Expenses Manager
-            </div>
-		</footer>
+		<?php include_once("footer.php"); ?>
 		
 
 		

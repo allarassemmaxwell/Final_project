@@ -26,6 +26,9 @@
                     <?php include('errors.php'); ?><br>
                 </div>
                 <div>
+                    <?php include('success.php'); ?><br>
+                </div>
+                <div>
                     <input class="login-input" type="user_email" name="user_email" placeholder="Email" value="<?php echo $user_email; ?>">
                 </div><br><br>
                 <div>

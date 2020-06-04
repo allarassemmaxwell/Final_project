@@ -25,7 +25,6 @@ p {
     border: 1px solid #a94442; 
     color: #a94442; 
     background: #f2dede; 
-    border-radius: 5px; 
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
@@ -33,10 +32,14 @@ p {
 
 /* SUCCESS */
 .success {
+    margin: 0px auto; 
+    padding: 2px 2px;
+    border: 1px solid #3c763d;
     color: #3c763d; 
     background: #dff0d8; 
-    border: 1px solid #3c763d;
-    margin-bottom: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 

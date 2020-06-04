@@ -1,3 +1,21 @@
+<?php 
+	require_once('config/db_connection.php');
+	
+  	// session_start(); 
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+	
+	$user_email = $_SESSION['user_email'];
+	$query   = "SELECT * FROM User WHERE user_email = '$user_email'";
+	$results = mysqli_query($con, $query);
+	if (mysqli_num_rows($results) == 1) {
+		$profile_data = $results->fetch_assoc();		
+	}
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -83,7 +101,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="login.php">
+						<a href="logout.php">
 							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
 							<span class="danger">Log out</span>
 						</a>
@@ -114,23 +132,29 @@
             
             <form class="profile-edit-form" method="POST">
 				<div>
-					<input type="text" name="first_name" placeholder="First name">
+					<?php include('errors.php'); ?><br>
+				</div>
+				<div>
+                    <?php include('success.php'); ?><br>
+                </div>
+				<div>
+					<input type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name'] ?>">
 				</div><br><br>
 
 				<div>
-					<input type="text" name="last_name" placeholder="Last name">
+					<input type="text" name="last_name" placeholder="Last name" value="<?php echo $profile_data['last_name'] ?>">
 				</div><br><br>
 
 				<div>
-					<input type="email" name="email" placeholder="Email">
+					<input type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email'] ?>">
 				</div><br><br>
 
 				<div>
-					<input type="number" name="family_number" placeholder="Family member">
+					<input type="number" name="family_number" placeholder="Family Number">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" type="submit" value="Save">
+                    <input class="button-primary" type="submit" name="update_profile" value="Edit profile">
                 </div>
             </form>  
 
@@ -149,11 +173,7 @@
 
 
 
-		<footer>
-            <div class="content">
-                © <span id="year"></span> Copyright: Family Expenses Manager
-            </div>
-		</footer>
+		<?php include_once("footer.php"); ?>
 		
 		
 		
