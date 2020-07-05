@@ -4,12 +4,6 @@ $(document).ready(function() {
 	$("#year").text( (new Date).getFullYear() );
 
 
-	var url = window.location;
-  $('ul.nav a[href="' + url + '"]').parent().addClass('active');
-  $('ul.nav a').filter(function() {
-    return this.href == url;
-  }).parent().addClass('nav-path-selected');
-
 	$('.nav-trigger').click(function() {
 		$('.side-nav').toggleClass('visible');
 	});

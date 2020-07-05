@@ -1,12 +1,3 @@
-<?php 
-	require_once('config/db_connection.php');
-
-	if (!isset($_SESSION['user_email'])) {
-		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
-	}
-?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,26 +37,25 @@
 					<th>Date</th>
 					<th>Action</th>
 				</tr>
+				<tr>
+					<td>Farm</td>
+					<td>20-03-2020</td>
+				  	<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+				<tr>
+					<td>IT Manager</td>
+					<td>20-03-2020</td>
+					<td>
+						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil icon-edit" title="Edit"></i>
+					</td>
+				</tr>
+			  </table>
 
-				<!-- LOOPING USER DATA -->
-				<?php 
-					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Source WHERE user_id = '$user_id'";
-					$results = mysqli_query($con, $query);
-					while($row = $results->fetch_assoc()) {
-						echo "<tr>";
-							echo"<td>". $row['name'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
-						echo "</tr>";
-					}
-				?>
-			</table>
-
-			<div class="table-bottom-space"></div>
+			  <div class="table-bottom-space"></div>
 			  <!-- <div class="table-total">
 				<button class="button-error-total">Total: ksh 5.500</button>
 			  </div> -->

@@ -1,10 +1,18 @@
+<?php 
+  	session_start(); 
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Daily Report || FEM</title>
+		<title>Dashboard || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
         <!-- IMPORT FONT AWSOME -->
@@ -16,20 +24,29 @@
 
 		<div class="main-content">
 			<div class="title-left">
-				Daily Report
+				Dashboard
 			</div>
 
-            
-            
-            <div class="table-top-space"></div>
-			<div class="report-title">
-                <div>User: Allarassem&nbsp;&nbsp; Maxime</div>
-                <div>Date: 20/03/2020</div>
-                <div>Source: Farm</div>
-                <div>Income: ksh 25.000</div>
-                <div>Family number: 4</div>
-            </div>
-
+			<div class="title-right">
+				<div class="add">
+					<i class="fa fa-plus"></i> 
+					<a href="expense-add.php">Add expense</a>
+				</div>
+			</div>
+			
+			<div style="margin-left:20px; background-color: red;">
+				<?php if (isset($_SESSION['success'])) : ?>
+					<div class="error success" >
+						<h3>
+							<?php 
+								echo $_SESSION['success']; 
+								unset($_SESSION['success']);
+							?>
+						</h3>
+					</div>
+				<?php endif ?>
+			</div>
+			
 
 
 			<div class="table-top-space"></div>
@@ -37,69 +54,69 @@
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Category</th>
 					<th>Product/Service</th>
-					<th>Amount</th>
+					<th>Price</th>
 					<th>Date</th>
-					<!-- <th>Action</th> -->
+					<th>Action</th>
 				</tr>
 				<tr>
 					<td>Alfreds Futterkiste</td>
 					<td>Maria Anders</td>
 					<td>ksh 150</td>
 					<td>20-03-2020</td>
-				  	<!-- <td>
+				  	<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 				<tr>
 					<td>Centro comercial Moctezuma</td>
 					<td>Francisco Chang</td>
 					<td>ksh 200</td>
 					<td>20-03-2020</td>
-					<!-- <td>
+					<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 				<tr>
 					<td>Ernst Handel</td>
 					<td>Roland Mendel</td>
 					<td>ksh 100</td>
 					<td>20-03-2020</td>
-					<!-- <td>
+					<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 				<tr>
 					<td>Island Trading</td>
 					<td>Helen Bennett</td>
 					<td>ksh 250</td>
 					<td>20-03-2020</td>
-					<!-- <td>
+					<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 				<tr>
 					<td>Laughing Bacchus Winecellars</td>
 					<td>Yoshi Tannamuri</td>
 					<td>ksh 350</td>
 					<td>20-03-2020</td>
-					<!-- <td>
+					<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 				<tr>
 					<td>Magazzini Alimentari Riuniti</td>
 					<td>Giovanni Rovelli</td>
 					<td>ksh 300</td>
 					<td>20-03-2020</td>
-					<!-- <td>
+					<td>
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td> -->
+					</td>
 				</tr>
 			  </table>
 
@@ -111,9 +128,11 @@
 
 
 
+		
+
 		<?php include_once("footer.php"); ?>
 		
-		
+
 		
         <!-- JAVASCRIPT -->
         <script

@@ -1,3 +1,12 @@
+<?php 
+	require_once('config/db_connection.php');
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,86 +20,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
-		<div class="header">
-			<div class="logo">
-				<i class="fa fa-tachometer"></i>
-				<span>FEM</span>
-			</div>
-			<a href="#" class="nav-trigger"><span></span></a>
-
-			
-		</div>
-		<div class="side-nav">
-			<div class="logo">
-				<i class="fa fa-tachometer"></i>
-				<span>FEM</span>
-			</div>
-			<nav>
-				<ul>
-					<li>
-						<a href="expense.php">
-							<span><i class="fa fa-exchange"></i></span>
-							<span>Expense</span>
-						</a>
-                    </li>
-					<li>
-						<a href="source.php">
-							<span><i class="fa fa-database"></i></span>
-							<span>Sources</span>
-						</a>
-					</li>
-					<li>
-						<a href="income.php">
-
-							<span><i class="fa fa-money"></i></span>
-							<span>Income</span>
-						</a>
-					</li>
-					<li>
-						<a href="category.php">
-							<span><i class="fa fa-server"></i></span>
-							<span>Category</span>
-						</a>
-					</li>
-					<li class="active">
-						<a href="product-service.php">
-							<span><i class="fa fa-product-hunt"></i></span>
-							<span>Product/Service</span>
-						</a>
-                    </li>
-                    <li>
-						<a href="daily-report.php">
-							<span><i class="fa fa-calendar-o"></i></span>
-							<span>Daily Report</span>
-						</a>
-                    </li>
-                    <li>
-						<a href="weekly-report.php">
-							<span><i class="fa fa-bars"></i></span>
-							<span>Weekly Report</span>
-						</a>
-                    </li>
-                    <li>
-						<a href="annually-report.php">
-							<span><i class="fa fa-list-ol"></i></span>
-							<span>Annually Report</span>
-						</a>
-					</li>
-					<li>
-						<a href="profile.php">
-							<span><i class="fa fa-user"></i></span>
-							<span>Profile</span>
-						</a>
-					</li>
-					<li>
-						<a href="logout.php">
-							<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
-							<span class="danger">Log out</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		
+		<?php include('header.php'); ?>
 
 		<div class="main-content">
 			<div class="title-left">
@@ -116,7 +47,35 @@
 					<th>Date</th>
 					<th>Action</th>
 				</tr>
-				<tr>
+
+				<!-- LOOPING USER DATA -->
+				<?php 
+					$user_id = $_SESSION['user_id'];
+					$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id'";
+					$results = mysqli_query($con, $query);
+					while($row = $results->fetch_assoc()) {
+						echo "<tr>";
+							// GET SOURCE NAME
+							$category_id = $row['product_service_category_id'];
+							$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$category_id'";
+							$result2 = mysqli_query($con, $query);
+							if (mysqli_num_rows($result2) == 1) {
+								$category_data = $result2->fetch_assoc();		
+							}
+
+							// DISPLAY DATA
+							echo"<td>". $category_data['name'] ."</td>";
+							echo"<td>". $row['name'] ."</td>";
+							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
+							echo"<td>";
+								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
+								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
+							echo"</td>";
+						echo "</tr>";
+					}
+				?>
+
+				<!-- <tr>
 					<td>Food</td>
 					<td>Rice</td>
 					<td>20-03-2020</td>
@@ -124,8 +83,8 @@
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
 					</td>
-				</tr>
-				<tr>
+				</tr> -->
+				<!-- <tr>
 					<td>Electricity</td>
 					<td>Maintenance</td>
 					<td>20-03-2020</td>
@@ -142,7 +101,7 @@
 						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-pencil icon-edit" title="Edit"></i>
 					</td>
-				</tr>
+				</tr> -->
 				
 			  </table>
 
