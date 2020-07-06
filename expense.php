@@ -43,7 +43,16 @@
 
 
 			<div class="table-top-space"></div>
-			<table>
+
+			<div>
+				<?php include('errors.php'); ?><br>
+			</div>
+			<div>
+				<?php include('success.php'); ?><br>
+			</div>
+
+			
+			<table  style="color: #737373;">
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Category</th>
 					<th>Product/Service</th>
@@ -54,36 +63,40 @@
 				<!-- LOOPING USER DATA -->
 				<?php 
 					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'";
+					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
-					while($row = $results->fetch_assoc()) {
-						echo "<tr>";
-							// GET PRODUCT SERVICE NAME
-							$product_service_id = $row['product_service_id'];
-							$query   = "SELECT * FROM ProductService WHERE product_service_id = '$product_service_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$product_service_data = $result2->fetch_assoc();		
-							}
+					if (mysqli_num_rows($results) > 0) {
+						while($row = $results->fetch_assoc()) {
+							echo "<tr>";
+								// GET PRODUCT SERVICE NAME
+								$product_service_id = $row['product_service_id'];
+								$query   = "SELECT * FROM ProductService WHERE product_service_id = '$product_service_id'";
+								$result2 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result2) == 1) {
+									$product_service_data = $result2->fetch_assoc();		
+								}
 
-							// GET PRODUCT CATEGORY NAME
-							$product_category_id = $product_service_data['product_service_category_id'];
-							$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$product_category_id'";
-							$result3 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result3) == 1) {
-								$product_category_data = $result3->fetch_assoc();		
-							}
+								// GET PRODUCT CATEGORY NAME
+								$product_category_id = $product_service_data['product_service_category_id'];
+								$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$product_category_id'";
+								$result3 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result3) == 1) {
+									$product_category_data = $result3->fetch_assoc();		
+								}
 
-							// DISPLAY DATA
-							echo"<td>". $product_category_data['name'] ."</td>";
-							echo"<td>". $product_service_data['name'] ."</td>";
-							echo"<td>". $row['price'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
-						echo "</tr>";
+								// DISPLAY DATA
+								echo"<td>". $product_category_data['name'] ."</td>";
+								echo"<td>". $product_service_data['name'] ."</td>";
+								echo"<td>". $row['price'] ."</td>";
+								echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
+								echo"<td>";
+									echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
+									echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
+								echo"</td>";
+							echo "</tr>";
+						}
+					} else {
+						// echo "There is No data";
 					}
 				?>				
 				
@@ -100,11 +113,14 @@
 				
 			  </table>
 
-			  
-			  <div class="table-bottom-space"></div>
-			  <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div>
+			  <?php 
+			  	if (mysqli_num_rows($results) > 0) {
+					echo "<div class='table-bottom-space'></div>";
+					echo "<div class='table-total'>";
+						echo "<button class='button-error-total'>Ksh: 75.000</button>";
+					echo "</div>";
+				}
+			  ?>
 		</div>
 
 

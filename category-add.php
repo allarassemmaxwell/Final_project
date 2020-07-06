@@ -1,3 +1,12 @@
+<?php 
+	require_once('config/db_connection.php');
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,13 +33,17 @@
 
             <div class="table-top-space"></div>
             
+
             <form class="add-category-form" method="POST">
+				<div>
+					<?php include('errors.php'); ?><br>
+				</div>
                 <div>
 					<input type="text" name="name" placeholder="Name">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" type="submit" value="Create">
+                    <input class="button-primary" name="add-category" type="submit" value="Create">
                 </div>
             </form>  
 

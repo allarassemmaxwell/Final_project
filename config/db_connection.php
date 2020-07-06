@@ -116,33 +116,135 @@
     }
 
 
-
+    // ADDING SOURCE
     if(isset($_POST['add-source'])) {
-        $name = mysqli_real_escape_string($con, $_POST['name']);
-        $user_email    = $_SESSION['user_email'];
+        $name    = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id = $_SESSION['user_id'];
 
         if (empty($name))       { array_push($errors, "Name is required"); }
-        if (empty($user_email)) { array_push($errors, "Email is required"); }
 
-        $user_user_query = "SELECT * FROM User WHERE user_email='$user_email' LIMIT 0";
-        $result = mysqli_query($con, $user_user_query);
-        $user   = mysqli_fetch_assoc($result);
-        if ($user) { 
-            array_push($errors, "Please try to login before performing this action.");
-            header('Location: login.php');
-        } 
-      
-        if (count($errors) == 0) {
-            $query = "INSERT INTO Source (user_id, name) VALUES('$user_email', '$name')";
-            mysqli_query($con, $query);
-            echo "Maxwell 2";
-            $_SESSION['success'] = "Source created successfully.";
-            header('Location: source.php');
-        }
+        $user_check_query = "SELECT * FROM Source WHERE user_id='$user_id' AND name='$name' LIMIT 1";
+        $result1          = mysqli_query($con, $user_check_query);
+        $value            = mysqli_fetch_assoc($result1);
         
+        if ($value) { 
+            if ($value['name'] === $name) { array_push($errors, "Name already exists"); }
+        }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Source (user_id, name) VALUES('$user_id', '$name')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed.");
+            } else {
+                $_SESSION['success'] = "Source created successfully.";
+                header('Location: source.php');
+            }
+        }
     }
 
 
+
+    // ADDING INCOME
+    if(isset($_POST['add-income'])) {
+        $source_id  = mysqli_real_escape_string($con, $_POST['source']);
+        $amount  = mysqli_real_escape_string($con, $_POST['amount']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($source_id)) { array_push($errors, "Source is required"); }
+        if (empty($amount))    { array_push($errors, "Amount is required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Income (source_id, user_id, amount) VALUES('$source_id', '$user_id', '$amount')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed.");
+            } else {
+                $_SESSION['success'] = "Income created successfully.";
+                header('Location: income.php');
+            }
+        }
+    }
+
+
+
+
+
+    // ADDING CATEGORY
+    if(isset($_POST['add-category'])) {
+        $name    = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($name)) { array_push($errors, "Name is required"); }
+
+        $user_check_query = "SELECT * FROM ProductServiceCategory WHERE user_id='$user_id' AND name='$name' LIMIT 1";
+        $result1          = mysqli_query($con, $user_check_query);
+        $value            = mysqli_fetch_assoc($result1);
+        
+        if ($value) { 
+            if ($value['name'] === $name) { array_push($errors, "Name already exists"); }
+        }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO ProductServiceCategory (user_id, name) VALUES('$user_id', '$name')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed.");
+            } else {
+                $_SESSION['success'] = "Category created successfully.";
+                header('Location: category.php');
+            }
+        }
+    }
+
+
+
+
+    // ADDING PRODUCT OR SERVICE
+    if(isset($_POST['add-product-or-service'])) {
+        $category_id  = mysqli_real_escape_string($con, $_POST['category']);
+        $name  = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($category_id)) { array_push($errors, "Category is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO ProductService (product_service_category_id, name, user_id) VALUES('$category_id', '$name', '$user_id')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed.");
+            } else {
+                $_SESSION['success'] = "Product created successfully.";
+                header('Location: product-service.php');
+            }
+        }
+    }
+
+
+
+
+
+    // ADDING EXPENSE
+    if(isset($_POST['add-expense'])) {
+        $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
+        $price  = mysqli_real_escape_string($con, $_POST['price']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($product_service_id)) { array_push($errors, "Source is required"); }
+        if (empty($price))    { array_push($errors, "Price is required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Expense (user_id, product_service_id, price) VALUES('$user_id', '$product_service_id', '$price')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed.");
+            } else {
+                $_SESSION['success'] = "Expense created successfully.";
+                header('Location: expense.php');
+            }
+        }
+    }
 
 
     // CHANGE USER PASSWORD
@@ -174,6 +276,19 @@
                 array_push($errors, "Current Password is not correct");
             }
         } 
+    }
+
+
+
+
+    // DELETE ACCOUNT
+    if (isset($_GET['delete-account'])) {
+        $old_password    = $_POST['old_password'];
+        $new_password    = $_POST['new_password'];
+        $c_password      = $_POST['c_password'];
+        $user_id         = $_SESSION['user_id'];
+        
+        echo $user_id;
     }
 
 

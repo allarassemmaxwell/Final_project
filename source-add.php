@@ -32,9 +32,14 @@
 			<div class="table-top-space"></div>
               
             <form class="add-source-form" method="POST">
+				<div>
+					<?php include('errors.php'); ?><br>
+				</div>
+
                 <div>
 					<input type="text" name="name" id="name" placeholder="Name">
 				</div><br><br>
+				
                 <div>
                     <input class="button-primary" name="add-source" type="submit" value="Add Source">
                 </div>

@@ -62,7 +62,7 @@
 				<!-- LOOPING USER DATA -->
 				<?php 
 					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'";
+					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id' ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
 						echo "<tr>";

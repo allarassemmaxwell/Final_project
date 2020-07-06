@@ -1,3 +1,12 @@
+<?php 
+	require_once('config/db_connection.php');
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -26,6 +35,11 @@
             
             <form class="add-expense-form" method="POST">
 				<div>
+					<?php include('errors.php'); ?><br>
+				</div>
+
+
+				<!-- <div>
 					<select id="category" name="category">
 						<option value="">--- Select Category ---</option>
 						<option value = "1">Category one</option>
@@ -33,15 +47,24 @@
 						<option value = "3">Category three</option>
 						<option value = "4">Category four</option>
 					</select>
-				</div><br><br>
+				</div><br><br> -->
 
 				<div>
 					<select id="product_or_service" name="product_or_service">
 						<option value="">--- Select Product/Service ---</option>
-						<option value = "1">Product one</option>
-						<option value = "2">Service two</option>
-						<option value = "3">Product three</option>
-						<option value = "4">Service four</option>
+						<?php 
+							$user_id = $_SESSION['user_id'];
+							$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
+							$results = mysqli_query($con, $query);
+
+							if (mysqli_num_rows($results) > 0) {
+								while($row = mysqli_fetch_assoc($results)) {
+									echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
+								}
+							} else {
+								// echo "0 results";
+							}
+						?>
 					</select>
 				</div><br><br>
 
@@ -50,7 +73,7 @@
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" type="submit" value="Create">
+                    <input class="button-primary" name="add-expense" type="submit" value="Create">
                 </div>
 			</form>  
 			

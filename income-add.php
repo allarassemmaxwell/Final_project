@@ -1,3 +1,12 @@
+<?php 
+	require_once('config/db_connection.php');
+
+	if (!isset($_SESSION['user_email'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: login.php');
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,14 +33,31 @@
 
             <div class="table-top-space"></div>
             
+
+			
+
+
             <form class="add-income-form" method="POST">
+				<div>
+					<?php include('errors.php'); ?><br>
+				</div>
+				
                 <div>
 					<select id="source" name="source">
 						<option value="">--- Select Source ---</option>
-						<option value = "1">Source one</option>
-						<option value = "2">Source two</option>
-						<option value = "3">Source three</option>
-						<option value = "4">Source four</option>
+						<?php 
+							$user_id = $_SESSION['user_id'];
+							$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
+							$results = mysqli_query($con, $query);
+
+							if (mysqli_num_rows($results) > 0) {
+								while($row = mysqli_fetch_assoc($results)) {
+									echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
+								}
+							} else {
+								// echo "0 results";
+							}
+						?>
 					</select>
 				</div><br><br>
 
@@ -40,7 +66,7 @@
 				</div><br><br>
 				
                 <div>
-                    <input class="button-primary" type="submit" value="Create">
+                    <input class="button-primary" name="add-income" type="submit" value="Create">
                 </div>
             </form>  
 

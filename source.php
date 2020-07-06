@@ -35,7 +35,12 @@
 				</div>
 			</div>
 			
-			
+			<div>
+				<?php include('errors.php'); ?><br>
+			</div>
+			<div>
+				<?php include('success.php'); ?><br>
+			</div>
 
 
 
@@ -50,7 +55,7 @@
 				<!-- LOOPING USER DATA -->
 				<?php 
 					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Source WHERE user_id = '$user_id'";
+					$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
 						echo "<tr>";
