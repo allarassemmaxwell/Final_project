@@ -42,7 +42,7 @@
 
 
 
-			<div class="table-top-space"></div>
+			<!-- <div class="table-top-space"></div> -->
 
 			<div>
 				<?php include('errors.php'); ?><br>
@@ -53,6 +53,8 @@
 
 			
 			<table  style="color: #737373;">
+
+			
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Category</th>
 					<th>Product/Service</th>
@@ -85,31 +87,34 @@
 								}
 
 								// DISPLAY DATA
-								echo"<td>". $product_category_data['name'] ."</td>";
-								echo"<td>". $product_service_data['name'] ."</td>";
-								echo"<td>". $row['price'] ."</td>";
-								echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-								echo"<td>";
-									echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-									echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-								echo"</td>";
+								?>
+									<td><?php echo $product_category_data['name'] ?></td>
+									<td><?php echo $product_service_data['name'] ?></td>
+									<td><?php echo $row['price'] ?></td>
+									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+									<td>
+										<form action="" method="POST" style="margin-left:-40px;">
+											<input hidden name="expense_id" value="<?php echo $row['expense_id'] ?>"></input>
+											<button name="delete-expense">
+												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+											</button>&nbsp;&nbsp;
+										</form>
+										<form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+											<input hidden name="expect" value="<?php echo $row['price'] ?>"></input>
+											<button name="edit-expense">
+											<i class="fa fa-pencil icon-edit" title="Edit"></i>
+											</button>
+										</form>
+									</td>
+								<?php
 							echo "</tr>";
 						}
 					} else {
 						// echo "There is No data";
 					}
-				?>				
-				
-				<!-- <tr>
-					<td>Laughing Bacchus Winecellars</td>
-					<td>Yoshi Tannamuri</td>
-					<td>ksh 350</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr> -->
+				?>	
+							
+
 				
 			  </table>
 

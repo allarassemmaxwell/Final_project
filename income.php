@@ -46,7 +46,7 @@
 
 
 
-			<div class="table-top-space"></div>
+			<!-- <div class="table-top-space"></div> -->
 			<table>
 				<tr style="height: 65px; font-size: 18px;">
 					<!-- <th>Name</th> -->
@@ -63,8 +63,8 @@
 					$query   = "SELECT * FROM Income WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
-						// echo $user_id;
 						echo "<tr>";
+
 							// GET SOURCE NAME
 							$source_id = $row['source_id'];
 							$query   = "SELECT * FROM Source WHERE source_id = '$source_id'";
@@ -74,13 +74,25 @@
 							}
 
 							// DISPLAY DATA
-							echo"<td>". $source_data['name'] ."</td>";
-							echo"<td>". $row['amount'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
+							?>
+								<td><?php echo $source_data['name'] ?></td>
+								<td><?php echo $row['amount'] ?></td>
+								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+								<td>
+									<form action="" method="POST" style="margin-left:-40px;">
+										<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
+										<button name="delete-income">
+											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+										</button>&nbsp;&nbsp;
+									</form>
+									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+										<input hidden name="expect" value=""></input>
+										<button name="edit-expense">
+										<i class="fa fa-pencil icon-edit" title="Edit"></i>
+										</button>
+									</form> -->
+								</td>
+							<?php
 						echo "</tr>";
 					}
 				?>

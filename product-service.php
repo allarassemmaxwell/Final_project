@@ -46,7 +46,7 @@
 
 
 
-			<div class="table-top-space"></div>
+			<!-- <div class="table-top-space"></div> -->
 			<table>
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Category</th>
@@ -71,13 +71,25 @@
 							}
 
 							// DISPLAY DATA
-							echo"<td>". $category_data['name'] ."</td>";
-							echo"<td>". $row['name'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
+							?>
+								<td><?php echo $category_data['name'] ?></td>
+								<td><?php echo $row['name'] ?></td>
+								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+								<td>
+									<form action="" method="POST" style="margin-left:-40px;">
+										<input hidden name="product_service_id" value="<?php echo $row['product_service_id'] ?>"></input>
+										<button name="delete-product-or-service">
+											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+										</button>&nbsp;&nbsp;
+									</form>
+									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+										<input hidden name="expect" value=""></input>
+										<button name="edit-expense">
+										<i class="fa fa-pencil icon-edit" title="Edit"></i>
+										</button>
+									</form> -->
+								</td>
+							<?php
 						echo "</tr>";
 					}
 				?>

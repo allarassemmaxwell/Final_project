@@ -6,6 +6,8 @@
 		header('location: login.php');
 	}
 ?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,22 +37,16 @@
 				</div>
 			</div>
 			
-			<div style="margin-left:20px; background-color: red;">
-				<?php if (isset($_SESSION['success'])) : ?>
-					<div class="error success" >
-						<h3>
-							<?php 
-								echo $_SESSION['success']; 
-								unset($_SESSION['success']);
-							?>
-						</h3>
-					</div>
-				<?php endif ?>
+			<div>
+				<?php include('errors.php'); ?><br>
+			</div>
+			<div>
+				<?php include('success.php'); ?><br>
 			</div>
 			
 
 
-			<div class="table-top-space"></div>
+			<!-- <div class="table-top-space"></div> -->
 			<table>
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Category</th>
@@ -62,48 +58,55 @@
 				<!-- LOOPING USER DATA -->
 				<?php 
 					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id' ORDER BY created_at DESC";
+					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
-					while($row = $results->fetch_assoc()) {
-						echo "<tr>";
-							// GET PRODUCT SERVICE NAME
-							$product_service_id = $row['product_service_id'];
-							$query   = "SELECT * FROM ProductService WHERE product_service_id = '$product_service_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$product_service_data = $result2->fetch_assoc();		
-							}
+					if (mysqli_num_rows($results) > 0) {
+						while($row = $results->fetch_assoc()) {
+							echo "<tr>";
+								// GET PRODUCT SERVICE NAME
+								$product_service_id = $row['product_service_id'];
+								$query   = "SELECT * FROM ProductService WHERE product_service_id = '$product_service_id'";
+								$result2 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result2) == 1) {
+									$product_service_data = $result2->fetch_assoc();		
+								}
 
-							// GET PRODUCT CATEGORY NAME
-							$product_category_id = $product_service_data['product_service_category_id'];
-							$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$product_category_id'";
-							$result3 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result3) == 1) {
-								$product_category_data = $result3->fetch_assoc();		
-							}
+								// GET PRODUCT CATEGORY NAME
+								$product_category_id = $product_service_data['product_service_category_id'];
+								$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$product_category_id'";
+								$result3 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result3) == 1) {
+									$product_category_data = $result3->fetch_assoc();		
+								}
 
-							// DISPLAY DATA
-							echo"<td>". $product_category_data['name'] ."</td>";
-							echo"<td>". $product_service_data['name'] ."</td>";
-							echo"<td>". $row['price'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
-						echo "</tr>";
+								// DISPLAY DATA
+								?>
+									<td><?php echo $product_category_data['name'] ?></td>
+									<td><?php echo $product_service_data['name'] ?></td>
+									<td><?php echo $row['price'] ?></td>
+									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+									<td>
+										<form action="" method="POST" style="margin-left:-40px;">
+											<input hidden name="expense_id" value="<?php echo $row['expense_id'] ?>"></input>
+											<button name="delete-expense">
+												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+											</button>&nbsp;&nbsp;
+										</form>
+										<form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+											<input hidden name="expect" value="<?php echo $row['price'] ?>"></input>
+											<button name="edit-expense">
+											<i class="fa fa-pencil icon-edit" title="Edit"></i>
+											</button>
+										</form>
+									</td>
+								<?php
+							echo "</tr>";
+						}
+					} else {
+						// echo "There is No data";
 					}
 				?>
-				<!-- <tr>
-					<td>Magazzini Alimentari Riuniti</td>
-					<td>Giovanni Rovelli</td>
-					<td>ksh 300</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr> -->
+
 			  </table>
 
 			  <div class="table-bottom-space"></div>

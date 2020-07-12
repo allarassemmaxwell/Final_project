@@ -46,7 +46,7 @@
 
 
 
-			<div class="table-top-space"></div>
+			<!-- <div class="table-top-space"></div> -->
 			<table>
 				<tr style="height: 65px; font-size: 18px;">
 					<th>Name</th>
@@ -61,12 +61,24 @@
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
 						echo "<tr>";
-							echo"<td>". $row['name'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
+							?>
+								<td><?php echo $row['name'] ?></td>
+								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+								<td>
+									<form action="" method="POST" style="margin-left:-40px;">
+										<input hidden name="category_id" value="<?php echo $row['category_id'] ?>"></input>
+										<button name="delete-category">
+											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+										</button>&nbsp;&nbsp;
+									</form>
+									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+										<input hidden name="expect" value=""></input>
+										<button name="edit-expense">
+										<i class="fa fa-pencil icon-edit" title="Edit"></i>
+										</button>
+									</form> -->
+								</td>
+							<?php
 						echo "</tr>";
 					}
 				?>

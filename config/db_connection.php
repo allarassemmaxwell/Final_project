@@ -23,7 +23,6 @@
 
 
 
-
     // CREATE ACCOUNT
     if (isset($_POST['register_submit'])) {
         $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
@@ -91,6 +90,8 @@
 
 
 
+
+    
     // UPDATE USER PROFILE
     if(isset($_POST['update_profile'])) {
         $first_name    = mysqli_real_escape_string($con, $_POST['first_name']);
@@ -116,7 +117,12 @@
     }
 
 
-    // ADDING SOURCE
+
+
+
+// ADDING SECTION      ADDING SECTION       ADDING SECTION       ADDING SECTION     ADDING SECTION
+    
+// ADDING SOURCE
     if(isset($_POST['add-source'])) {
         $name    = mysqli_real_escape_string($con, $_POST['name']);
         $user_id = $_SESSION['user_id'];
@@ -167,9 +173,6 @@
     }
 
 
-
-
-
     // ADDING CATEGORY
     if(isset($_POST['add-category'])) {
         $name    = mysqli_real_escape_string($con, $_POST['name']);
@@ -198,8 +201,6 @@
     }
 
 
-
-
     // ADDING PRODUCT OR SERVICE
     if(isset($_POST['add-product-or-service'])) {
         $category_id  = mysqli_real_escape_string($con, $_POST['category']);
@@ -220,9 +221,6 @@
             }
         }
     }
-
-
-
 
 
     // ADDING EXPENSE
@@ -281,6 +279,14 @@
 
 
 
+
+
+    
+
+
+
+// DELETE SECTION      DELETE SECTION       DELETE SECTION       DELETE SECTION     DELETE SECTION
+
     // DELETE ACCOUNT
     if (isset($_GET['delete-account'])) {
         $old_password    = $_POST['old_password'];
@@ -291,6 +297,98 @@
         echo $user_id;
     }
 
+
+    // DELETE EXPENSE
+    if(isset($_POST['delete-expense'])) {
+        $expense_id = $_POST['expense_id'];
+
+        if (empty($expense_id)) { array_push($errors, "An expense is required"); }
+
+        if (count($errors) == 0) {
+            $query = "DELETE FROM Expense WHERE expense_id='$expense_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed$query");
+            } else {
+                $_SESSION['success'] = "Expense deleted successfully.";
+            }
+        }
+    }
+
+
+    // DELETE SOURCE
+    if(isset($_POST['delete-source'])) {
+        $source_id = $_POST['source_id'];
+
+        if (empty($source_id)) { array_push($errors, "Source is required"); }
+
+        if (count($errors) == 0) {
+            $query  = "DELETE FROM Source WHERE source_id='$source_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Source deleted successfully.";
+            }
+        }
+    }
+
+
+
+    // DELETE INCOME
+    if(isset($_POST['delete-income'])) {
+        $income_id = $_POST['income_id'];
+
+        if (empty($income_id)) { array_push($errors, "Income is required"); }
+
+        if (count($errors) == 0) {
+            $query  = "DELETE FROM Income WHERE income_id='$income_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Income deleted successfully.";
+            }
+        }
+    }
+
+
+
+    // DELETE CATEGORY
+    if(isset($_POST['delete-category'])) {
+        $category_id = $_POST['category_id'];
+
+        if (empty($category_id)) { array_push($errors, "Category is required"); }
+
+        if (count($errors) == 0) {
+            $query  = "DELETE FROM ProductServiceCategory WHERE category_id='$category_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Category deleted successfully.";
+            }
+        }
+    }
+
+
+
+    // DELETE PRODUCT OR SERVICE
+    if(isset($_POST['delete-product-or-service'])) {
+        $product_service_id = $_POST['product_service_id'];
+
+        if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
+
+        if (count($errors) == 0) {
+            $query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Product/Service deleted successfully.";
+            }
+        }
+    }
 
             
 

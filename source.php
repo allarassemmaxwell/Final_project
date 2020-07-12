@@ -35,19 +35,19 @@
 				</div>
 			</div>
 			
+
+			
+			<!-- <div class="table-top-space"></div> -->
+
 			<div>
 				<?php include('errors.php'); ?><br>
 			</div>
 			<div>
 				<?php include('success.php'); ?><br>
 			</div>
-
-
-
-			<div class="table-top-space"></div>
 			<table>
 				<tr style="height: 65px; font-size: 18px;">
-					<th>Nmae</th>
+					<th>Name</th>
 					<th>Date</th>
 					<th>Action</th>
 				</tr>
@@ -55,16 +55,28 @@
 				<!-- LOOPING USER DATA -->
 				<?php 
 					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
+					$query   = "SELECT * FROM Source WHERE user_id='$user_id' ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
 						echo "<tr>";
-							echo"<td>". $row['name'] ."</td>";
-							echo"<td>". date('M d Y',strtotime($row['created_at'])) ."</td>";
-							echo"<td>";
-								echo"<i class='fa fa-trash-o icon-delete' title='Delete'></i>&nbsp;&nbsp;&nbsp;";
-								echo"<i class='fa fa-pencil icon-edit' title='Edit'></i>";
-							echo"</td>";
+							?>
+								<td><?php echo $row['name']; ?></td>
+								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+								<td>
+									<form action="" method="POST" style="margin-left:-40px;">
+										<input hidden name="source_id" value="<?php echo $row['source_id'] ?>"></input>
+										<button name="delete-source">
+											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+										</button>&nbsp;&nbsp;
+									</form>
+									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
+										<input hidden name="expect" value=""></input>
+										<button name="edit-expense">
+										<i class="fa fa-pencil icon-edit" title="Edit"></i>
+										</button>
+									</form> -->
+								</td>
+							<?php 
 						echo "</tr>";
 					}
 				?>
