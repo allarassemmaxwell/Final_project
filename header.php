@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" id="header">
 			<div class="logo">
 				<i class="fa fa-tachometer"></i>
 				<span>FEM</span>

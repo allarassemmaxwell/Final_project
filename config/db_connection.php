@@ -111,7 +111,7 @@
             if ($results) {
                 $_SESSION['success'] = "Profile updated successfully.";
             } else {
-                array_push($errors, "Could update your profile");
+                array_push($errors, "Could update your profile: $query");
             }
         }
     }
@@ -122,7 +122,30 @@
 
 // ADDING SECTION      ADDING SECTION       ADDING SECTION       ADDING SECTION     ADDING SECTION
     
-// ADDING SOURCE
+
+    // ADDING EXPENSE
+    if(isset($_POST['add-expense'])) {
+        $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
+        $price  = mysqli_real_escape_string($con, $_POST['price']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($product_service_id)) { array_push($errors, "Source is required"); }
+        if (empty($price))    { array_push($errors, "Price is required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Expense (user_id, product_service_id, price) VALUES('$user_id', '$product_service_id', '$price')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                // header('Location: expense.php');
+                $_SESSION['success'] = "Expense created successfully.";
+            }
+        }
+    }
+
+
+    // ADDING SOURCE
     if(isset($_POST['add-source'])) {
         $name    = mysqli_real_escape_string($con, $_POST['name']);
         $user_id = $_SESSION['user_id'];
@@ -141,10 +164,10 @@
             $query = "INSERT INTO Source (user_id, name) VALUES('$user_id', '$name')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
-                array_push($errors, "Error: Connection failed.");
+                array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Source created successfully.";
-                header('Location: source.php');
+                // header('Location: source.php');
             }
         }
     }
@@ -164,10 +187,10 @@
             $query = "INSERT INTO Income (source_id, user_id, amount) VALUES('$source_id', '$user_id', '$amount')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
-                array_push($errors, "Error: Connection failed.");
+                array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Income created successfully.";
-                header('Location: income.php');
+                // header('Location: income.php');
             }
         }
     }
@@ -192,10 +215,10 @@
             $query = "INSERT INTO ProductServiceCategory (user_id, name) VALUES('$user_id', '$name')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
-                array_push($errors, "Error: Connection failed.");
+                array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Category created successfully.";
-                header('Location: category.php');
+                // header('Location: category.php');
             }
         }
     }
@@ -214,35 +237,16 @@
             $query = "INSERT INTO ProductService (product_service_category_id, name, user_id) VALUES('$category_id', '$name', '$user_id')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
-                array_push($errors, "Error: Connection failed.");
+                array_push($errors, "Error: Connection failed: $query");
             } else {
-                $_SESSION['success'] = "Product created successfully.";
-                header('Location: product-service.php');
+                $_SESSION['success'] = "Product/Service created successfully.";
+                // header('Location: product-service.php');
             }
         }
     }
 
 
-    // ADDING EXPENSE
-    if(isset($_POST['add-expense'])) {
-        $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
-        $price  = mysqli_real_escape_string($con, $_POST['price']);
-        $user_id = $_SESSION['user_id'];
 
-        if (empty($product_service_id)) { array_push($errors, "Source is required"); }
-        if (empty($price))    { array_push($errors, "Price is required"); }
-
-        if (count($errors) == 0) {
-            $query = "INSERT INTO Expense (user_id, product_service_id, price) VALUES('$user_id', '$product_service_id', '$price')";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed.");
-            } else {
-                $_SESSION['success'] = "Expense created successfully.";
-                header('Location: expense.php');
-            }
-        }
-    }
 
 
     // CHANGE USER PASSWORD
@@ -390,6 +394,127 @@
         }
     }
 
+
+
+
+
+    // UPDATE SECTION  UPDATE SECTION   UPDATE SECTION   UPDATE SECTION    UPDATE SECTION   UPDATE SECTION
+
+    // UPDATE EXPENSE
+    if(isset($_POST['update-expense'])) {
+        $expense_id          = mysqli_real_escape_string($con, $_POST['expense_id']);
+        $price               = mysqli_real_escape_string($con, $_POST['price']);
+        $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
+        $user_id             = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($expense_id)) { array_push($errors, "Expense is required"); }
+        if (empty($price))    { array_push($errors, "Price is required"); }
+        if (empty($product_service_id))    { array_push($errors, "Product/Service is required"); }
+
+        if (count($errors) == 0) {
+            $query = "UPDATE Expense SET price='$price', product_service_id='$product_service_id' WHERE expense_id='$expense_id' AND user_id='$user_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Expense updated successfully.";
+                header('Location: expense.php');
+            }
+        }
+    }
+
+
+
+    // UPDATE SOURCE
+    if(isset($_POST['update-source'])) {
+        $source_id          = mysqli_real_escape_string($con, $_POST['source_id']);
+        $name               = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id             = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($source_id)) { array_push($errors, "Source is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
+
+        if (count($errors) == 0) {
+            $query = "UPDATE Source SET name='$name' WHERE source_id='$source_id' AND user_id='$user_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Source updated successfully.";
+                header('Location: source.php');
+            }
+        }
+    }
+
+
+    // UPDATE INCOME
+    if(isset($_POST['update-income'])) {
+        $income_id = mysqli_real_escape_string($con, $_POST['income_id']);
+        $amount    = mysqli_real_escape_string($con, $_POST['amount']);
+        $source_id = mysqli_real_escape_string($con, $_POST['source']);
+        $user_id   = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($income_id)) { array_push($errors, "Income is required"); }
+        if (empty($amount))    { array_push($errors, "Amount is required"); }
+        if (empty($source_id)) { array_push($errors, "Source is required"); }
+
+        if (count($errors) == 0) {
+            $query = "UPDATE Income SET amount='$amount', source_id='$source_id' WHERE income_id='$income_id' AND user_id='$user_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Income updated successfully.";
+                header('Location: income.php');
+            }
+        }
+    }
+
+
+    // UPDATE CATEGORY
+    if(isset($_POST['update-category'])) {
+        $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
+        $name        = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id     = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($category_id)) { array_push($errors, "Category is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
+
+        if (count($errors) == 0) {
+            $query = "UPDATE ProductServiceCategory SET name='$name' WHERE category_id='$category_id' AND user_id='$user_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Category updated successfully.";
+                header('Location: category.php');
+            }
+        }
+    }
+
+
+    // UPDATE PRODUCT/SERVICE
+    if(isset($_POST['update-product-service'])) {
+        $product_service_id = mysqli_real_escape_string($con, $_POST['product_service_id']);
+        $name      = mysqli_real_escape_string($con, $_POST['name']);
+        $product_service_category_id = mysqli_real_escape_string($con, $_POST['category']);
+        $user_id   = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($product_service_id)) { array_push($errors, "Product/Sevice is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
+        if (empty($product_service_category_id)) { array_push($errors, "Category is required"); }
+
+        if (count($errors) == 0) {
+            $query = "UPDATE ProductService SET name='$name', product_service_category_id='$product_service_category_id' WHERE product_service_id='$product_service_id' AND user_id='$user_id'";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Product/Service updated successfully.";
+                header('Location: product-service.php');
+            }
+        }
+    }
             
 
 

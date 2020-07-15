@@ -45,13 +45,20 @@
                 <div>
 					<select id="source" name="source">
 						<option value="">--- Select Source ---</option>
-						<?php 
-							$user_id = $_SESSION['user_id'];
+                        <?php 
+                            $user_id   = $_GET['id1'];
+                            $income_id = $_GET['id2'];
+                            $source_id = $_GET['id3'];
+                            $amount    = $_GET['amount'];
+
 							$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
 							$results = mysqli_query($con, $query);
 
 							if (mysqli_num_rows($results) > 0) {
 								while($row = mysqli_fetch_assoc($results)) {
+                                    if($row['source_id'] == $source_id) {
+										echo '<option value="' . $row['source_id'] . '" selected>' . $row['name'] . '</option>';
+									}
 									echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
 								}
 							} else {
@@ -62,11 +69,13 @@
 				</div><br><br>
 
                 <div>
-					<input type="text" name="amount" placeholder="Amount">
+					<input type="text" value="<?php echo $amount; ?>" name="amount" placeholder="Amount">
+                    <input type="text" hidden name="income_id" value="<?php echo $income_id; ?>">
+					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 				
                 <div>
-                    <input class="button-primary" name="add-income" type="submit" value="Create">
+                    <input class="button-primary" name="update-income" type="submit" value="Create">
                 </div>
             </form>  
 

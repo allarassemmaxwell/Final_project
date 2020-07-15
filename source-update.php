@@ -22,11 +22,16 @@
 	</head>
 	<body>
 		
-		<?php include('header.php'); ?>
+        <?php 
+            include('header.php');
+            $user_id 	= $_GET['id1'];
+            $source_id = $_GET['id2'];
+            $name 		= $_GET['id3'];
+        ?>
 
 		<div class="main-content">
 			<div class="title-left">
-				Source/Add
+				Source/Update
 			</div>
 
 			<div class="table-top-space"></div>
@@ -37,15 +42,20 @@
 				</div>
 
                 <div>
-					<input type="text" name="name" id="name" placeholder="Name">
+					<input type="text" value="<?php echo $name; ?>" name="name" id="name" placeholder="Name">
+                    <input type="text" hidden name="source_id" value="<?php echo $source_id; ?>">
+					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 				
                 <div>
-                    <input class="button-primary" name="add-source" type="submit" value="Add Source">
+                    <input class="button-primary" name="update-source" type="submit" value="Add Source">
                 </div>
             </form>  
 
-		</div>
+        </div>
+        <?php
+        
+        ?>
 
 
 

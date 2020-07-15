@@ -26,7 +26,7 @@
             
                 <div class="title-left">
                     <a href="product-service.php" style="text-decoration: none; color: #333;">Product/Service</a>
-                    /Add
+                    /Update
                 </div>
 
 
@@ -40,14 +40,24 @@
                 <div>
 					<select id="category" name="category">
 						<option value="">--- Select Category ---</option>
-						<?php 
+                        <?php 
+                        
+                            $user_id     = $_GET['id1'];
+                            $product_service_id = $_GET['id2'];
+                            $category_id = $_GET['id3'];
+                            $name        = $_GET['name'];
+
+
 							$user_id = $_SESSION['user_id'];
 							$query   = "SELECT * FROM ProductServiceCategory WHERE user_id = '$user_id' ORDER BY created_at DESC";
 							$results = mysqli_query($con, $query);
 
 							if (mysqli_num_rows($results) > 0) {
 								while($row = mysqli_fetch_assoc($results)) {
-									echo '<option value="' . $row['category_id'] . '">' . $row['name'] . '</option>';
+                                    if($row['category_id'] == $category_id) {
+										echo '<option value="' . $row['category_id'] . '" selected>' . $row['name'] . '</option>';
+									}
+									echo '<option value="'. $row['category_id'].'">' . $row['name'] . '</option>';
 								}
 							} else {
 								// echo "0 results";
@@ -57,11 +67,13 @@
 				</div><br><br>
 
                 <div>
-					<input type="text" name="name" placeholder="Name">
+					<input type="text" value="<?php echo $name; ?>" name="name" placeholder="Name">
+                    <input type="text" hidden name="product_service_id" value="<?php echo $product_service_id; ?>">
+					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" name="add-product-or-service" type="submit" value="Create">
+                    <input class="button-primary" name="update-product-service" type="submit" value="Create">
                 </div>
             </form>  
 

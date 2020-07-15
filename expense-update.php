@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Daily Report Add || FEM</title>
+		<title>Expense Edit || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
         <!-- IMPORT FONT AWSOME -->
@@ -26,8 +26,8 @@
 		<div class="main-content">
             
                 <div class="title-left">
-                    <a href="expense.php" style="text-decoration: none; color: #333;">Expense</a>
-                    /Add
+                    <a href="expense.php" style="text-decoration: none; color: #333;">Expense</a>/
+                    /Update
                 </div>
 
 
@@ -38,27 +38,24 @@
 					<?php include('errors.php'); ?><br>
 				</div>
 
-
-				<!-- <div>
-					<select id="category" name="category">
-						<option value="">--- Select Category ---</option>
-						<option value = "1">Category one</option>
-						<option value = "2">Category two</option>
-						<option value = "3">Category three</option>
-						<option value = "4">Category four</option>
-					</select>
-				</div><br><br> -->
-
 				<div>
 					<select id="product_or_service" name="product_or_service">
 						<option value="">--- Select Product/Service ---</option>
 						<?php 
-							$user_id = $_SESSION['user_id'];
+
+							$user_id 	= $_GET['id1'];
+							$expense_id = $_GET['id2'];
+							$price 		= $_GET['price'];
+							$product_service_id = $_GET['id3'];
+
 							$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
 							$results = mysqli_query($con, $query);
 
 							if (mysqli_num_rows($results) > 0) {
 								while($row = mysqli_fetch_assoc($results)) {
+									if($row['product_service_id'] == $product_service_id) {
+										echo '<option value="' . $row['product_service_id'] . '" selected>' . $row['name'] . '</option>';
+									}
 									echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
 								}
 							} else {
@@ -69,11 +66,13 @@
 				</div><br><br>
 
 				<div>
-					<input type="text" name="price" id="price" placeholder="Price">
+					<input type="text" name="price" id="price" value="<?php echo $price; ?>" placeholder="Price">
+					<input type="text" hidden name="expense_id" value="<?php echo $expense_id; ?>">
+					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" name="add-expense" type="submit" value="Create">
+                    <input class="button-primary" name="update-expense" type="submit" value="Create">
                 </div>
 			</form>  
 			

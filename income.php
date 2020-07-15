@@ -28,10 +28,10 @@
 				Income
 			</div>
 
-			<div class="title-right">
+			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a href="income-add.php">Add Income</a>
+					<a>Add Income</a>
 				</div>
 			</div>
 
@@ -75,23 +75,26 @@
 
 							// DISPLAY DATA
 							?>
-								<td><?php echo $source_data['name'] ?></td>
-								<td><?php echo $row['amount'] ?></td>
+								<td><?php echo $source_data['name']; ?></td>
+								<td><?php echo $row['amount']; ?></td>
 								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-								<td>
+								<td> 
+									<!-- DELETE -->
 									<form action="" method="POST" style="margin-left:-40px;">
 										<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
 										<button name="delete-income">
 											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-										</button>&nbsp;&nbsp;
+										</button>&nbsp;&nbsp;&nbsp;
 									</form>
-									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
-										<input hidden name="expect" value=""></input>
-										<button name="edit-expense">
-										<i class="fa fa-pencil icon-edit" title="Edit"></i>
-										</button>
-									</form> -->
-								</td>
+										<!-- UPDATE -->
+										<div style="margin-left:30px; margin-top:-20px">
+											<button>
+												<a href="income-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['income_id'] ?>&id3=<?php echo $source_data['source_id']; ?>&amount=<?php echo $row['amount']; ?>">
+													<i class="fa fa-pencil icon-edit" title="Edit"></i>
+												</a>
+											</button>
+										</div>
+									</td>
 							<?php
 						echo "</tr>";
 					}
@@ -102,6 +105,50 @@
 			  <div class="table-total">
 				<button class="button-error-total">Total: ksh 5.500</button>
 			  </div>
+
+
+
+
+			  <!-- The Modal -->
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p style="text-align: center; font-size:17px;">Add Income</p>
+						<form class="add-income-form" method="POST">
+				<div>
+					<?php include('errors.php'); ?><br>
+				</div>
+				
+                <div>
+					<select id="source" name="source">
+						<option value="">--- Select Source ---</option>
+						<?php 
+							$user_id = $_SESSION['user_id'];
+							$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
+							$results = mysqli_query($con, $query);
+
+							if (mysqli_num_rows($results) > 0) {
+								while($row = mysqli_fetch_assoc($results)) {
+									echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
+								}
+							} else {
+								// echo "0 results";
+							}
+						?>
+					</select>
+				</div><br><br>
+
+                <div>
+					<input type="text" name="amount" placeholder="Amount">
+				</div><br><br>
+				
+                <div>
+                    <input class="button-primary" name="add-income" type="submit" value="Create">
+                </div>
+            </form>  
+						<div class="table-bottom-space"></div>
+					</div>
+				</div>
 		</div>
 
 
@@ -111,11 +158,13 @@
 		
 		
         <!-- JAVASCRIPT -->
-        <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-        </script>
-        <script src="js/dashboard.js"></script>
+		 <script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous">
+		</script>   
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+		<script src="js/dashboard.js"></script>
 	</body>
 </html>

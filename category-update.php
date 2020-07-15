@@ -21,29 +21,34 @@
 	</head>
 	<body>
 
-		<?php include('header.php'); ?>
+        <?php include('header.php'); 
+            $user_id 	 = $_GET['id1'];
+            $category_id = $_GET['id2'];
+            $name 		 = $_GET['name'];
+        ?>
 
 		<div class="main-content">
             
                 <div class="title-left">
                     <a href="category.php" style="text-decoration: none; color: #333;">Category</a>
-                    /Add
+                    /Update
                 </div>
 
 
             <div class="table-top-space"></div>
-            
 
             <form class="add-category-form" method="POST">
 				<div>
 					<?php include('errors.php'); ?><br>
 				</div>
                 <div>
-					<input type="text" name="name" placeholder="Name">
+					<input type="text" value="<?php echo $name; ?>" name="name" placeholder="Name">
+                    <input type="text" hidden name="category_id" value="<?php echo $category_id; ?>">
+					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" name="add-category" type="submit" value="Create">
+                    <input class="button-primary" name="update-category" type="submit" value="Create">
                 </div>
             </form>  
 

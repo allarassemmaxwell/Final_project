@@ -28,10 +28,10 @@
 				Category
 			</div>
 
-			<div class="title-right">
+			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a href="category-add.php">Add Category</a>
+					<a>Add Category</a>
 				</div>
 			</div>
 
@@ -64,20 +64,23 @@
 							?>
 								<td><?php echo $row['name'] ?></td>
 								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-								<td>
-									<form action="" method="POST" style="margin-left:-40px;">
+								<td> 
+										<!-- DELETE -->
+										<form action="" method="POST" style="margin-left:-40px;">
 										<input hidden name="category_id" value="<?php echo $row['category_id'] ?>"></input>
 										<button name="delete-category">
 											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-										</button>&nbsp;&nbsp;
+										</button>&nbsp;&nbsp;&nbsp;
 									</form>
-									<!-- <form action="" method="POST" style="margin-left:40px; margin-top:-21px">
-										<input hidden name="expect" value=""></input>
-										<button name="edit-expense">
-										<i class="fa fa-pencil icon-edit" title="Edit"></i>
-										</button>
-									</form> -->
-								</td>
+										<!-- EDIT -->
+										<div style="margin-left:30px; margin-top:-20px">
+											<button>
+												<a href="category-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['category_id']; ?>&name=<?php echo $row['name'] ?>">
+													<i class="fa fa-pencil icon-edit" title="Edit"></i>
+												</a>
+											</button>
+										</div>
+									</td>
 							<?php
 						echo "</tr>";
 					}
@@ -107,18 +110,42 @@
 			  <!-- <div class="table-total">
 				<button class="button-error-total">Total: ksh 5.500</button>
 			  </div> -->
+
+			  <!-- The Modal -->
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p style="text-align: center; font-size:17px;">Add Category</p>
+						<form class="add-category-form" method="POST">
+							<div>
+								<?php include('errors.php'); ?><br>
+							</div>
+							<div>
+								<input type="text" name="name" placeholder="Name">
+							</div><br><br>
+
+							<div>
+								<input class="button-primary" name="add-category" type="submit" value="Create">
+							</div>
+						</form>    
+						<div class="table-bottom-space"></div>
+					</div>
+				</div>
 		</div>
 
 
         <?php include_once("footer.php"); ?>
 		
 		
+		
         <!-- JAVASCRIPT -->
-        <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-        </script>
-        <script src="js/dashboard.js"></script>
+		 <script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous">
+		</script>   
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+		<script src="js/dashboard.js"></script>
 	</body>
 </html>
