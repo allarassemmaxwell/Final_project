@@ -16,6 +16,9 @@
 		<title>Source || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,20 +27,17 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Source
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add Source</a>
+					<a style="font-size: 15px;">Add Source</a>
 				</div>
 			</div>
 			
-
-			
-			<!-- <div class="table-top-space"></div> -->
 
 			<div>
 				<?php include('errors.php'); ?><br>
@@ -46,10 +46,10 @@
 				<?php include('success.php'); ?><br>
 			</div>
 			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Name</th>
-					<th>Date</th>
-					<th>Action</th>
+				<tr style="height: 65px; font-size: 15px;">
+					<th style="color: #737373;">Name</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 
 				<!-- LOOPING USER DATA -->
@@ -87,35 +87,28 @@
 
 			<!-- The Modal -->
 			<div id="myModal" class="modal">
-					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Source</p>
-						<form class="add-source-form" method="POST">
-							<div>
-								<?php include('errors.php'); ?><br>
-							</div>
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p style="text-align: center; font-size:15px; color: #737373">Add Source</p>
+					<form class="add-source-form" method="POST">
+						<div>
+							<?php include('errors.php'); ?><br>
+						</div>
 
-							<div>
-								<input type="text" name="name" id="name" placeholder="Name">
-							</div><br><br>
-							
-							<div>
-								<input class="button-primary" name="add-source" type="submit" value="Add Source">
-							</div>
-						</form>  
-						<div class="table-bottom-space"></div>
-					</div>
+						<div>
+							<input  style="font-size: 14px; color: #737373;" type="text" name="name" id="name" placeholder="Name">
+						</div><br><br>
+						
+						<div>
+							<input class="button-primary" name="add-source" type="submit" value="Add Source">
+						</div>
+					</form>  
+					<div class="table-bottom-space"></div>
 				</div>
-			
-
+			</div>
+		
 			<div class="table-bottom-space"></div>
-			  <!-- <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div> -->
 		</div>
-
-
-
 		
 		<?php include_once("footer.php"); ?>
 		

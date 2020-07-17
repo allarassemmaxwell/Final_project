@@ -7,38 +7,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create account || FEM</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Create Account || FEM</title>
+    <link rel="stylesheet" href="css/sign.css">
     
+    <!-- Web Fonts  -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
     <!-- IMPORT FONT AWSOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
 </head>
 <body>
-    <div class="register">
-        <div class="register-content">
-            <p class="register-title">Create Account</p>
+    <div class="container">
+        <div class="row">
+            <p class="title">Create Account</p>
             <form class="register-form" method="POST">
                 <?php include('errors.php'); ?><br>
                 <div>
-                    <input class="register-input" type="text" name="first_name" id="first_name" placeholder="First name" value="">
-                </div><br><br>
+                    <input type="text" name="first_name" id="first_name" placeholder="First name" value="">
+                </div><br>
 
                 <div>
-                    <input class="register-input" type="text" name="last_name" id="last_name" placeholder="Last name" value="">
-                </div><br><br>
+                    <input type="text" name="last_name" id="last_name" placeholder="Last name" value="">
+                </div><br>
 
                 <div>
-                    <input class="register-input" type="email" name="user_email" id="user_email" placeholder="Email" value="">
-                </div><br><br>
+                    <input type="email" name="user_email" id="user_email" placeholder="Email" value="">
+                </div><br>
 
                 <div>
-                    <input class="register-input" type="password" name="password_1" id="password_1" placeholder="Password">
-                </div><br><br>
+                    <input type="password" name="password_1" id="password_1" placeholder="Password">
+                </div><br>
 
                 <div>
-                    <input class="register-input" type="password" name="password_2" id="password_2" placeholder="Retype password">
-                </div><br><br>
+                    <input type="password" name="password_2" id="password_2" placeholder="Retype password">
+                </div><br>
                 
                 <div class="space"></div>
                 <button class="register-submit" type="submit" name="register_submit">Create Account</button>
@@ -47,6 +50,9 @@
             </form>             
         </div>
     </div> 
+
+
+
 
 
     <script

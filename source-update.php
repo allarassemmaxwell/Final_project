@@ -17,6 +17,9 @@
 		<title>Source Add || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,14 +27,14 @@
 		
         <?php 
             include('header.php');
-            $user_id 	= $_GET['id1'];
+            $user_id   = $_GET['id1'];
             $source_id = $_GET['id2'];
-            $name 		= $_GET['id3'];
+            $name 	   = $_GET['id3'];
         ?>
 
 		<div class="main-content">
-			<div class="title-left">
-				Source/Update
+			<div class="title-left" style="font-size: 15px; color: #737373;">
+				<a style="text-decoration: none" class="primary" href="source.php">Source</a>/ Update
 			</div>
 
 			<div class="table-top-space"></div>
@@ -42,7 +45,7 @@
 				</div>
 
                 <div>
-					<input type="text" value="<?php echo $name; ?>" name="name" id="name" placeholder="Name">
+					<input  style="font-size: 14px; color: #737373;" type="text" value="<?php echo $name; ?>" name="name" id="name" placeholder="Name">
                     <input type="text" hidden name="source_id" value="<?php echo $source_id; ?>">
 					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>

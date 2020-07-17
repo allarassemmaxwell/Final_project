@@ -16,6 +16,9 @@
 		<title>Category || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		<!-- Web Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,14 +27,14 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Category
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add Category</a>
+					<a style="font-size: 15px;">Add Category</a>
 				</div>
 			</div>
 
@@ -42,16 +45,12 @@
 				<?php include('success.php'); ?><br>
 			</div>
 			
-			
-
-
-
-			<!-- <div class="table-top-space"></div> -->
+	
 			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Name</th>
-					<th>Date</th>
-					<th>Action</th>
+				<tr style="height: 65px; font-size: 15px;">
+					<th style="color: #737373;">Name</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 
 				<!-- LOOPING USER DATA -->
@@ -72,7 +71,7 @@
 											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
 										</button>&nbsp;&nbsp;&nbsp;
 									</form>
-										<!-- EDIT -->
+										<!-- UPDATE -->
 										<div style="margin-left:30px; margin-top:-20px">
 											<button>
 												<a href="category-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['category_id']; ?>&name=<?php echo $row['name'] ?>">
@@ -85,59 +84,42 @@
 						echo "</tr>";
 					}
 				?>
-
-
-				<!-- <tr>
-					<td>Food</td>
-					<td>20-03-2020</td>
-				  	<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr> -->
-				<!-- <tr>
-					<td>Electricity</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr> -->
 				
-			  </table>
+			</table>
 
-			  <div class="table-bottom-space"></div>
-			  <!-- <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div> -->
+			<div class="table-bottom-space"></div>
 
-			  <!-- The Modal -->
-				<div id="myModal" class="modal">
-					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Category</p>
-						<form class="add-category-form" method="POST">
-							<div>
-								<?php include('errors.php'); ?><br>
-							</div>
-							<div>
-								<input type="text" name="name" placeholder="Name">
-							</div><br><br>
 
-							<div>
-								<input class="button-primary" name="add-category" type="submit" value="Create">
-							</div>
-						</form>    
-						<div class="table-bottom-space"></div>
-					</div>
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p style="text-align: center; font-size:15px; color: #737373;">Add Category</p>
+					<form class="add-category-form" method="POST">
+						<div>
+							<?php include('errors.php'); ?><br>
+						</div>
+						<div>
+							<input  style="font-size: 14px; color: #737373;" type="text" name="name" placeholder="Name">
+						</div><br><br>
+
+						<div>
+							<input class="button-primary" name="add-category" type="submit" value="Create">
+						</div>
+					</form>    
+					<div class="table-bottom-space"></div>
 				</div>
+			</div>
 		</div>
-
 
         <?php include_once("footer.php"); ?>
 		
 		
 		
+
+
+
         <!-- JAVASCRIPT -->
 		 <script
 			src="https://code.jquery.com/jquery-3.4.1.min.js"

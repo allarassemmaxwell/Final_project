@@ -20,7 +20,7 @@
     <nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
-            <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
             <a href="index.php" style="color:white;">F E M</a>
@@ -34,11 +34,29 @@
         </ul>
     </nav>
 
-    <section class="carousel"></section>
+    <section class="banner"></section>
 
 
 
-    <br> <br> <br> <br> <br> <br>
+    
+    <form class="login-form" method="POST" action="" style="width: 60%; margin: auto;">
+        <div>
+            <?php include('errors.php'); ?><br>
+        </div>
+        <div>
+            <?php include('success.php'); ?><br>
+        </div>
+        <div>
+            <input  style="font-size: 14px; color: #737373;" class="login-input" type="text" name="user_email" placeholder="First Name" value="<?php echo $user_email; ?>">
+        </div>
+        <div>
+            <input  style="font-size: 14px; color: #737373;" class="login-input" type="text" name="user_email" placeholder="Last Name" value="<?php echo $user_email; ?>">
+        </div>
+        <div>
+            <input  style="font-size: 14px; color: #737373;" class="login-input" type="email" name="user_email" placeholder="Email" value="<?php echo $user_email; ?>">
+        </div>
+        <button class="button">Maxwell</button><br><br><br>
+    </form>    
     
 
     <!-- START OF FOOTER -->

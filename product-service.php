@@ -16,6 +16,9 @@
 		<title>Product-Service || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,14 +27,14 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Product/Service
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add Product</a>
+					<a style="font-size: 15px;">Add Product</a>
 				</div>
 			</div>
 
@@ -48,11 +51,11 @@
 
 			<!-- <div class="table-top-space"></div> -->
 			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Category</th>
-					<th>Product/Service</th>
-					<th>Date</th>
-					<th>Action</th>
+				<tr style="height: 65px; font-size: 15px;">
+					<th style="color: #737373;">Category</th>
+					<th style="color: #737373;">Product/Service</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 
 				<!-- LOOPING USER DATA -->
@@ -100,26 +103,23 @@
 			</table>
 
 			<div class="table-bottom-space"></div>
-			<!-- <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-            </div> -->
-              
-           
+
+
 
 
 		   <!-- The Modal -->
 			<div id="myModal" class="modal">
 					<div class="modal-content">
 						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Product/Sevice</p>
+						<p style="text-align: center; font-size:15px; color: #737373">Add Product/Sevice</p>
 						<form class="product-service-form" method="POST">
 				<div>
 					<?php include('errors.php'); ?><br>
 				</div>
 
                 <div>
-					<select id="category" name="category">
-						<option value="">--- Select Category ---</option>
+					<select id="category" name="category"  style="font-size: 14px; color: #737373;">
+						<option value="">Select Category</option>
 						<?php 
 							$user_id = $_SESSION['user_id'];
 							$query   = "SELECT * FROM ProductServiceCategory WHERE user_id = '$user_id' ORDER BY created_at DESC";
@@ -137,7 +137,7 @@
 				</div><br><br>
 
                 <div>
-					<input type="text" name="name" placeholder="Name">
+					<input  style="font-size: 14px; color: #737373;" type="text" name="name" placeholder="Name">
 				</div><br><br>
 
                 <div>

@@ -16,6 +16,9 @@
 		<title>Income Add || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -25,12 +28,9 @@
 
 		<div class="main-content">
             
-                <div class="title-left">
-                    <a href="income.php" style="text-decoration: none; color: #333;">Income</a>
-                    /Add
-                </div>
-
-
+            <div class="title-left" style="font-size: 15px; color: #737373;">
+				<a style="text-decoration: none" class="primary" href="income.php">Income</a>/ Update
+            </div>
             <div class="table-top-space"></div>
             
 
@@ -43,8 +43,8 @@
 				</div>
 				
                 <div>
-					<select id="source" name="source">
-						<option value="">--- Select Source ---</option>
+					<select id="source" name="source"  style="font-size: 14px; color: #737373;">
+						<option value="">Select Source</option>
                         <?php 
                             $user_id   = $_GET['id1'];
                             $income_id = $_GET['id2'];
@@ -69,7 +69,7 @@
 				</div><br><br>
 
                 <div>
-					<input type="text" value="<?php echo $amount; ?>" name="amount" placeholder="Amount">
+					<input  style="font-size: 14px; color: #737373;" type="text" value="<?php echo $amount; ?>" name="amount" placeholder="Amount">
                     <input type="text" hidden name="income_id" value="<?php echo $income_id; ?>">
 					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>

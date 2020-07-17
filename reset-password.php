@@ -1,3 +1,8 @@
+<?php
+    require_once('config/db_connection.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,26 +10,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reset Password || FEM</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sign.css">
     
+    <!-- Web Fonts  -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
     <!-- IMPORT FONT AWSOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
 </head>
 <body>
-    <div class="reset-password">
-        <div class="reset-password-content">
-            <p class="reset-password-title">Reset password</p>
-            <form class="reset-password-form" method="POST" action="index.php">
+    <div class="container">
+        <div class="row">
+            <p class="title">Reset password</p>
+            <form class="reset-password-form" method="POST" action="">
                 <div>
-                    <input class="reset-password-input" name="email" type="email" placeholder="Email">
-                </div><br><br>
+                    <?php include('errors.php'); ?><br>
+                </div>
+                <div>
+                    <input name="email" type="email" placeholder="Email">
+                </div><br>
                 <div class="space"></div>
                 <div>
                     <button class="reset-password-submit" type="submit">Reset Password</button>
                 </div>
                 
-                <p class="create-account">Already have account?<a href="index.php"> Login</p>
+                <p class="create-account">Already have account?<a href="login.php"> Login</p>
             </form>             
         </div>
     </div> 

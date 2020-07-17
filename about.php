@@ -20,7 +20,7 @@
     <nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
-            <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
             <a href="index.php" style="color:white;">F E M</a>
@@ -34,7 +34,7 @@
         </ul>
     </nav>
 
-    <section class="carousel"></section>
+    <section class="banner"></section>
 
 
 

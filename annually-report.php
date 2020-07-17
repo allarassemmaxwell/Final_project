@@ -7,6 +7,9 @@
 		<title>Annually Report || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		<!-- Web Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
+			
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -16,13 +19,13 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Annually Report
 			</div>
 
             
             
-            <div class="table-top-space"></div>
+            <!-- <div class="table-top-space"></div> -->
 			<div class="report-title">
                 <div>User: Allarassem&nbsp;&nbsp; Maxime</div>
                 <div>Date: 20/03/2020</div>
@@ -33,16 +36,15 @@
 
 
 
-			<div class="table-top-space"></div>
-			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Name</th>
-					<th>Source</th>
-                    <th>Income</th>
-                    <th>Expenditure</th>
-                    <th>Price</th>
-					<th>Date</th>
-					<!-- <th>Action</th> -->
+			<!-- <div class="table-top-space"></div> -->
+			<table style="margin-top: 15px;">
+				<tr style="height: 65px; font-size: 15px; color: #737373;">
+					<th style="color: #737373;">Name</th>
+					<th style="color: #737373;">Source</th>
+                    <th style="color: #737373;">Income</th>
+                    <th style="color: #737373;">Expenditure</th>
+                    <th style="color: #737373;">Price</th>
+					<th style="color: #737373;">Date</th>
 				</tr>
 				<tr>
 					<td>Allarassem</td>

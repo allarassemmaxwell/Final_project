@@ -15,6 +15,9 @@
 		<title>Product-Service Add || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,12 +27,9 @@
 
 		<div class="main-content">
             
-                <div class="title-left">
-                    <a href="product-service.php" style="text-decoration: none; color: #333;">Product/Service</a>
-                    /Update
-                </div>
-
-
+            <div class="title-left" style="font-size: 15px; color: #737373;">
+				<a style="text-decoration: none" class="primary" href="product-service.php">Product/Service</a>/ Update
+            </div>
             <div class="table-top-space"></div>
             
             <form class="product-service-form" method="POST">
@@ -38,8 +38,8 @@
 				</div>
 
                 <div>
-					<select id="category" name="category">
-						<option value="">--- Select Category ---</option>
+					<select id="category" name="category"  style="font-size: 14px; color: #737373;">
+						<option value="">Select Category</option>
                         <?php 
                         
                             $user_id     = $_GET['id1'];
@@ -67,7 +67,7 @@
 				</div><br><br>
 
                 <div>
-					<input type="text" value="<?php echo $name; ?>" name="name" placeholder="Name">
+					<input  style="font-size: 14px; color: #737373;" type="text" value="<?php echo $name; ?>" name="name" placeholder="Name">
                     <input type="text" hidden name="product_service_id" value="<?php echo $product_service_id; ?>">
 					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>

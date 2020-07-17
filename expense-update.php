@@ -16,6 +16,9 @@
 		<title>Expense Edit || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -25,12 +28,9 @@
 
 		<div class="main-content">
             
-                <div class="title-left">
-                    <a href="expense.php" style="text-decoration: none; color: #333;">Expense</a>/
-                    /Update
-                </div>
-
-
+            <div class="title-left" style="font-size: 15px; color: #737373;">
+				<a style="text-decoration: none" class="primary" href="expense.php">Expense</a>/ Update
+            </div>
             <div class="table-top-space"></div>
             
             <form class="add-expense-form" method="POST">
@@ -39,8 +39,8 @@
 				</div>
 
 				<div>
-					<select id="product_or_service" name="product_or_service">
-						<option value="">--- Select Product/Service ---</option>
+					<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+						<option value="">Select Product/Service</option>
 						<?php 
 
 							$user_id 	= $_GET['id1'];
@@ -66,7 +66,7 @@
 				</div><br><br>
 
 				<div>
-					<input type="text" name="price" id="price" value="<?php echo $price; ?>" placeholder="Price">
+					<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" value="<?php echo $price; ?>" placeholder="Price">
 					<input type="text" hidden name="expense_id" value="<?php echo $expense_id; ?>">
 					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>

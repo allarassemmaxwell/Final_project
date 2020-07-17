@@ -4,7 +4,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: "Lato", sans-serif;
+	font-family: montserrat;
 }
 
 
@@ -96,32 +96,30 @@ body {
 /* FORM ERROR */
 /* ERROR */
 .error {
-    margin: 0px auto; 
-    padding: 2px 2px;
+    padding: 0px 2px;
     border: 1px solid #a94442; 
     color: #a94442; 
     background: #f2dede; 
-    border-radius: 5px; 
     width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 10%;
+    font-size: 14px;
 }
 
 /* SUCCESS */
 .success {
+	padding: 0px 2px;
+    border: 1px solid #3c763d;
     color: #3c763d; 
     background: #dff0d8; 
-    border: 1px solid #3c763d;
-    margin-bottom: 20px;
+    font-size: 14px;
+	text-align: center;
+	
 }
 
 /* COLORS */
 .danger {
 	color: #dc3545; 
 }
-/* .success {
-	color: #28a745; 
-} */
 .primary {
 	color: #00C2FF;
 }
@@ -155,6 +153,9 @@ table {
 	border-collapse: collapse;
 	width: 95%;
 	margin: auto;
+	color: #737373; 
+	font-size: 14px; 
+	margin-top: 15px;
 }
   
 td, th {
@@ -195,7 +196,7 @@ tr:nth-child(even) {
 	width: 100%;
 	z-index: 3;
 	height: 44px;
-	background-color: #fff;
+	background-color: #00C2FF;
 	border-bottom: 3px solid black;
 }
 /* logo in header(mobile version) and side-nav (tablet & desktop) */
@@ -219,7 +220,7 @@ tr:nth-child(even) {
 	z-index: 1;
 	padding: 10px;
 	font-weight: 700;
-	color: #233245;
+	color: #fff;
 }
 .logo  i {
 	font-size: 22px;
@@ -239,7 +240,7 @@ tr:nth-child(even) {
 .nav-trigger span, .nav-trigger span:before, span:after {
 	width: 20px;
 	height: 2px;
-	background-color: #35475e;
+	background-color: #fff;
 	position: absolute;
 }
 .nav-trigger span {
@@ -344,16 +345,17 @@ background-color: #999;
 }
 
 .report-title {
+	font-size: 12px; 
+	color: #737373; 
+	margin-top: 10px;
 	background-color: #dddddd;
 	margin-left: 2.5%;
 	margin-right: 2.5%;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	color: #333;
-	font-size: 13px;
 }
 .report-title div{
-	margin: 15px;
+	margin: 10px;
 	font-weight: bold;
 	font-size: larger;
 }

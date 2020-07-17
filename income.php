@@ -16,6 +16,9 @@
 		<title>Income || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -24,14 +27,14 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Income
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add Income</a>
+					<a style="font-size: 15px;">Add Income</a>
 				</div>
 			</div>
 
@@ -43,26 +46,22 @@
 			</div>
 			
 			
-
-
-
-			<!-- <div class="table-top-space"></div> -->
 			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<!-- <th>Name</th> -->
-					<!-- <th>Month</th> -->
-                    <th>Source</th>
-                    <th>Income</th>
-					<th>Date</th>
-					<th>Action</th>
+				<tr style="height: 65px; font-size: 15px;">
+                    <th style="color: #737373;">Source</th>
+                    <th style="color: #737373;">Income</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 
 				<!-- LOOPING USER DATA -->
 				<?php 
+					$total_amount = 0;
 					$user_id = $_SESSION['user_id'];
 					$query   = "SELECT * FROM Income WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					while($row = $results->fetch_assoc()) {
+						$total_amount += $row['amount'];
 						echo "<tr>";
 
 							// GET SOURCE NAME
@@ -76,7 +75,7 @@
 							// DISPLAY DATA
 							?>
 								<td><?php echo $source_data['name']; ?></td>
-								<td><?php echo $row['amount']; ?></td>
+								<td><?php echo number_format($row['amount'], 2); ?></td>
 								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
 								<td> 
 									<!-- DELETE -->
@@ -99,64 +98,72 @@
 						echo "</tr>";
 					}
 				?>
-			  </table>
+			</table>
 
-			  <div class="table-bottom-space"></div>
-			  <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div>
+			<!-- <div class="table-bottom-space"></div> -->
 
-
-
-
-			  <!-- The Modal -->
-				<div id="myModal" class="modal">
-					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Income</p>
-						<form class="add-income-form" method="POST">
-				<div>
-					<?php include('errors.php'); ?><br>
-				</div>
-				
-                <div>
-					<select id="source" name="source">
-						<option value="">--- Select Source ---</option>
-						<?php 
-							$user_id = $_SESSION['user_id'];
-							$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
-							$results = mysqli_query($con, $query);
-
-							if (mysqli_num_rows($results) > 0) {
-								while($row = mysqli_fetch_assoc($results)) {
-									echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
-								}
-							} else {
-								// echo "0 results";
-							}
-						?>
-					</select>
-				</div><br><br>
-
-                <div>
-					<input type="text" name="amount" placeholder="Amount">
-				</div><br><br>
-				
-                <div>
-                    <input class="button-primary" name="add-income" type="submit" value="Create">
-                </div>
-            </form>  
-						<div class="table-bottom-space"></div>
+			<?php 
+			  	if (mysqli_num_rows($results) > 0) {
+					  ?>
+					<div class='table-bottom-space'></div>
+					<div class='table-total'>
+						<button class='button-error-total'>Ksh: <?php echo number_format($total_amount, 2); ?></button>
 					</div>
+					<?php
+				}
+			?>
+
+
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p style="text-align: center; font-size: 15px; color: #737373">Add Income</p>
+					<form class="add-income-form" method="POST">
+						<div>
+							<?php include('errors.php'); ?><br>
+						</div>
+						
+						<div>
+							<select id="source" name="source"  style="font-size: 14px; color: #737373;">
+								<option value="">Select Source</option>
+								<?php 
+									$user_id = $_SESSION['user_id'];
+									$query   = "SELECT * FROM Source WHERE user_id = '$user_id' ORDER BY created_at DESC";
+									$results = mysqli_query($con, $query);
+
+									if (mysqli_num_rows($results) > 0) {
+										while($row = mysqli_fetch_assoc($results)) {
+											echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
+										}
+									} else {
+										// echo "0 results";
+									}
+								?>
+							</select>
+						</div><br><br>
+
+						<div>
+							<input  style="font-size: 14px; color: #737373;" type="text" name="amount" placeholder="Amount">
+						</div><br><br>
+						
+						<div>
+							<input class="button-primary" name="add-income" type="submit" value="Create">
+						</div>
+					</form>  
+					<div class="table-bottom-space"></div>
 				</div>
+			</div>
 		</div>
-
-
 
 		<?php include_once("footer.php"); ?>
 		
 		
 		
+
+
+
         <!-- JAVASCRIPT -->
 		 <script
 			src="https://code.jquery.com/jquery-3.4.1.min.js"

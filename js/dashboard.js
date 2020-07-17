@@ -116,7 +116,7 @@ $(document).ready(function() {
 
 
 
-	//   MODAL
+	//   START OF MODAL 	START OF MODAL 		START OF MODAL 		START OF MODAL
 	// Get the modal
 	var modal = document.getElementById("myModal"); 
 
@@ -142,6 +142,8 @@ $(document).ready(function() {
 			modal.style.display = "none";
 		}
 	}
+
+	// END OF MODAL 		END OF MODAL 		END OF MODAL 		END OF MODAL
 	  
 
 

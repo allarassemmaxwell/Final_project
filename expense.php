@@ -16,6 +16,9 @@
 		<title>Expense || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -27,14 +30,14 @@
 
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Expense
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add expense</a>
+					<a style="font-size: 15px;">Add Expense</a>
 				</div>
 			</div>
 			
@@ -52,23 +55,23 @@
 			</div>
 
 			
-			<table  style="color: #737373;">
-
-			
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Category</th>
-					<th>Product/Service</th>
-					<th>Price</th>
-					<th>Date</th>
-					<th>Action</th>
+			<table>
+				<tr style="height: 65px; font-size: 15px; color: #737373;">
+					<th style="color: #737373;">Category</th>
+					<th style="color: #737373;">Product/Service</th>
+					<th style="color: #737373;">Price</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 				<!-- LOOPING USER DATA -->
 				<?php 
+					$total_price = 0;
 					$user_id = $_SESSION['user_id'];
 					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					if (mysqli_num_rows($results) > 0) {
 						while($row = $results->fetch_assoc()) {
+							$total_price += $row['price'];
 							echo "<tr>";
 								// GET PRODUCT SERVICE NAME
 								$product_service_id = $row['product_service_id'];
@@ -90,7 +93,7 @@
 								?>
 									<td><?php echo $product_category_data['name'] ?></td>
 									<td><?php echo $product_service_data['name'] ?></td>
-									<td><?php echo $row['price'] ?></td>
+									<td><?php echo number_format($row['price'], 2) ?></td>
 									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
 									<td> 
 										<!-- DELETE -->
@@ -100,7 +103,7 @@
 												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
 											</button>&nbsp;&nbsp;&nbsp;
 										</form>
-										<!-- EDIT -->
+										<!-- UPDATE -->
 										<div style="margin-left:30px; margin-top:-20px">
 											<button>
 												<a href="expense-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['expense_id'] ?>&id3=<?php echo $product_service_data['product_service_id'] ?>&price=<?php echo $row['price'] ?>">
@@ -116,10 +119,18 @@
 						// echo "There is No data";
 					}
 				?>	
-							
-							<!-- <button id="myBtn" class="button-error">Change Password</button> -->
-				
-			  </table>
+			</table>
+
+			<?php 
+			  	if (mysqli_num_rows($results) > 0) {
+					?>
+						<div class='table-bottom-space'></div>
+						<div class='table-total'>
+							<button class='button-error-total'>Ksh: <?php echo number_format($total_price, 2); ?></button>
+						</div>
+					<?php
+				}
+			?>
 
 
 
@@ -129,15 +140,15 @@
 				<div id="myModal" class="modal">
 					<div class="modal-content">
 						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Expense</p>
+						<p style="text-align: center; font-size: 15px; color: #737373">Add Expense</p>
 						<form class="add-expense-form" method="POST">
 							<div>
 								<?php include('errors.php'); ?><br>
 							</div>
 
 							<div>
-								<select id="product_or_service" name="product_or_service">
-									<option value="">--- Select Product/Service ---</option>
+								<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+									<option value="">Select Product/Service</option>
 									<?php 
 										$user_id = $_SESSION['user_id'];
 										$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
@@ -155,7 +166,7 @@
 							</div><br><br>
 
 							<div>
-								<input type="text" name="price" id="price" placeholder="Price">
+								<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
 							</div><br><br>
 
 							<div>
@@ -166,16 +177,7 @@
 					</div>
 				</div>
 
-			  
-
-			  <?php 
-			  	if (mysqli_num_rows($results) > 0) {
-					echo "<div class='table-bottom-space'></div>";
-					echo "<div class='table-total'>";
-						echo "<button class='button-error-total'>Ksh: 75.000</button>";
-					echo "</div>";
-				}
-			  ?>
+			
 
 		</div>
 

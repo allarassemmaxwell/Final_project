@@ -17,6 +17,9 @@
 		<title>Dashboard || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
+		    <!-- Web Fonts  -->
+			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -26,14 +29,14 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373">
 				Dashboard
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a>Add expense</a>
+					<a style="font-size: 15px;">Add Expense</a>
 				</div>
 			</div>
 			
@@ -45,23 +48,23 @@
 			</div>
 			
 
-
-			<!-- <div class="table-top-space"></div> -->
-			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Category</th>
-					<th>Product/Service</th>
-					<th>Price</th>
-					<th>Date</th>
-					<th>Action</th>
+			<table style="color: #737373; font-size: 14px;">
+				<tr style="height: 65px; font-size: 15px; color: #737373;">
+					<th style="color: #737373;">Category</th>
+					<th style="color: #737373;">Product/Service</th>
+					<th style="color: #737373;">Price</th>
+					<th style="color: #737373;">Date</th>
+					<th style="color: #737373;">Action</th>
 				</tr>
 				<!-- LOOPING USER DATA -->
 				<?php 
+					$total_price = 0;
 					$user_id = $_SESSION['user_id'];
 					$query   = "SELECT * FROM Expense WHERE user_id = '$user_id'  ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
 					if (mysqli_num_rows($results) > 0) {
 						while($row = $results->fetch_assoc()) {
+							$total_price += $row['price'];
 							echo "<tr>";
 								// GET PRODUCT SERVICE NAME
 								$product_service_id = $row['product_service_id'];
@@ -109,66 +112,70 @@
 						// echo "There is No data";
 					}
 				?>
+			</table>
 
-			  </table>
+			<?php 
+			  	if (mysqli_num_rows($results) > 0) {
+					?>
+						<div class='table-bottom-space'></div>
+						<div class='table-total'>
+							<button class='button-error-total'>Ksh: <?php echo number_format($total_price, 2); ?></button>
+						</div>
+					<?php
+				}
+			?>
 
 
-			  <!-- The Modal -->
-				<div id="myModal" class="modal">
-					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:17px;">Add Expense</p>
-						<form class="add-expense-form" method="POST">
-							<div>
-								<?php include('errors.php'); ?><br>
-							</div>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
+					<form class="add-expense-form" method="POST">
+						<div>
+							<?php include('errors.php'); ?><br>
+						</div>
 
-							<div>
-								<select id="product_or_service" name="product_or_service">
-									<option value="">--- Select Product/Service ---</option>
-									<?php 
-										$user_id = $_SESSION['user_id'];
-										$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
-										$results = mysqli_query($con, $query);
+						<div>
+							<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+								<option value="">Select Product/Service</option>
+								<?php 
+									$user_id = $_SESSION['user_id'];
+									$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
+									$results = mysqli_query($con, $query);
 
-										if (mysqli_num_rows($results) > 0) {
-											while($row = mysqli_fetch_assoc($results)) {
-												echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
-											}
-										} else {
-											// echo "0 results";
+									if (mysqli_num_rows($results) > 0) {
+										while($row = mysqli_fetch_assoc($results)) {
+											echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
 										}
-									?>
-								</select>
-							</div><br><br>
+									} else {
+										// echo "0 results";
+									}
+								?>
+							</select>
+						</div><br><br>
 
-							<div>
-								<input type="text" name="price" id="price" placeholder="Price">
-							</div><br><br>
+						<div>
+							<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+						</div><br><br>
 
-							<div>
-								<input class="button-primary" name="add-expense" type="submit" value="Create">
-							</div>
-						</form>  
-						<div class="table-bottom-space"></div>
-					</div>
+						<div>
+							<input class="button-primary" name="add-expense" type="submit" value="Create">
+						</div>
+					</form>  
+					<div class="table-bottom-space"></div>
 				</div>
-
-
-
-			  <div class="table-bottom-space"></div>
-			  <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div>
+			</div>
 		</div>
-
-
-
-		
 
 		<?php include_once("footer.php"); ?>
 		
 		
+
+
+
+
+
 		
         <!-- JAVASCRIPT -->
 		 <script
