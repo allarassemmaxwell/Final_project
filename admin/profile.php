@@ -1,10 +1,9 @@
 <?php 
-	require_once('config/db_connection.php');
+	require_once('../config/db_connection.php');
 	
-  	// session_start(); 
-	if (!isset($_SESSION['user_id'])) {
+	if (!isset($_SESSION['is_admin'])) {
 		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
+		header('location: ../login.php');
 	}
 	
 	$user_id = $_SESSION['user_id'];
@@ -23,7 +22,10 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Profile || FEM</title>
-		<link rel="stylesheet" href="css/dashboard.css">
+		<link rel="stylesheet" href="../css/dashboard.css">
+
+		<!-- Web Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,30 +37,17 @@
 
 		<div class="main-content">
             
-                <div class="title-left">
+                <div class="title-left" style="font-size: 15px; color: #737373;">
                     Profile
 				</div>
-				
-				<!-- <div class="title-right">
-					<div class="add">
-						<i class="fa fa-plus"></i> 
-						<a href="">Username</a>
-					</div>
-					<div class="password-delete">
-						<a href="">Change Password</a>
-						<a href="">Delete Account</a>
-					</div>
-				</div> -->
-
-
             <div class="table-top-space"></div>
             
             <form class="profile-edit-form" method="POST">
 				<div>
-					<?php include('errors.php'); ?><br>
+					<?php include('../errors.php'); ?><br>
 				</div>
 				<div>
-                    <?php include('success.php'); ?><br>
+                    <?php include('../success.php'); ?><br>
                 </div>
 				<div>
 					<input type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name']; ?>">
@@ -87,8 +76,8 @@
 					<button class="button-error">Delete Account</button>
 				</a>
 			</div>
-			<div class="table-total">
-				<a href="change-password.php">
+			<div class="table-total" id="myBtn">
+				<a>
 					<button class="button-error">Change Password</button>
 				</a>
 			</div>
@@ -96,9 +85,44 @@
 
 
 
-		<?php include_once("footer.php"); ?>
-		
-		
+
+
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
+				<form class="add-expense-form" method="POST">
+					<div>
+						<?php include('../errors.php'); ?><br>
+					</div>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+							<option value="">Select Product/Service</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+					<div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+					</div><br><br>
+
+					<div>
+						<input class="button-primary" name="add-expense" type="submit" value="Create">
+					</div>
+				</form>  
+				<div class="table-bottom-space"></div>
+			</div>
+		</div>
+
+
+
+		<?php include_once("../footer.php"); ?>
 		
         <!-- JAVASCRIPT -->
         <script
@@ -108,6 +132,6 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="js/dashboard.js"></script>
+		<script src="../js/dashboard.js"></script>
 	</body>
 </html>

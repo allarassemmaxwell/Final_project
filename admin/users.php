@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Category || FEM</title>
+		<title>User || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
 
 		<!-- Web Fonts  -->
@@ -24,17 +24,20 @@
 	</head>
 	<body>
 
+
 		<?php include('header.php'); ?>
+
+
 
 		<div class="main-content">
 			<div class="title-left" style="font-size: 15px; color: #737373;">
-				Category
+				Users
 			</div>
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a style="font-size: 15px;">Add Category</a>
+					<a style="font-size: 15px;">Add Users</a>
 				</div>
 			</div>
 			
@@ -42,38 +45,38 @@
 
 
 
-			<!-- <div class="table-top-space"></div> -->
-			<div>
+            <!-- <div class="table-top-space"></div> -->
+            <div>
 				<?php include('../errors.php'); ?><br>
 			</div>
 			<div>
 				<?php include('../success.php'); ?><br>
-			</div>
-			<table style="color: #737373; font-size: 14px;">
-				<tr style="height: 65px; font-size: 15px;">
-					<th style="color: #737373;">User</th>
-					<th style="color: #737373;">Category</th>
+            </div>
+            
+
+			<table style="font-size: 14px;">
+				<tr style="height: 65px; font-size: 18px;">
+					<th style="color: #737373;">Email</th>
+					<th style="color: #737373;">First Name</th>
+					<th style="color: #737373;">Last Name</th>
+					<th style="color: #737373;">Members</th>
 					<th style="color: #737373;">Date</th>
 					<th style="color: #737373;">Action</th>
-				</tr>
-				<?php 
-                    $query   = "SELECT * FROM ProductServiceCategory ORDER BY created_at DESC";
+                </tr>
+                
+                <?php 
+                    $query   = "SELECT * FROM User ORDER BY created_at DESC";
                     $results = mysqli_query($con, $query);
                     if (mysqli_num_rows($results) > 0) {
                         while($row = $results->fetch_assoc()) {
-							// GET USER
-							$user_id = $row['user_id'];
-							$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$user_data = $result2->fetch_assoc();		
-							}
-							?>
-								<tr>
-									<td><?php echo $user_data['user_email'] ?></td>
-									<td><?php echo $row['name'] ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
+                            ?>
+                                <tr>
+                                    <td><?php echo $row['user_email'] ?></td>
+                                    <td><?php echo $row['first_name'] ?></td>
+                                    <td><?php echo $row['last_name'] ?></td>
+                                    <td><?php echo $row['family_number'] ?></td>
+                                    <td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+                                    <td> 
 										<!-- DELETE -->
 										<form action="" method="POST" style="margin-left:-40px;">
 											<input hidden name="user_id" value="<?php echo $row['user_id'] ?>"></input>
@@ -90,15 +93,66 @@
 											</button>
 										</div>
 									</td>
-								</tr>
-							<?php
-						}
-					}
+                                </tr>
+                            <?php 
+                        }
+                    }
 				?>
-				
-			  </table>
-			  <div class="table-bottom-space"></div>
+			</table>
+
+			  
+			<div class="table-bottom-space"></div>
+
+			  
 		</div>
+
+
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p style="text-align: center; font-size: 15px; color:#737373">Add User</p>
+				<form class="add-expense-form" method="POST">
+					<div>
+						<?php include('../errors.php'); ?><br>
+                    </div>
+                    
+                    <div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="First name">
+                    </div><br><br>
+                    
+                    <div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Last name">
+                    </div><br><br>
+                    
+                    <div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Email">
+                    </div><br><br>
+                    
+                    <div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Family member">
+                    </div><br><br>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+							<option value="">Role</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+
+					<div>
+						<input class="button-primary" name="add-expense" type="submit" value="Create">
+					</div>
+				</form>  
+				<div class="table-bottom-space"></div>
+			</div>
+		</div>
+
 
 
 
@@ -133,12 +187,13 @@
 				<div class="table-bottom-space"></div>
 			</div>
 		</div>
+		
 
 
 
 
-
-        <?php include_once("../footer.php"); ?>
+		
+		<?php include_once("../footer.php"); ?>
 		
         <!-- JAVASCRIPT -->
 		 <script

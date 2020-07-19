@@ -1,9 +1,9 @@
 <?php 
-  	session_start(); 
+	require_once('../config/db_connection.php');
 
-	if (!isset($_SESSION['user_email'])) {
+	if (!isset($_SESSION['is_admin'])) {
 		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
+		header('location: ../login.php');
 	}
 ?>
 <!DOCTYPE html>
@@ -13,8 +13,11 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dashboard || FEM</title>
-		<link rel="stylesheet" href="css/dashboard.css">
+		<link rel="stylesheet" href="../css/dashboard.css">
 
+		<!-- Web Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
+			
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -23,123 +26,196 @@
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
-			<div class="title-left">
+			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Dashboard
 			</div>
 
-			<div class="title-right">
+			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a href="expense-add.php">Add expense</a>
+					<a style="font-size: 15px;">Add expense</a>
 				</div>
 			</div>
 			
-			<div style="margin-left:20px; background-color: red;">
-				<?php if (isset($_SESSION['success'])) : ?>
-					<div class="error success" >
-						<h3>
-							<?php 
-								echo $_SESSION['success']; 
-								unset($_SESSION['success']);
-							?>
-						</h3>
-					</div>
-				<?php endif ?>
+
+
+            <div>
+				<?php include('../errors.php'); ?><br>
 			</div>
-			
+			<div>
+				<?php include('../success.php'); ?><br>
+            </div>
+
+			<div class="row">
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from User";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+								<span style="float: right; height: 30px; width: 30px;">
+									<i class="fa fa-users"></i>
+								</span>
+							</div>
+							<div style="margin-top: 10px;">Users</div>
+						<?php
+					?>
+				</div>
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from Expense";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+								<span style="float: right; height: 30px; width: 30px;">
+									<i class="fa fa-exchange"></i>
+								</span>
+							</div>
+							<div style="margin-top: 10px;">Expenses</div>
+						<?php
+					?>
+				</div>
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from Source";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+								<span style="float: right; height: 30px; width: 30px;">
+									<i class="fa fa-database"></i>
+								</span>
+							</div>
+							<div style="margin-top: 10px;">Source</div>
+						<?php
+					?>
+				</div>
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from Income";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+								<span style="float: right; height: 30px; width: 30px;">
+									<i class="fa fa-money"></i>
+								</span>
+							</div>
+							<div style="margin-top: 10px;">Income</div>
+						<?php
+					?>
+				</div>
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from ProductServiceCategory";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+								<span style="float: right; height: 30px; width: 30px;">
+									<i class="fa fa-server"></i>
+								</span>
+							</div>
+							<div style="margin-top: 10px;">Category</div>
+						<?php
+					?>
+				</div>
+				<div class="column">
+					<?php 
+						$query  = "SELECT COUNT(*) as total from ProductService";
+						$result = mysqli_query($con, $query);
+						$data 	= mysqli_fetch_assoc($result);
+						?>
+							<div>
+								<?php echo $data['total']; ?>
+							<span style="float: right; height: 30px; width: 30px;">
+								<i class="fa fa-product-hunt"></i>
+							</span>
+						</div>
+						<div style="margin-top: 10px;">Products/Sevices</div>
+					<?php
+					?>
+				</div>
+			</div>
 
 
-			<div class="table-top-space"></div>
-			<table>
-				<tr style="height: 65px; font-size: 18px;">
-					<th>Category</th>
-					<th>Product/Service</th>
-					<th>Price</th>
-					<th>Date</th>
-					<th>Action</th>
-				</tr>
-				<tr>
-					<td>Alfreds Futterkiste</td>
-					<td>Maria Anders</td>
-					<td>ksh 150</td>
-					<td>20-03-2020</td>
-				  	<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>Centro comercial Moctezuma</td>
-					<td>Francisco Chang</td>
-					<td>ksh 200</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>Ernst Handel</td>
-					<td>Roland Mendel</td>
-					<td>ksh 100</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>Island Trading</td>
-					<td>Helen Bennett</td>
-					<td>ksh 250</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>Laughing Bacchus Winecellars</td>
-					<td>Yoshi Tannamuri</td>
-					<td>ksh 350</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-				<tr>
-					<td>Magazzini Alimentari Riuniti</td>
-					<td>Giovanni Rovelli</td>
-					<td>ksh 300</td>
-					<td>20-03-2020</td>
-					<td>
-						<i class="fa fa-trash-o icon-delete" title="Delete"></i>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-pencil icon-edit" title="Edit"></i>
-					</td>
-				</tr>
-			  </table>
+			<style>
+				.column {
+					margin: 0px 4px;
+					float: left;
+					width: 16%;
+					padding: 15px;
+					background-color:#00C2FF; 
+					color: white;
+					text-align: center;
+				}
+				.row:after {
+					content: "";
+					display: table;
+					clear: both;
+					margin: auto;
+					width: 100%;
+				}
+			</style>
+		</div>
 
-			  <div class="table-bottom-space"></div>
-			  <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div>
+
+
+
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
+				<form class="add-expense-form" method="POST">
+					<div>
+						<?php include('../errors.php'); ?><br>
+					</div>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+							<option value="">Select Product/Service</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+					<div>
+						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+					</div><br><br>
+
+					<div>
+						<input class="button-primary" name="add-expense" type="submit" value="Create">
+					</div>
+				</form>  
+				<div class="table-bottom-space"></div>
+			</div>
 		</div>
 
 
 
 		
 
-		<?php include_once("footer.php"); ?>
-		
-
+		<?php include_once("../footer.php"); ?>
 		
         <!-- JAVASCRIPT -->
-        <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-        </script>
-        <script src="js/dashboard.js"></script>
+		 <script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous">
+		</script>   
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+		<script src="../js/dashboard.js"></script>
 	</body>
 </html>

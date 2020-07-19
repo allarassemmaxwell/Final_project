@@ -74,6 +74,7 @@
             if (mysqli_num_rows($results) == 1) {
                 $user_data = mysqli_fetch_assoc($results);
                 if ($user_data['is_admin'] == '1') {
+                    $_SESSION['is_admin']   = $user_data['is_admin'];
                     $_SESSION['user_id']    = $user_data['user_id'];
                     $_SESSION['user_email'] = $user_data['user_email'];
                     header('location: admin/dashboard.php');		  
