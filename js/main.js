@@ -47,6 +47,23 @@ $(document).ready(function() {
 
 
 
+    // CONTACT FORM
+    $(".contact-form").validate({
+        rules: {
+            first_name: 'required',
+            last_name: 'required',
+            subject: 'required',
+            message: 'required',
+            email: {
+                required: true,
+                email: true
+            }
+        }
+    });
+
+
+
+
     
 });
 

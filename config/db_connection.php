@@ -249,6 +249,35 @@
 
 
 
+    // ADDING CONTACT
+    if(isset($_POST['add-contact'])) {
+        $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
+        $last_name  = mysqli_real_escape_string($con, $_POST['last_name']);
+        $email      = mysqli_real_escape_string($con, $_POST['email']);
+        $subject    = mysqli_real_escape_string($con, $_POST['subject']);
+        $message    = mysqli_real_escape_string($con, $_POST['message']);
+
+        if (empty($first_name)) { array_push($errors, "First name is required"); }
+        if (empty($last_name))  { array_push($errors, "Last name is required"); }
+        if (empty($email))      { array_push($errors, "Email is required"); }
+        if (empty($subject))    { array_push($errors, "Subject is required"); }
+        if (empty($message))    { array_push($errors, "Messageis required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Contact (first_name, last_name, email, subject, message) VALUES('$first_name', '$last_name', '$email', '$subject', '$message')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Your message has been sent successfully. We will get back to you as soon as possible";
+                // header('Location: product-service.php');
+            }
+        }
+    }
+
+
+
+
 
     // CHANGE USER PASSWORD
     if (isset($_POST['change_password'])) {
@@ -293,13 +322,30 @@
 // DELETE SECTION      DELETE SECTION       DELETE SECTION       DELETE SECTION     DELETE SECTION
 
     // DELETE ACCOUNT
-    if (isset($_GET['delete-account'])) {
-        $old_password    = $_POST['old_password'];
-        $new_password    = $_POST['new_password'];
-        $c_password      = $_POST['c_password'];
-        $user_id         = $_SESSION['user_id'];
+    if (isset($_GET['delete_account'])) {
+        $password = $_POST['c_password'];
+        $user_id  = $_SESSION['user_id'];
+        $user_password = md5($password);
+
+        echo "OK";
+
+        // if (empty($password)) { array_push($errors, "Password is required"); }
+
+        // $user_check_query = "SELECT * FROM User WHERE user_id='$user_id' AND user_password='$user_password'";
         
-        echo $user_id;
+        // if (!$user) { 
+        //     array_push($errors, "Wrong email/password combination");
+        // }
+        // if (count($errors) == 0) {
+        //     echo $user_id;
+        // }
+        
+        // echo $user_id;
+        // $query1  = "DELETE FROM ProductService WHERE product_service_category_id='$category_id'";
+        // $result1 = mysqli_query($con, $query1);
+        // if (!$result1) { 
+        //     array_push($errors, "Error: Connection failed: $query");
+        // }
     }
 
 
@@ -327,6 +373,11 @@
 
         if (empty($source_id)) { array_push($errors, "Source is required"); }
 
+        $query1  = "DELETE FROM Income WHERE source_id='$source_id'";
+        $result1 = mysqli_query($con, $query1);
+        if (!$result1) { 
+            array_push($errors, "Error: Connection failed: $query");
+        }
         if (count($errors) == 0) {
             $query  = "DELETE FROM Source WHERE source_id='$source_id'";
             $result = mysqli_query($con, $query);
@@ -365,6 +416,11 @@
 
         if (empty($category_id)) { array_push($errors, "Category is required"); }
 
+        $query1  = "DELETE FROM ProductService WHERE product_service_category_id='$category_id'";
+        $result1 = mysqli_query($con, $query1);
+        if (!$result1) { 
+            array_push($errors, "Error: Connection failed: $query");
+        }
         if (count($errors) == 0) {
             $query  = "DELETE FROM ProductServiceCategory WHERE category_id='$category_id'";
             $result = mysqli_query($con, $query);
@@ -384,6 +440,11 @@
 
         if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
 
+        $query1  = "DELETE FROM Expense WHERE product_service_id='$product_service_id'";
+        $result1 = mysqli_query($con, $query1);
+        if (!$result1) { 
+            array_push($errors, "Error: Connection failed: $query");
+        }
         if (count($errors) == 0) {
             $query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
             $result = mysqli_query($con, $query);

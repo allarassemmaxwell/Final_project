@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 19, 2020 at 10:24 PM
+-- Generation Time: Aug 05, 2020 at 11:08 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -24,6 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Contact`
+--
+
+CREATE TABLE `Contact` (
+  `contact_id` int(11) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Contact`
+--
+
+INSERT INTO `Contact` (`contact_id`, `first_name`, `last_name`, `email`, `subject`, `message`, `created_at`) VALUES
+(1, 'Allarassem', 'Maxime', 'a@gmail.com', 'sd', 'Crestwood Marketing & Communications Ltd is an integrated communications agency that endeavours to professionally solve sophisticated business and communications problems by strategically utilizing data-driven and other exceptional approaches to enhance and protect brands and reputations.\r\nWe pride ourselves in a competent and creative team of communication, public relations, advertising, design and marketing practitioners and strategists,\r\nwith vast and distinguished experience.', '2020-08-04 22:36:43'),
+(2, 'Alla', 'Max', 'ad@gmail.com', 'subject 1', 'Crestwood Marketing & Communications Ltd is an integrated communications agency that endeavours to professionally solve sophisticated business and communications problems by strategically utilizing data-driven and other exceptional approaches to enhance and protect brands and reputations.\r\nWe pride ourselves in a competent and creative team of communication, public relations, advertising, design and marketing practitioners and strategists,\r\nwith vast and distinguished experience.', '2020-08-04 22:47:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Expense`
 --
 
@@ -40,14 +64,10 @@ CREATE TABLE `Expense` (
 --
 
 INSERT INTO `Expense` (`expense_id`, `user_id`, `product_service_id`, `price`, `created_at`) VALUES
-(11, 4, 6, '100', '2020-07-11 23:53:22'),
 (12, 4, 7, '200', '2020-07-11 23:53:31'),
-(14, 4, 10, '300', '2020-07-11 23:54:28'),
-(15, 4, 10, '300', '2020-07-11 23:54:36'),
-(16, 4, 11, '400', '2020-07-11 23:54:44'),
-(19, 4, 12, '500', '2020-07-12 14:21:09'),
 (24, 5, 14, '100', '2020-07-15 22:01:24'),
-(25, 5, 14, '12', '2020-07-17 22:01:23');
+(25, 5, 14, '12', '2020-07-17 22:01:23'),
+(26, 4, 7, '1000', '2020-07-27 21:18:20');
 
 -- --------------------------------------------------------
 
@@ -68,12 +88,9 @@ CREATE TABLE `Income` (
 --
 
 INSERT INTO `Income` (`income_id`, `source_id`, `amount`, `created_at`, `user_id`) VALUES
-(15, 32, '10', '2020-07-11 23:37:56', 4),
-(16, 33, '20', '2020-07-11 23:38:04', 4),
-(17, 34, '30', '2020-07-11 23:38:12', 4),
 (18, 35, '40', '2020-07-11 23:38:23', 4),
-(20, 36, '50', '2020-07-11 23:38:55', 4),
-(22, 38, '20000', '2020-07-15 21:58:15', 5);
+(22, 38, '20000', '2020-07-15 21:58:15', 5),
+(25, 34, '30000', '2020-07-25 11:28:18', 4);
 
 -- --------------------------------------------------------
 
@@ -94,11 +111,7 @@ CREATE TABLE `ProductService` (
 --
 
 INSERT INTO `ProductService` (`product_service_id`, `product_service_category_id`, `name`, `created_at`, `user_id`) VALUES
-(6, 6, 'Product 1', '2020-07-11 23:49:42', 4),
 (7, 10, 'Product 2', '2020-07-11 23:49:54', 4),
-(10, 11, 'Product 3', '2020-07-11 23:50:55', 4),
-(11, 12, 'Product 4', '2020-07-11 23:51:06', 4),
-(12, 13, 'Product 5', '2020-07-11 23:51:17', 4),
 (14, 18, 'Mango', '2020-07-15 21:59:10', 5);
 
 -- --------------------------------------------------------
@@ -123,7 +136,6 @@ INSERT INTO `ProductServiceCategory` (`category_id`, `user_id`, `name`, `created
 (10, 4, 'Category 2', '2020-07-11 23:44:59'),
 (11, 4, 'Category 3', '2020-07-11 23:45:05'),
 (12, 4, 'Category 4', '2020-07-11 23:45:11'),
-(13, 4, 'Category 5', '2020-07-11 23:45:18'),
 (18, 5, 'Food', '2020-07-15 21:58:45');
 
 -- --------------------------------------------------------
@@ -172,12 +184,10 @@ CREATE TABLE `Source` (
 --
 
 INSERT INTO `Source` (`source_id`, `user_id`, `name`, `created_at`) VALUES
-(32, 4, 'Source 1', '2020-07-11 23:28:22'),
-(33, 4, 'Source 2', '2020-07-11 23:28:28'),
 (34, 4, 'Source 3', '2020-07-11 23:28:32'),
 (35, 4, 'Source 4', '2020-07-11 23:28:36'),
-(36, 4, 'Source 5', '2020-07-15 19:48:32'),
-(38, 5, 'System Analyst', '2020-07-15 21:56:26');
+(38, 5, 'System Analyst', '2020-07-15 21:56:26'),
+(39, 4, 'Source 2', '2020-07-25 11:28:28');
 
 -- --------------------------------------------------------
 
@@ -202,12 +212,18 @@ CREATE TABLE `User` (
 
 INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `user_email`, `family_number`, `is_admin`, `user_password`, `created_at`) VALUES
 (3, 'Allarassem', 'Maxwell', 'alla@gmail.com', 0, 1, '59d4b220ea33c6b20362cc77fd961f13', '2020-06-06'),
-(4, 'Rajah', 'Adannou', 'a@gmail.com', 0, 0, '59d4b220ea33c6b20362cc77fd961f13', '2020-06-06'),
+(4, 'Allarassem', 'Maxime', 'a@gmail.com', 0, 0, '59d4b220ea33c6b20362cc77fd961f13', '2020-06-06'),
 (5, 'Victoria', 'Solmem', 'victoria@gmail.com', 0, 0, '59d4b220ea33c6b20362cc77fd961f13', '2020-07-16');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `Contact`
+--
+ALTER TABLE `Contact`
+  ADD PRIMARY KEY (`contact_id`);
 
 --
 -- Indexes for table `Expense`
@@ -276,16 +292,22 @@ ALTER TABLE `User`
 --
 
 --
+-- AUTO_INCREMENT for table `Contact`
+--
+ALTER TABLE `Contact`
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `Expense`
 --
 ALTER TABLE `Expense`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `Income`
 --
 ALTER TABLE `Income`
-  MODIFY `income_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `income_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `ProductService`
@@ -315,7 +337,7 @@ ALTER TABLE `Saving`
 -- AUTO_INCREMENT for table `Source`
 --
 ALTER TABLE `Source`
-  MODIFY `source_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `source_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `User`

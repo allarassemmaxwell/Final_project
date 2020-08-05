@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Expense Manager</title>
+    <title>Service || Family Expense Manager</title>
     <link rel="stylesheet" href="css/index.css">
 
     <!-- Web Fonts  -->
@@ -26,30 +26,92 @@
             <a href="index.php" style="color:white;">F E M</a>
         </label>
         <ul>
-            <li><a class="active" href="index.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="about.php">About</a></li>
-            <li><a href="services.php">Services</a></li>
+            <li><a href="services.php" class="active">Services</a></li>
+            <li><a href="faq.php">Faq</a></li>
             <li><a href="contact.php">Contact</a></li>
             <li><a href="login.php">Sign in</a></li>
         </ul>
     </nav>
 
-    <section class="banner"></section>
+    <section class="banner">
+        <div class="banner-title">Services</div>
+    </section>
 
 
 
-    <br> <br> <br> <br> <br> <br>
+    <div style="background-color: #F7F7F7; padding: 35px 0;">
+    <h1 style="text-align: center; margin: 25px 0px;">Our Services</h1>
+    <div class="row" style="padding-top: 20px">
+        <div class="column" style="background-color:#FFB695;">
+            <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+        <div class="column" style="background-color:#96D1CD;">
+        <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+        <div class="column" style="background-color: #00C2FF;">
+        <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column" style="background-color:#FFB695;">
+        <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+        <div class="column" style="background-color:#96D1CD;">
+        <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+        <div class="column" style="background-color: #00C2FF;">
+        <img src="images/img.jpg" alt="">
+            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
+            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+            </p>
+        </div>
+    </div>
+    <br><br>
+    </div>
     
+
+
 
     <!-- START OF FOOTER -->
     <footer>
         <div class="footer-container">
             <div class="container">
-                <p class="address">Langata<br>Nairobi Kenya</p>
-                <ul class="footer-links">
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
+                <p class="address">Langata Nairobi Kenya</p>
+
+                <p style="margin-top: 10px;">
+                    <li><a href="faq.php" style="color: white; font-size: 13px;">FAQ</a></li>
+                    <li><a href="terms-of-use.php" style="color: white; font-size: 13px;">TERMS OF USE</a></li>
+                    <li><a href="privacy-policy.php" style="color: white; font-size: 13px;">PRIVACY POLICY</a></li>
+                </p>
+
+        
+                <p style=" text-align: center; margin-top: 10px; font-size: 13px;">
+                    Copyright © 2020 F-E-M. All rights reserved.
+                </p>
             </div>
         </div>
     </footer>

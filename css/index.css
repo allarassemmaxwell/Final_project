@@ -8,6 +8,31 @@
 body {
     font-family: montserrat;
 }
+
+/* ERROR */
+.error {
+    padding: 0px 2px;
+    border: 1px solid #a94442; 
+    color: #a94442; 
+    background: #f2dede; 
+    width: 80%;
+    margin: 0 10%;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* SUCCESS */
+.success {
+    padding: 0px 2px;
+    border: 1px solid #3c763d;
+    color: #3c763d; 
+    background: #dff0d8; 
+    width: 80%;
+    margin: 0 10%;
+    font-size: 14px;
+    text-align: center;
+}
+
 nav {
     background: #00C2FF;
     height: 80px;
@@ -53,7 +78,7 @@ a.active,a:hover {
     display: none;
 }
 .carousel {
-    background: url("../images/expense.png") no-repeat;
+    background: url("../images/saving-family-expense-with-money-coin-and-light-bulb-.jpg") no-repeat;
     background-size: cover;
     height: calc(100vh - 80px);
 }
@@ -64,7 +89,7 @@ a.active,a:hover {
 	height: 270px;
 }
 
-input[type='text'], input[type='password'], input[type='email']{
+input[type='text'], input[type='password'], input[type='email'], textarea{
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -81,8 +106,84 @@ input[type='text'], input[type='password'], input[type='email']{
 	text-align: center;
 	text-decoration: none;
 	font-size: 14px;
-	border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
+.banner-title {
+    font-size: 40px; 
+    color:white; 
+    text-align: center; 
+    padding-top: 170px; 
+    font-weight: bold
+}
+
+.contact-form {
+    width: 50%; 
+    margin: auto;
+}
+
+.column {
+    float: left;
+    width: 29.8%;
+    padding: 10px;
+    height: 270px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.column img {
+    width: 70px; 
+    height: 70px; 
+    border-radius: 50px; 
+    margin-left: 43%; 
+    margin-top: 10px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    margin: auto;
+    padding: 10px;
+}
+
+.terms-and-conditions {
+    width: 70%; 
+    margin-left: auto; 
+    margin-right: auto; 
+    text-align: left; 
+    margin-top: 50px; 
+    margin-bottom: 50px;
+}
+
+
+
+/* FAQ */
+.accordion {
+    background-color: #eee;
+    color: #00C2FF;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  
+  .active, .accordion:hover {
+    background-color: #00C2FF; 
+    color: white;
+  }
+  
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+  }
 
 
 
@@ -93,27 +194,24 @@ input[type='text'], input[type='password'], input[type='email']{
     width: 100%;
     background: #3D444A;
     color: #fff;
-	padding: 15px;
 	text-align: center;
 	padding: 30px;
 }
-ul.footer-links {
-    margin: 0 auto;
+.footer-container .terms {
+    color: white; 
+    font-size: 13px;
 }
-ul.footer-links li {
-    display: inline-block;
+.footer-container .terms:hover {
+    margin-left: 5px;
+    color: #00C2FF; 
+    transition: .5s;
+    background-color: #3D444A;
 }
-ul.footer-links li a {
-    color: #9D9D9D;
-    font-size: 15px;
-    text-decoration: none;
+.footer-container p {
+    text-align: center; 
+    margin-top: 10px; 
+    font-size: 13px;
 }
-ul.footer-links li a:hover {
-	color: #00C2FF;
-	background-color: transparent;
-}
-
-
 
 
 
@@ -135,7 +233,26 @@ ul.footer-links li a:hover {
 		background-size: cover;
 		height: calc(100vh - 80px);
 		height: 200px;
-	}
+    }
+    .banner-title {
+        font-size: 40px; 
+        color:white; 
+        text-align: center; 
+        padding-top: 70px; 
+        font-weight: bold
+    }
+    .contact-form {
+        width: 90%; 
+        margin: auto;
+    }
+    .terms-and-conditions {
+        width: 80%; 
+        margin-left: auto; 
+        margin-right: auto; 
+        text-align: left; 
+        margin-top: 50px; 
+        margin-bottom: 50px;
+    }
 }
 
 
@@ -173,7 +290,38 @@ ul.footer-links li a:hover {
 		background-size: cover;
 		height: calc(100vh - 80px);
 		height: 150px;
-	}
+    }
+    .contact-form {
+        width: 90%; 
+        margin: auto;
+    }
+
+    .column {
+        float: left;
+        width: 90%;
+        padding: 10px;
+        height: 290px;
+        margin-top: 20px;
+        margin-left: 25px;
+        margin-right: 25px;
+        border-bottom-left-radius: 25px;
+        border-top-right-radius: 25px;
+    }
+    .column img {
+        width: 70px; 
+        height: 70px; 
+        border-radius: 50px; 
+        margin-left: 43%; 
+        margin-top: 10px;
+    }
+    .terms-and-conditions {
+        width: 80%; 
+        margin-left: auto; 
+        margin-right: auto; 
+        text-align: left; 
+        margin-top: 50px; 
+        margin-bottom: 50px;
+    }
 }
 
 

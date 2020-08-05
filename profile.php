@@ -76,9 +76,9 @@
 
 			<div class="table-bottom-space"></div>
 			<div class="table-total profile">
-				<a href="#">
-					<button class="button-error">Delete Account</button>
-				</a>
+				<!-- <a href="#"> -->
+				<button name="delete_account" class="button-error">Delete Account</button>
+				<!-- </a> -->
 			</div>
 			<div class="table-total">
 				<button id="myBtn" class="button-error">Change Password</button>
