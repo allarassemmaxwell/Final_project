@@ -42,7 +42,7 @@
 				</div>
             <div class="table-top-space"></div>
             
-            <form class="profile-edit-form" method="POST">
+            <form class="profile-edit-form" method="POST" style="font-size: 14px;">
 				<div>
 					<?php include('../errors.php'); ?><br>
 				</div>
@@ -50,19 +50,19 @@
                     <?php include('../success.php'); ?><br>
                 </div>
 				<div>
-					<input type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name']; ?>">
+					<input style="padding: 10px; color: #737373;" type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name']; ?>">
 				</div><br><br>
 
 				<div>
-					<input type="text" name="last_name" placeholder="Last name" value="<?php echo $profile_data['last_name']; ?>">
+					<input style="padding: 10px; color: #737373;" type="text" name="last_name" placeholder="Last name" value="<?php echo $profile_data['last_name']; ?>">
 				</div><br><br>
 
 				<div>
-					<input type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email']; ?>">
+					<input style="padding: 10px; color: #737373;" type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email']; ?>">
 				</div><br><br>
 
 				<div>
-					<input type="number" name="family_number" placeholder="Family Number">
+					<input style="padding: 10px; color: #737373;" type="number" name="family_number" placeholder="Family Number">
 				</div><br><br>
 
                 <div>
@@ -92,28 +92,26 @@
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
-				<form class="add-expense-form" method="POST">
+				<p style="text-align: center; font-size: 15px; color:#737373">Change password</p>
+				<form class="change-password-validation" method="POST">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
 
 					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
-							<option value="">Select Product/Service</option>
-							<option value="">1</option>
-							<option value="">2</option>
-							<option value="">3</option>
-							<option value="">4</option>
-						</select>
+						<input style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="old_password" id="old_password" placeholder="Old password">
 					</div><br><br>
 
 					<div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+						<input style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="new_password" id="new_password" placeholder="New password">
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create">
+						<input style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="c_password" id="c_password" placeholder="Confirm password">
+					</div><br><br>
+
+					<div>
+						<input class="button-primary" name="add-expense" type="submit" value="Change Password">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>
@@ -132,6 +130,6 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
+		<script src="js/validation.js"></script>
 	</body>
 </html>

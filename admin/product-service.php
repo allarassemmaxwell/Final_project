@@ -116,15 +116,33 @@
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
-				<form class="add-expense-form" method="POST">
+				<p style="text-align: center; font-size: 15px; color:#737373">Add Product/Service</p>
+				<form class="product-service-validation" method="POST">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
 
 					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
-							<option value="">Select Product/Service</option>
+						<select id="user" name="user"  style="font-size: 14px; color: #737373;  padding: 10px;">
+							<option value="">Select User</option>
+							<?php 
+								$query_users   = "SELECT * FROM User ORDER BY created_at DESC";
+								$user_result = mysqli_query($con, $query_users);
+
+								if (mysqli_num_rows($user_result) > 0) {
+									while($row = mysqli_fetch_assoc($user_result)) {
+										echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
+									}
+								} else {
+									// echo "0 results";
+								}
+							?>
+						</select>
+					</div><br><br>
+
+					<div>
+						<select id="category" name="category"  style="font-size: 14px; color: #737373; padding: 10px;">
+							<option value="">Select Category</option>
 							<option value="">1</option>
 							<option value="">2</option>
 							<option value="">3</option>
@@ -133,11 +151,11 @@
 					</div><br><br>
 
 					<div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="name" placeholder="Product/Service Name">
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create">
+						<input class="button-primary" name="add-expense" type="submit" value="Create Product/Service">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>
@@ -158,6 +176,6 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
+		<script src="js/validation.js"></script>
 	</body>
 </html>

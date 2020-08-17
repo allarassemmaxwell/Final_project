@@ -181,7 +181,27 @@
 					</div>
 
 					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373; padding: 10px;">
+							<option value="">Select User</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373; padding: 10px;">
+							<option value="">Select Category</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373; padding: 10px;">
 							<option value="">Select Product/Service</option>
 							<option value="">1</option>
 							<option value="">2</option>
@@ -191,7 +211,7 @@
 					</div><br><br>
 
 					<div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="price" id="price" placeholder="Price">
 					</div><br><br>
 
 					<div>

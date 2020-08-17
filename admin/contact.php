@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Source || FEM</title>
+		<title>Contact || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
 
 		<!-- Web Fonts  -->
@@ -24,56 +24,55 @@
 	</head>
 	<body>
 
+
 		<?php include('header.php'); ?>
+
+
 
 		<div class="main-content">
 			<div class="title-left" style="font-size: 15px; color: #737373;">
-				Source
+                Contact
 			</div>
 
-			<div class="title-right" id="myBtn">
+			<!-- <div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-plus"></i> 
-					<a style="font-size: 15px;">Add Source</a>
+					<a style="font-size: 15px;">Add Users</a>
 				</div>
-			</div>
+			</div> -->
 			
 			
 
 
 
-			<!-- <div class="table-top-space"></div> -->
-			<div>
+            <!-- <div class="table-top-space"></div> -->
+            <div>
 				<?php include('../errors.php'); ?><br>
 			</div>
 			<div>
 				<?php include('../success.php'); ?><br>
-			</div>
+            </div>
+            
+
 			<table style="color: #737373; font-size: 14px;">
 				<tr style="height: 65px; font-size: 15px;">
-					<th style="color: #737373;">User</th>
-					<th style="color: #737373;">Source</th>
+					<th style="color: #737373;">Email</th>
+					<th style="color: #737373;">Subject</th>
 					<th style="color: #737373;">Date</th>
 					<th style="color: #737373;">Action</th>
-				</tr>
-				<?php 
-                    $query   = "SELECT * FROM Source ORDER BY created_at DESC";
+                </tr>
+                
+                <?php 
+                    $query   = "SELECT * FROM Contact ORDER BY created_at DESC";
                     $results = mysqli_query($con, $query);
                     if (mysqli_num_rows($results) > 0) {
                         while($row = $results->fetch_assoc()) {
-							// GET USER
-							$user_id = $row['user_id'];
-							$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$user_data = $result2->fetch_assoc();		
-							}
-							?>
-								<tr>
-									<td><?php echo $user_data['user_email'] ?></td>
-									<td><?php echo $row['name'] ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
+                            ?>
+                                <tr>
+                                    <td><?php echo $row['email'] ?></td>
+                                    <td><?php echo $row['subject'] ?></td>
+                                    <td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+                                    <td> 
 										<!-- DELETE -->
 										<form action="" method="POST" style="margin-left:-40px;">
 											<input hidden name="user_id" value="<?php echo $row['user_id'] ?>"></input>
@@ -90,58 +89,20 @@
 											</button>
 										</div>
 									</td>
-								</tr>
-							<?php
-						}
-					}
+                                </tr>
+                            <?php 
+                        }
+                    }
 				?>
-			  </table>
+			</table>
 
-			  <div class="table-bottom-space"></div>
+			  
+			<div class="table-bottom-space"></div>
+
+			  
 		</div>
 
 
-
-
-		<!-- The Modal -->
-		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Add Source</p>
-				<form class="add-source-validation" method="POST">
-					<div>
-						<?php include('../errors.php'); ?><br>
-					</div>
-
-					<div>
-						<select id="user" name="user"  style="font-size: 14px; color: #737373;  padding: 10px;">
-							<option value="">Select User</option>
-							<?php 
-								$query_users   = "SELECT * FROM User ORDER BY created_at DESC";
-								$user_result = mysqli_query($con, $query_users);
-
-								if (mysqli_num_rows($user_result) > 0) {
-									while($row = mysqli_fetch_assoc($user_result)) {
-										echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
-									}
-								} else {
-									// echo "0 results";
-								}
-							?>
-						</select>
-					</div><br><br>
-
-					<div>
-						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="name" id="name" placeholder="Source Name">
-					</div><br><br>
-
-					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create Source">
-					</div>
-				</form>  
-				<div class="table-bottom-space"></div>
-			</div>
-		</div>
 
 
 		

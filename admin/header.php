@@ -77,6 +77,13 @@
 						<span>Users</span>
 					</a>
 				</li>
+
+				<li>
+					<a href="contact.php">
+						<span><i class="fa fa-product-hunt"></i></span>
+						<span>Contact</span>
+					</a>
+				</li>
 				<li>
 					<a href="profile.php">
 						<span><i class="fa fa-user"></i></span>

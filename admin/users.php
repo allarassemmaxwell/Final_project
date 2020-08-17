@@ -54,12 +54,11 @@
             </div>
             
 
-			<table style="font-size: 14px;">
-				<tr style="height: 65px; font-size: 18px;">
+			<table style="color: #737373; font-size: 14px;">
+				<tr style="height: 65px; font-size: 15px;">
 					<th style="color: #737373;">Email</th>
 					<th style="color: #737373;">First Name</th>
 					<th style="color: #737373;">Last Name</th>
-					<th style="color: #737373;">Members</th>
 					<th style="color: #737373;">Date</th>
 					<th style="color: #737373;">Action</th>
                 </tr>
@@ -74,7 +73,6 @@
                                     <td><?php echo $row['user_email'] ?></td>
                                     <td><?php echo $row['first_name'] ?></td>
                                     <td><?php echo $row['last_name'] ?></td>
-                                    <td><?php echo $row['family_number'] ?></td>
                                     <td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
                                     <td> 
 										<!-- DELETE -->
@@ -113,81 +111,45 @@
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<p style="text-align: center; font-size: 15px; color:#737373">Add User</p>
-				<form class="add-expense-form" method="POST">
+				<form class="user-add-validation" method="POST">
 					<div>
 						<?php include('../errors.php'); ?><br>
                     </div>
                     
                     <div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="First name">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="first_name" id="first_name" placeholder="First name">
                     </div><br><br>
                     
                     <div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Last name">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="last_name" id="last_name" placeholder="Last name">
                     </div><br><br>
                     
                     <div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Email">
-                    </div><br><br>
-                    
-                    <div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Family member">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="email" name="email" id="email" placeholder="Email">
                     </div><br><br>
 
 					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
-							<option value="">Role</option>
-							<option value="">1</option>
-							<option value="">2</option>
-							<option value="">3</option>
-							<option value="">4</option>
+						<select id="is_admin" name="is_admin"  style="font-size: 14px; color: #737373;">
+							<option value="">Admin</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
 						</select>
 					</div><br><br>
 
+					<div>
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="password" id="password" placeholder="Password">
+                    </div><br><br>
+
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create">
+						<input class="button-primary" name="add-expense" type="submit" value="Create Account">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>
 			</div>
 		</div>
 
-
-
-
-		<!-- The Modal -->
-		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
-				<form class="add-expense-form" method="POST">
-					<div>
-						<?php include('../errors.php'); ?><br>
-					</div>
-
-					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
-							<option value="">Select Product/Service</option>
-							<option value="">1</option>
-							<option value="">2</option>
-							<option value="">3</option>
-							<option value="">4</option>
-						</select>
-					</div><br><br>
-
-					<div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
-					</div><br><br>
-
-					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create">
-					</div>
-				</form>  
-				<div class="table-bottom-space"></div>
-			</div>
-		</div>
-		
+	
 
 
 
@@ -203,6 +165,6 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
+		<script src="js/validation.js"></script>
 	</body>
 </html>

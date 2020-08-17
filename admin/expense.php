@@ -62,10 +62,12 @@
 					<th style="color: #737373;">Action</th>
 				</tr>
 				<?php 
+					$total_price = 0;
                     $query   = "SELECT * FROM Expense ORDER BY created_at DESC";
                     $results = mysqli_query($con, $query);
                     if (mysqli_num_rows($results) > 0) {
                         while($row = $results->fetch_assoc()) {
+							$total_price += $row['price'];
 							// GET USER
 							$user_id = $row['user_id'];
 							$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
@@ -119,11 +121,17 @@
 				?>				
 			  </table>
 
-			  
-			  <div class="table-bottom-space"></div>
-			  <div class="table-total">
-				<button class="button-error-total">Total: ksh 5.500</button>
-			  </div>
+
+			  <?php 
+			  	if (mysqli_num_rows($results) > 0) {
+					?>
+						<div class='table-bottom-space'></div>
+						<div class='table-total'>
+							<button class='button-error-total'>Ksh: <?php echo number_format($total_price, 2); ?></button>
+						</div>
+					<?php
+				}
+			?>
 			  
 		</div>
 
@@ -134,13 +142,41 @@
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<p style="text-align: center; font-size: 15px; color:#737373">Add Expense</p>
-				<form class="add-expense-form" method="POST">
+				<form class="add-expense-validation" method="POST">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
 
 					<div>
-						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+						<select id="user" name="user"  style="font-size: 14px; color: #737373;  padding: 10px;">
+							<option value="">Select User</option>
+							<?php 
+								$query_users   = "SELECT * FROM User ORDER BY created_at DESC";
+								$user_result = mysqli_query($con, $query_users);
+
+								if (mysqli_num_rows($user_result) > 0) {
+									while($row = mysqli_fetch_assoc($user_result)) {
+										echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
+									}
+								} else {
+									// echo "0 results";
+								}
+							?>
+						</select>
+					</div><br><br>
+
+					<div>
+						<select id="category" name="category"  style="font-size: 14px; color: #737373; padding: 10px;">
+							<option value="">Select Category</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+						</select>
+					</div><br><br>
+
+					<div>
+						<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373; padding: 10px;">
 							<option value="">Select Product/Service</option>
 							<option value="">1</option>
 							<option value="">2</option>
@@ -150,11 +186,11 @@
 					</div><br><br>
 
 					<div>
-						<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" placeholder="Price">
+						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="text" name="price" id="price" placeholder="Expense Price">
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create">
+						<input class="button-primary" name="add-expense" type="submit" value="Create Expense">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>
@@ -172,6 +208,6 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
+		<script src="js/validation.js"></script>
 	</body>
 </html>
