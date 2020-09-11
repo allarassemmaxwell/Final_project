@@ -1,6 +1,7 @@
 <?php 
 	require_once('config/db_connection.php');
-
+	require_once('config/add_save_money.php');
+	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
@@ -10,6 +11,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+        <meta name="author" content="Allarassem N Maxime">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,23 +52,26 @@
 			</div>
 			
 			
-			<table>
-				<tr style="height: 65px; font-size: 15px;">
-                    <th style="color: #737373;">Source</th>
-                    <th style="color: #737373;">Income</th>
-					<th style="color: #737373;">Date</th>
-					<th style="color: #737373;">Action</th>
-				</tr>
 
-				<!-- LOOPING USER DATA -->
+			
+			<table>
 				<?php 
 					$total_amount = 0;
-					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM Income WHERE user_id = '$user_id'  ORDER BY created_at DESC";
-					$results = mysqli_query($con, $query);
-					while($row = $results->fetch_assoc()) {
-						$total_amount += $row['amount'];
-						echo "<tr>";
+					$user_id      = $_SESSION['user_id'];
+					$query        = "SELECT * FROM Income WHERE user_id = '$user_id' ORDER BY created_at DESC";
+					$results      = mysqli_query($con, $query);
+					if (mysqli_num_rows($results) > 0) {
+						?>
+							<tr style="height: 65px; font-size: 15px;">
+								<th style="color: #737373;">Source</th>
+								<th style="color: #737373;">Amount</th>
+								<th style="color: #737373;">Remaining</th>
+								<th style="color: #737373;">Date</th>
+								<th style="color: #737373;">Action</th>
+							</tr>
+						<?php
+						while($row = $results->fetch_assoc()) {
+							$total_amount += $row['amount'];
 
 							// GET SOURCE NAME
 							$source_id = $row['source_id'];
@@ -74,28 +83,42 @@
 
 							// DISPLAY DATA
 							?>
-								<td><?php echo $source_data['name']; ?></td>
-								<td><?php echo number_format($row['amount'], 2); ?></td>
-								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-								<td> 
-									<!-- DELETE -->
-									<form action="" method="POST" style="margin-left:-40px;">
-										<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
-										<button name="delete-income">
-											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-										</button>&nbsp;&nbsp;&nbsp;
-									</form>
+								<tr>
+									<td><?php echo $source_data['name']; ?></td>
+									<td><?php echo number_format($row['amount'], 2); ?></td>
+									<td><?php echo number_format($row['remaining_amount'], 2); ?></td>
+									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+									<td> 
+										<!-- DELETE -->
+										<form action="" method="POST" style="margin-left:-40px;">
+											<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
+											<button name="delete-income">
+												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+											</button>&nbsp;&nbsp;&nbsp;
+										</form>
 										<!-- UPDATE -->
-										<div style="margin-left:30px; margin-top:-20px">
-											<button>
-												<a href="income-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['income_id'] ?>&id3=<?php echo $source_data['source_id']; ?>&amount=<?php echo $row['amount']; ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
-												</a>
-											</button>
-										</div>
+										<?php
+											if(date('Y', strtotime($row['created_at'])) == date("Y") && date('m', strtotime($row['created_at'])) == date("m")) {
+												?>
+													<div style="margin-left:30px; margin-top:-20px">
+														<button>
+															<a href="income-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['income_id'] ?>&id3=<?php echo $source_data['source_id']; ?>&amount=<?php echo $row['amount']; ?>">
+																<i class="fa fa-pencil icon-edit" title="Edit"></i>
+															</a>
+														</button>
+													</div>
+												<?php
+											}
+										?>
+											
 									</td>
+								</tr>
 							<?php
-						echo "</tr>";
+						}
+					}else {
+						?>
+							<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+						<?php
 					}
 				?>
 			</table>
@@ -107,7 +130,7 @@
 					  ?>
 					<div class='table-bottom-space'></div>
 					<div class='table-total'>
-						<button class='button-error-total'>Ksh: <?php echo number_format($total_amount, 2); ?></button>
+						<button class='button-error-total'>Total Ksh: <?php echo number_format($total_amount, 2); ?></button>
 					</div>
 					<?php
 				}
@@ -126,7 +149,7 @@
 						</div>
 						
 						<div>
-							<select id="source" name="source"  style="font-size: 14px; color: #737373;">
+							<select id="source" name="source"  style="font-size: 14px; color: #737373; padding-left: 5px; padding-right: 5px;">
 								<option value="">Select Source</option>
 								<?php 
 									$user_id = $_SESSION['user_id'];
@@ -137,15 +160,13 @@
 										while($row = mysqli_fetch_assoc($results)) {
 											echo '<option value="' . $row['source_id'] . '">' . $row['name'] . '</option>';
 										}
-									} else {
-										// echo "0 results";
 									}
 								?>
 							</select>
 						</div><br><br>
 
 						<div>
-							<input  style="font-size: 14px; color: #737373;" type="text" name="amount" placeholder="Amount">
+							<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="text" name="amount" placeholder="Amount">
 						</div><br><br>
 						
 						<div>

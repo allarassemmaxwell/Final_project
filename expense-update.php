@@ -1,6 +1,7 @@
 <?php 
 	require_once('config/db_connection.php');
-
+	require_once('config/add_save_money.php');
+	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
@@ -10,10 +11,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+        <meta name="author" content="Allarassem N Maxime">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Expense Edit || FEM</title>
+		<title>Update Expense || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
 
 		    <!-- Web Fonts  -->
@@ -39,7 +45,7 @@
 				</div>
 
 				<div>
-					<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373;">
+					<select id="product_or_service" name="product_or_service"  style="font-size: 14px; color: #737373; padding-left: 5px;">
 						<option value="">Select Product/Service</option>
 						<?php 
 
@@ -66,7 +72,7 @@
 				</div><br><br>
 
 				<div>
-					<input  style="font-size: 14px; color: #737373;" type="text" name="price" id="price" value="<?php echo $price; ?>" placeholder="Price">
+					<input  style="font-size: 14px; color: #737373; padding-left: 10px;" type="text" name="price" id="price" value="<?php echo $price; ?>" placeholder="Price">
 					<input type="text" hidden name="expense_id" value="<?php echo $expense_id; ?>">
 					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>

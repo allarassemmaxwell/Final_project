@@ -21,8 +21,6 @@
     }
 
 
-
-
     // CREATE ACCOUNT
     if (isset($_POST['register_submit'])) {
         $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
@@ -120,26 +118,40 @@
 
 
 
-
 // ADDING SECTION      ADDING SECTION       ADDING SECTION       ADDING SECTION     ADDING SECTION
     
 
     // ADDING EXPENSE
     if(isset($_POST['add-expense'])) {
+        $income_id  = mysqli_real_escape_string($con, $_POST['income']);
         $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
-        $price  = mysqli_real_escape_string($con, $_POST['price']);
+        $price   = mysqli_real_escape_string($con, $_POST['price']);
+        $totole_expenses = $_SESSION['total_expenses'] + $price;
         $user_id = $_SESSION['user_id'];
 
-        if (empty($product_service_id)) { array_push($errors, "Source is required"); }
+        if (empty($income_id)) { array_push($errors, "Income is required"); }
+        if (empty($product_service_id)) { array_push($errors, "Product/Service is required"); }
         if (empty($price))    { array_push($errors, "Price is required"); }
 
+        $check_amount_query   = "SELECT * FROM Income WHERE user_id='$user_id' AND income_id='$income_id' LIMIT 1";
+        $check_amount_result  = mysqli_query($con, $check_amount_query);
+        $check_amount_value   = mysqli_fetch_assoc($check_amount_result);
+        
+        if ($check_amount_value) { 
+            if ($check_amount_value['remaining_amount'] < $price) { 
+                array_push($errors, "You don't have enough money in your income"); 
+            } else {
+                $remain = $check_amount_value['remaining_amount'] - $price;
+                $reduce_remaining_amount_query  = "UPDATE Income SET remaining_amount='$remain' WHERE income_id='$income_id'";
+                mysqli_query($con, $reduce_remaining_amount_query);
+            }
+        }
         if (count($errors) == 0) {
-            $query = "INSERT INTO Expense (user_id, product_service_id, price) VALUES('$user_id', '$product_service_id', '$price')";
+            $query  = "INSERT INTO Expense (user_id, product_service_id, price, income_id) VALUES('$user_id', '$product_service_id', '$price', '$income_id')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
                 array_push($errors, "Error: Connection failed: $query");
             } else {
-                // header('Location: expense.php');
                 $_SESSION['success'] = "Expense created successfully.";
             }
         }
@@ -168,7 +180,6 @@
                 array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Source created successfully.";
-                // header('Location: source.php');
             }
         }
     }
@@ -177,21 +188,21 @@
 
     // ADDING INCOME
     if(isset($_POST['add-income'])) {
-        $source_id  = mysqli_real_escape_string($con, $_POST['source']);
-        $amount  = mysqli_real_escape_string($con, $_POST['amount']);
+        $source_id          = mysqli_real_escape_string($con, $_POST['source']);
+        $amount             = mysqli_real_escape_string($con, $_POST['amount']);
+        $remaining_amount   = mysqli_real_escape_string($con, $_POST['amount']);
         $user_id = $_SESSION['user_id'];
 
         if (empty($source_id)) { array_push($errors, "Source is required"); }
         if (empty($amount))    { array_push($errors, "Amount is required"); }
 
         if (count($errors) == 0) {
-            $query = "INSERT INTO Income (source_id, user_id, amount) VALUES('$source_id', '$user_id', '$amount')";
+            $query = "INSERT INTO Income (source_id, user_id, amount, remaining_amount) VALUES('$source_id', '$user_id', '$amount', '$remaining_amount')";
             $result = mysqli_query($con, $query);
             if (!$result) { 
                 array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Income created successfully.";
-                // header('Location: income.php');
             }
         }
     }
@@ -219,7 +230,6 @@
                 array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Category created successfully.";
-                // header('Location: category.php');
             }
         }
     }
@@ -241,7 +251,6 @@
                 array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Product/Service created successfully.";
-                // header('Location: product-service.php');
             }
         }
     }
@@ -270,7 +279,6 @@
                 array_push($errors, "Error: Connection failed: $query");
             } else {
                 $_SESSION['success'] = "Your message has been sent successfully. We will get back to you as soon as possible";
-                // header('Location: product-service.php');
             }
         }
     }
@@ -322,31 +330,7 @@
 // DELETE SECTION      DELETE SECTION       DELETE SECTION       DELETE SECTION     DELETE SECTION
 
     // DELETE ACCOUNT
-    if (isset($_GET['delete_account'])) {
-        $password = $_POST['c_password'];
-        $user_id  = $_SESSION['user_id'];
-        $user_password = md5($password);
 
-        echo "OK";
-
-        // if (empty($password)) { array_push($errors, "Password is required"); }
-
-        // $user_check_query = "SELECT * FROM User WHERE user_id='$user_id' AND user_password='$user_password'";
-        
-        // if (!$user) { 
-        //     array_push($errors, "Wrong email/password combination");
-        // }
-        // if (count($errors) == 0) {
-        //     echo $user_id;
-        // }
-        
-        // echo $user_id;
-        // $query1  = "DELETE FROM ProductService WHERE product_service_category_id='$category_id'";
-        // $result1 = mysqli_query($con, $query1);
-        // if (!$result1) { 
-        //     array_push($errors, "Error: Connection failed: $query");
-        // }
-    }
 
 
     // DELETE EXPENSE
@@ -355,13 +339,26 @@
 
         if (empty($expense_id)) { array_push($errors, "An expense is required"); }
 
+        $price = 0;
         if (count($errors) == 0) {
-            $query = "DELETE FROM Expense WHERE expense_id='$expense_id'";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed$query");
-            } else {
-                $_SESSION['success'] = "Expense deleted successfully.";
+            $expense_query = "SELECT * FROM Expense WHERE expense_id='$expense_id' LIMIT 1";
+            $expense_result = mysqli_query($con, $expense_query);
+            $check_expense   = mysqli_fetch_assoc($expense_result);
+            if ($check_expense) { 
+                $price = $check_expense['price'];
+                $income_id = $check_expense['income_id'];
+
+                $update_income_query = "UPDATE Income SET remaining_amount= remaining_amount + '$price' WHERE income_id='$income_id'";
+                $update_income_result = mysqli_query($con, $update_income_query);
+                if ($update_income_result) {
+                    $delete_expense_query = "DELETE FROM Expense WHERE expense_id='$expense_id'";
+                    $delete_expense_result = mysqli_query($con, $delete_expense_query);
+                    if (!$delete_expense_result) { 
+                        array_push($errors, "Error: Connection failed$delete_expense_query");
+                    } else {
+                        $_SESSION['success'] = "Expense deleted successfully.";
+                    }
+                }
             }
         }
     }
@@ -373,11 +370,21 @@
 
         if (empty($source_id)) { array_push($errors, "Source is required"); }
 
-        $query1  = "DELETE FROM Income WHERE source_id='$source_id'";
-        $result1 = mysqli_query($con, $query1);
-        if (!$result1) { 
-            array_push($errors, "Error: Connection failed: $query");
+        $check_income_query = "SELECT * FROM Income WHERE source_id='$source_id'";
+        $income_result      = mysqli_query($con, $check_income_query);
+        while($income_data = $income_result->fetch_assoc()) {
+            $income_id = $income_data['income_id'];
+            $check_expense_query = "SELECT * FROM Expense WHERE income_id='$income_id'";
+            $expense_result      = mysqli_query($con, $check_expense_query);
+            while($expense_data = $expense_result->fetch_assoc()) {
+                $expense_id = $expense_data['expense_id'];
+                $delete_expense_query  = "DELETE FROM Expense WHERE income_id='$income_id'";
+                mysqli_query($con, $delete_expense_query);
+            }
+            $delete_income_query  = "DELETE FROM Income WHERE source_id='$source_id'";
+            mysqli_query($con, $delete_income_query);
         }
+
         if (count($errors) == 0) {
             $query  = "DELETE FROM Source WHERE source_id='$source_id'";
             $result = mysqli_query($con, $query);
@@ -398,10 +405,17 @@
         if (empty($income_id)) { array_push($errors, "Income is required"); }
 
         if (count($errors) == 0) {
-            $query  = "DELETE FROM Income WHERE income_id='$income_id'";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed: $query");
+            $check_expense_query = "SELECT * FROM Expense WHERE income_id='$income_id'";
+            $expense_result      = mysqli_query($con, $check_expense_query);
+            while($expense_data = $expense_result->fetch_assoc()) {
+                $expense_id = $expense_data['expense_id'];
+                $delete_expense_query  = "DELETE FROM Expense WHERE expense_id='$expense_id'";
+                mysqli_query($con, $delete_expense_query);
+            }
+            $income_query  = "DELETE FROM Income WHERE income_id='$income_id'";
+            $income_result = mysqli_query($con, $income_query);
+            if (!$income_result) { 
+                array_push($errors, "Error: Connection failed: $income_query");
             } else {
                 $_SESSION['success'] = "Income deleted successfully.";
             }
@@ -416,16 +430,26 @@
 
         if (empty($category_id)) { array_push($errors, "Category is required"); }
 
-        $query1  = "DELETE FROM ProductService WHERE product_service_category_id='$category_id'";
-        $result1 = mysqli_query($con, $query1);
-        if (!$result1) { 
-            array_push($errors, "Error: Connection failed: $query");
+        $check_product_query = "SELECT * FROM ProductService WHERE product_service_category_id='$category_id'";
+        $product_result      = mysqli_query($con, $check_product_query);
+        while($product_data = $product_result->fetch_assoc()) {
+            $product_service_id = $product_data['product_service_id'];
+            $check_expense_query = "SELECT * FROM Expense WHERE product_service_id='$product_service_id'";
+            $expense_result      = mysqli_query($con, $check_expense_query);
+            while($expense_data = $expense_result->fetch_assoc()) {
+                $expense_id = $expense_data['expense_id'];
+                $delete_expense_query  = "DELETE FROM Expense WHERE expense_id='$expense_id'";
+                mysqli_query($con, $delete_expense_query);
+            }
+            $delete_product_query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
+            mysqli_query($con, $delete_product_query);
         }
+        
         if (count($errors) == 0) {
-            $query  = "DELETE FROM ProductServiceCategory WHERE category_id='$category_id'";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed: $query");
+            $category_query  = "DELETE FROM ProductServiceCategory WHERE category_id='$category_id'";
+            $category_result = mysqli_query($con, $category_query);
+            if (!$category_result) { 
+                array_push($errors, "Error: Connection failed: $category_query");
             } else {
                 $_SESSION['success'] = "Category deleted successfully.";
             }
@@ -440,18 +464,79 @@
 
         if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
 
-        $query1  = "DELETE FROM Expense WHERE product_service_id='$product_service_id'";
-        $result1 = mysqli_query($con, $query1);
-        if (!$result1) { 
-            array_push($errors, "Error: Connection failed: $query");
+        $expense_query  = "DELETE FROM Expense WHERE product_service_id='$product_service_id'";
+        $expense_result = mysqli_query($con, $expense_query);
+        if (!$expense_result) { 
+            array_push($errors, "Error: Connection failed: $expense_query");
         }
         if (count($errors) == 0) {
-            $query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed: $query");
+            $product_query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
+            $product_result = mysqli_query($con, $product_query);
+            if (!$product_result) { 
+                array_push($errors, "Error: Connection failed: $product_query");
             } else {
                 $_SESSION['success'] = "Product/Service deleted successfully.";
+            }
+        }
+    }
+
+
+
+    // DELETE USER ACCOUNT
+    if(isset($_POST['delete_user_account'])) {
+        $password = $_POST['c_password'];
+        $user_id  = $_SESSION['user_id'];
+        $user_password = md5($password);
+
+        if (empty($password)) { array_push($errors, "Password is required"); }
+
+        $check_user_query = "SELECT * FROM User WHERE user_id='$user_id' LIMIT 1";
+        $result           = mysqli_query($con, $check_user_query);
+        $user             = mysqli_fetch_assoc($result);
+        
+        if ($user) { 
+            if ($user['user_password'] != $user_password) { array_push($errors, "Wrong password"); }
+        }
+      
+        if (count($errors) == 0) {
+            $delete_user_expense = "DELETE FROM Expense WHERE user_id ='$user_id'";
+            $expense = mysqli_query($con, $delete_user_expense);
+            if($expense) {
+                $delete_user_income = "DELETE FROM Income WHERE user_id ='$user_id'";
+                $income = mysqli_query($con, $delete_user_income);
+                if($income) {
+                    $delete_user_source = "DELETE FROM Source WHERE user_id ='$user_id'";
+                    $source = mysqli_query($con, $delete_user_source);
+                    if($source) {
+                        $delete_user_productService = "DELETE FROM ProductService WHERE user_id ='$user_id'";
+                        $productService = mysqli_query($con, $delete_user_productService);
+                        if($productService) {
+                            $delete_user_category = "DELETE FROM ProductServiceCategory WHERE user_id ='$user_id'";
+                            $productCategory = mysqli_query($con, $delete_user_category);
+                            if($productCategory) {
+                                $delete_user = "DELETE FROM User WHERE user_id ='$user_id'";
+                                $user = mysqli_query($con, $delete_user);
+                                if($user) {
+                                    session_destroy();
+                                    // $_SESSION['success'] = "Account deleted successfully.";
+                                    header('Location: login.php');
+                                } else {
+                                    array_push($errors, "Error in User: $query");
+                                }
+                            } else {
+                                array_push($errors, "Error in Product Category: $query");
+                            }
+                        } else {
+                            array_push($errors, "Error in Product Service: $query");
+                        }
+                    } else {
+                        array_push($errors, "Error in Source: $query");
+                    }
+                } else {
+                    array_push($errors, "Error in Income: $query");
+                }
+            } else {
+                array_push($errors, "Error in Expense: $query");
             }
         }
     }
@@ -519,15 +604,31 @@
         if (empty($income_id)) { array_push($errors, "Income is required"); }
         if (empty($amount))    { array_push($errors, "Amount is required"); }
         if (empty($source_id)) { array_push($errors, "Source is required"); }
-
+                                    
         if (count($errors) == 0) {
-            $query = "UPDATE Income SET amount='$amount', source_id='$source_id' WHERE income_id='$income_id' AND user_id='$user_id'";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed: $query");
-            } else {
-                $_SESSION['success'] = "Income updated successfully.";
-                header('Location: income.php');
+            $expense_query   = "SELECT * FROM Expense WHERE income_id = '$income_id'";
+            $expense_results = mysqli_query($con, $expense_query);
+            $expense_price = 0;
+            while($row = mysqli_fetch_assoc($expense_results)) {
+                $expense_price += $row['price'];
+            }
+
+            $income_query = "SELECT * FROM Income WHERE income_id='$income_id' LIMIT 1";
+            $income_result = mysqli_query($con, $income_query);
+            $check_income   = mysqli_fetch_assoc($income_result);
+            if ($check_income) { 
+                $previous_amount = $check_income['amount'];
+                $previous_remaining = $check_income['remaining_amount'];
+                $remaining = $previous_amount - $amount;
+
+                $query = "UPDATE Income SET amount='$amount', remaining_amount='$amount' - '$expense_price', source_id='$source_id' WHERE income_id='$income_id' AND user_id='$user_id'";
+                $result = mysqli_query($con, $query);
+                if (!$result) { 
+                    array_push($errors, "Error: Connection failed: $query");
+                } else {
+                    $_SESSION['success'] = "Income updated successfully.";
+                    header('Location: income.php');
+                }
             }
         }
     }

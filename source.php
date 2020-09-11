@@ -1,6 +1,7 @@
 <?php 
 	require_once('config/db_connection.php');
-
+	require_once('config/add_save_money.php');
+	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
@@ -45,42 +46,52 @@
 			<div>
 				<?php include('success.php'); ?><br>
 			</div>
-			<table>
-				<tr style="height: 65px; font-size: 15px;">
-					<th style="color: #737373;">Name</th>
-					<th style="color: #737373;">Date</th>
-					<th style="color: #737373;">Action</th>
-				</tr>
 
-				<!-- LOOPING USER DATA -->
+
+
+			
+			<table>
 				<?php 
 					$user_id = $_SESSION['user_id'];
 					$query   = "SELECT * FROM Source WHERE user_id='$user_id' ORDER BY created_at DESC";
 					$results = mysqli_query($con, $query);
-					while($row = $results->fetch_assoc()) {
-						echo "<tr>";
+					if (mysqli_num_rows($results) > 0) {
+						?>
+							<tr style="height: 65px; font-size: 15px;">
+								<th style="color: #737373;">Name</th>
+								<th style="color: #737373;">Date</th>
+								<th style="color: #737373;">Action</th>
+							</tr>
+						<?php
+						while($row = $results->fetch_assoc()) {
 							?>
-								<td><?php echo $row['name']; ?></td>
-								<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-								<td> 
-									<!-- DELETE -->
-									<form action="" method="POST" style="margin-left:-40px;">
-										<input hidden name="source_id" value="<?php echo $row['source_id'] ?>"></input>
-										<button name="delete-source">
-											<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-										</button>&nbsp;&nbsp;&nbsp;
-									</form>
-									<!-- UPDATE -->
-									<div style="margin-left:30px; margin-top:-20px">
-										<button>
-											<a href="source-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['source_id'] ?>&id3=<?php echo $row['name'];?>">
-												<i class="fa fa-pencil icon-edit" title="Edit"></i>
-											</a>
-										</button>
-									</div>
-								</td>
+								<tr>
+									<td><?php echo $row['name']; ?></td>
+									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+									<td> 
+										<!-- DELETE -->
+										<form action="" method="POST" style="margin-left:-40px;">
+											<input hidden name="source_id" value="<?php echo $row['source_id'] ?>"></input>
+											<button name="delete-source">
+												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+											</button>&nbsp;&nbsp;&nbsp;
+										</form>
+										<!-- UPDATE -->
+										<div style="margin-left:30px; margin-top:-20px">
+											<button>
+												<a href="source-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['source_id'] ?>&id3=<?php echo $row['name'];?>">
+													<i class="fa fa-pencil icon-edit" title="Edit"></i>
+												</a>
+											</button>
+										</div>
+									</td>
+								</tr>
 							<?php 
-						echo "</tr>";
+						}
+					}else {
+						?>
+							<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+						<?php
 					}
 				?>
 			</table>
@@ -96,7 +107,7 @@
 						</div>
 
 						<div>
-							<input  style="font-size: 14px; color: #737373;" type="text" name="name" id="name" placeholder="Name">
+							<input  style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" type="text" name="name" id="name" placeholder="Name">
 						</div><br><br>
 						
 						<div>

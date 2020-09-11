@@ -1,6 +1,7 @@
 <?php 
 	require_once('config/db_connection.php');
-
+	require_once('config/add_save_money.php');
+	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
@@ -10,6 +11,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+        <meta name="author" content="Allarassem N Maxime">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">

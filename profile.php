@@ -1,5 +1,6 @@
 <?php 
 	require_once('config/db_connection.php');
+	require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_id'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -18,6 +19,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+        <meta name="author" content="Allarassem N Maxime">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +38,49 @@
 	</head>
 	<body>
 		
+<style>
+	.profile-page {
+		width: 50%;
+		margin: auto;
+	}
+	@media only screen and (min-width: 300px) {
+		.profile-page {
+			width: 100%;
+			margin: auto;
+		}
+		.profile {
+			margin-right: 8%;
+		}
+	}
+	@media only screen and (min-width: 600px) {
+		.profile-page {
+			width: 90%;
+			margin: auto;
+		}
+		.profile {
+			margin-right: 12%;
+		}
+	}
+	@media only screen and (min-width: 800px) {
+		.profile-page {
+			width: 80%;
+			margin: auto;
+		}
+		.profile {
+			margin-right: 15%;
+		}
+	}
+	@media screen and (min-width: 1024px) {
+		.profile-page {
+			width: 50%;
+			margin: auto;
+		}
+		.profile {
+			margin-right: 27.5%;
+		}
+	}
+
+</style>
 
 		<?php include('header.php'); ?>
 
@@ -44,7 +93,7 @@
 
             <div class="table-top-space"></div>
             
-            <form class="profile-edit-form" method="POST">
+            <form class="profile-edit-form profile-page" method="POST">
 				<div>
 					<?php include('errors.php'); ?><br>
 				</div>
@@ -52,23 +101,23 @@
                     <?php include('success.php'); ?><br>
                 </div>
 				<div>
-					<input  style="font-size: 14px; color: #737373;" type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name']; ?>">
+					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="text" name="first_name" placeholder="First name" value="<?php echo $profile_data['first_name']; ?>">
 				</div><br><br>
 
 				<div>
-					<input  style="font-size: 14px; color: #737373;" type="text" name="last_name" placeholder="Last name" value="<?php echo $profile_data['last_name']; ?>">
+					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="text" name="last_name" placeholder="Last name" value="<?php echo $profile_data['last_name']; ?>">
 				</div><br><br>
 
 				<div>
-					<input  style="font-size: 14px; color: #737373;" type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email']; ?>">
+					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email']; ?>">
 				</div><br><br>
 
 				<div>
-					<input  style="font-size: 14px; color: #737373;" type="number" name="family_number" placeholder="Family Number">
+					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="number" name="family_number" placeholder="Family Number">
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" type="submit" name="update_profile" value="Edit profile">
+                    <input class="button-primary" type="submit" name="update_profile" value="Update Profile">
                 </div>
             </form>  
 
@@ -77,7 +126,7 @@
 			<div class="table-bottom-space"></div>
 			<div class="table-total profile">
 				<!-- <a href="#"> -->
-				<button name="delete_account" class="button-error">Delete Account</button>
+				<button id="myBtn1" class="button-error">Delete Account</button>
 				<!-- </a> -->
 			</div>
 			<div class="table-total">
@@ -93,21 +142,21 @@
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Change Password</p>
+				<p style="text-align: center; font-size: 15px; color:#737373">Change password</p>
 				<form class="change-password-form" method="POST">
 					<div>
 						<?php include('errors.php'); ?><br>
 					</div>
 					<div>
-						<input style="font-size: 14px; color: #737373;" type="password" name="old_password" placeholder="Old password">
+						<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" type="password" name="old_password" placeholder="Old password">
 					</div><br><br>
 
 					<div>
-						<input style="font-size: 14px; color: #737373;" type="password" name="new_password" id="new_password" placeholder="New password">
+						<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" type="password" name="new_password" id="new_password" placeholder="New password">
 					</div><br><br>
 
 					<div>
-						<input style="font-size: 14px; color: #737373;" type="password" name="c_password" id="c_password" placeholder="Confirm password">
+						<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" type="password" name="c_password" id="c_password" placeholder="Confirm password">
 					</div><br><br>
 
 					<div>
@@ -118,6 +167,29 @@
 			</div>
 		</div>
 
+
+
+		<!-- MODAL DELETE ACCOUNT -->
+		<div id="myModal1" class="modal">
+			<div class="modal-content">
+				<span class="close close2">&times;</span>
+				<p style="text-align: center; font-size: 15px; color:#737373">Confirm Account</p>
+				<form class="delete-account-form" method="POST">
+					<div>
+						<?php include('errors.php'); ?><br>
+					</div>
+
+					<div>
+						<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" type="password" name="c_password" id="c_password" placeholder="Confirm password">
+					</div><br><br>
+
+					<div>
+						<input class="button-error" name="delete_user_account" type="submit" value="Delete Account">
+					</div>
+				</form>  
+				<div class="table-bottom-space"></div>
+			</div>
+		</div>
 
 
 		<?php include_once("footer.php"); ?>
@@ -134,5 +206,28 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/dashboard.js"></script>
+
+		<script>
+			//   START OF MODAL 	START OF MODAL 		START OF MODAL 		START OF MODAL
+			var modal1  = document.getElementById("myModal1"); 
+
+			var btn1 = document.getElementById("myBtn1");
+
+			var span2 = document.getElementsByClassName("close2")[0];
+
+			btn1.onclick = function() {
+				modal1.style.display = "block";
+			}
+			span2.onclick = function() {
+				modal1.style.display = "none";
+			}
+	
+
+			window.onclick = function(event) {
+				if (event.target == modal1) {
+					modal1.style.display = "none";
+				}
+			}
+		</script>
 	</body>
 </html>

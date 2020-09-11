@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+        <meta name="author" content="Allarassem N Maxime">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact || Family Expense Manager</title>
@@ -16,8 +21,8 @@
     <!-- IMPORT FONT AWSOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-    <nav>
+<body style="background-color: #F7F7F7;">
+    <nav id="nav">
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
         <i class="fa fa-bars"></i>
@@ -28,7 +33,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="about.php">About</a></li>
-            <li><a href="services.php">Services</a></li>
+            <li><a href="services.php">How it works</a></li>
             <li><a href="faq.php">Faq</a></li>
             <li><a href="contact.php" class="active" >Contact</a></li>
             <li><a href="login.php">Sign in</a></li>
@@ -95,17 +100,15 @@
     <footer>
         <div class="footer-container">
             <div class="container">
-                <p class="address">Langata Nairobi Kenya</p>
+                <p>Langata Nairobi Kenya</p>
 
                 <p style="margin-top: 10px;">
-                    <li><a href="faq.php" style="color: white; font-size: 13px;">FAQ</a></li>
-                    <li><a href="terms-of-use.php" style="color: white; font-size: 13px;">TERMS OF USE</a></li>
-                    <li><a href="privacy-policy.php" style="color: white; font-size: 13px;">PRIVACY POLICY</a></li>
+                    <li><a href="terms-of-use.php" class="terms">TERMS OF USE</a></li>
+                    <li><a href="privacy-policy.php" class="terms">PRIVACY AND POLICY</a></li>
                 </p>
-
         
-                <p style=" text-align: center; margin-top: 10px; font-size: 13px;">
-                    Copyright © 2020 F-E-M. All rights reserved.
+                <p>
+                Copyright © 2020 F-E-M. All rights reserved.
                 </p>
             </div>
         </div>
@@ -121,5 +124,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/scrolling.js"></script>
 </body>
 </html>

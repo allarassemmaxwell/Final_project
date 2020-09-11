@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <nav>
+    <nav id="nav">
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
         <i class="fa fa-bars"></i>
@@ -28,7 +28,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="about.php">About</a></li>
-            <li><a href="services.php" class="active">Services</a></li>
+            <li><a href="services.php" class="active">How it works</a></li>
             <li><a href="faq.php">Faq</a></li>
             <li><a href="contact.php">Contact</a></li>
             <li><a href="login.php">Sign in</a></li>
@@ -36,61 +36,34 @@
     </nav>
 
     <section class="banner">
-        <div class="banner-title">Services</div>
+        <div class="banner-title">How it works</div>
     </section>
 
 
 
-    <div style="background-color: #F7F7F7; padding: 35px 0;">
-    <h1 style="text-align: center; margin: 25px 0px;">Our Services</h1>
-    <div class="row" style="padding-top: 20px">
-        <div class="column" style="background-color:#FFB695;">
-            <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+    <div class="row" style="background-color: #F7F7F7; padding-bottom: 40px; ">
+        <h1 style="margin-bottom: 45px; text-align: center;  padding-top: 100px; color: #00ace0;">HOW IT WORKS</h1>
+        <div class="column" style="background-color:#fff;">
+            <!-- <img src="images/how-to-create-an-expense-budget.jpg" alt=""> -->
+            <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>RECORD YOUR EXPENSES</h2>
+            <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
+            Including those that can be easily forgotten, with just one tap. You can set your expenses, pending, recurring or repeated.
             </p>
         </div>
-        <div class="column" style="background-color:#96D1CD;">
-        <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+        <div class="column" style="background-color:#fff;">
+            <!-- <img src="images/img.jpg" alt=""> -->
+            <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>TRACK YOUR BALANCE</h2>
+            <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
+            Check your balance in the dashboard and know where your money is going.
             </p>
         </div>
-        <div class="column" style="background-color: #00C2FF;">
-        <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
+        <div class="column" style="background-color: #fff;">
+            <!-- <img src="images/img.jpg" alt=""> -->
+            <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>SAVE MONEY</h2>
+            <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
+                Keep saving money with the best expense tracker and find financial peace of mind.
             </p>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="column" style="background-color:#FFB695;">
-        <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-            </p>
-        </div>
-        <div class="column" style="background-color:#96D1CD;">
-        <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-            </p>
-        </div>
-        <div class="column" style="background-color: #00C2FF;">
-        <img src="images/img.jpg" alt="">
-            <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-            <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-            </p>
-        </div>
-    </div>
-    <br><br>
     </div>
     
 
@@ -100,21 +73,21 @@
     <footer>
         <div class="footer-container">
             <div class="container">
-                <p class="address">Langata Nairobi Kenya</p>
+                <p>Langata Nairobi Kenya</p>
 
                 <p style="margin-top: 10px;">
-                    <li><a href="faq.php" style="color: white; font-size: 13px;">FAQ</a></li>
-                    <li><a href="terms-of-use.php" style="color: white; font-size: 13px;">TERMS OF USE</a></li>
-                    <li><a href="privacy-policy.php" style="color: white; font-size: 13px;">PRIVACY POLICY</a></li>
+                    <li><a href="terms-of-use.php" class="terms">TERMS OF USE</a></li>
+                    <li><a href="privacy-policy.php" class="terms">PRIVACY AND POLICY</a></li>
                 </p>
-
         
-                <p style=" text-align: center; margin-top: 10px; font-size: 13px;">
-                    Copyright © 2020 F-E-M. All rights reserved.
+                <p>
+                Copyright © 2020 F-E-M. All rights reserved.
                 </p>
             </div>
         </div>
     </footer>
     <!-- END OF FOOTER -->
+
+    <script src="js/scrolling.js"></script>
 </body>
 </html>
