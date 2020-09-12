@@ -159,7 +159,7 @@
 					?>
 						<div class='table-bottom-space'></div>
 						<div class='table-total'>
-							<button class='button-error-total'>Ksh: <?php echo number_format($_SESSION['total_expenses'], 2); ?></button>
+							<button class='button-error-total'>Total Expenses: Ksh <?php echo number_format($_SESSION['total_expenses'], 2); ?></button>
 						</div>
 					<?php
 				}

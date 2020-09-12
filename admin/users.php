@@ -1,6 +1,7 @@
 <?php 
 	require_once('../config/db_connection.php');
-
+	require_once('config/query.php');
+	
 	if (!isset($_SESSION['is_admin'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: ../login.php');
@@ -10,6 +11,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+    <meta name="description" content="Family Expense Manager System">
+    <meta name="author" content="Allarassem N Maxime">
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="../images/logo.png">
+	
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,51 +60,58 @@
 				<?php include('../success.php'); ?><br>
             </div>
             
-
-			<table style="color: #737373; font-size: 14px;">
-				<tr style="height: 65px; font-size: 15px;">
-					<th style="color: #737373;">Email</th>
-					<th style="color: #737373;">First Name</th>
-					<th style="color: #737373;">Last Name</th>
-					<th style="color: #737373;">Date</th>
-					<th style="color: #737373;">Action</th>
-                </tr>
-                
-                <?php 
-                    $query   = "SELECT * FROM User ORDER BY created_at DESC";
-                    $results = mysqli_query($con, $query);
-                    if (mysqli_num_rows($results) > 0) {
-                        while($row = $results->fetch_assoc()) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $row['user_email'] ?></td>
-                                    <td><?php echo $row['first_name'] ?></td>
-                                    <td><?php echo $row['last_name'] ?></td>
-                                    <td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-                                    <td> 
-										<!-- DELETE -->
-										<form action="" method="POST" style="margin-left:-40px;">
-											<input hidden name="user_id" value="<?php echo $row['user_id'] ?>"></input>
-											<button name="delete-expense">
-												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-											</button>&nbsp;&nbsp;&nbsp;
-										</form>
-										<!-- UPDATE -->
-										<div style="margin-left:30px; margin-top:-20px">
-											<button>
-												<a href="expense-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['expense_id'] ?>&id3=<?php echo $product_service_data['product_service_id'] ?>&price=<?php echo $row['price'] ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
-												</a>
-											</button>
-										</div>
-									</td>
-                                </tr>
-                            <?php 
-                        }
-                    }
-				?>
-			</table>
-
+			<div style="overflow-x:auto;">
+				<table style="color: #737373; font-size: 14px;">
+					
+					
+					<?php 
+						$query   = "SELECT * FROM User ORDER BY created_at DESC";
+						$results = mysqli_query($con, $query);
+						if (mysqli_num_rows($results) > 0) {
+							?>
+								<tr style="height: 65px; font-size: 15px;">
+									<th style="color: #737373;">Email</th>
+									<th style="color: #737373;">First Name</th>
+									<th style="color: #737373;">Last Name</th>
+									<th style="color: #737373;">Date</th>
+									<th style="color: #737373;">Action</th>
+								</tr>
+							<?php
+							while($row = $results->fetch_assoc()) {
+								?>
+									<tr>
+										<td><?php echo $row['user_email'] ?></td>
+										<td><?php echo $row['first_name'] ?></td>
+										<td><?php echo $row['last_name'] ?></td>
+										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+										<td> 
+											<!-- DELETE -->
+											<form action="" method="POST" style="margin-left:-40px;">
+												<input hidden name="user_id" value="<?php echo $row['user_id'] ?>"></input>
+												<button name="delete-admin-user-account">
+													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												</button>&nbsp;&nbsp;&nbsp;
+											</form>
+											<!-- UPDATE -->
+											<div style="margin-left:30px; margin-top:-20px">
+												<button>
+													<a href="users-update.php?id1=<?php echo $row['user_id'] ?>&id2=<?php echo $row['user_email'] ?>&id3=<?php echo $row['first_name'] ?>&id4=<?php echo $row['last_name'] ?>&id5=<?php echo $row['is_admin'] ?>">
+														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+													</a>
+												</button>
+											</div>
+										</td>
+									</tr>
+								<?php 
+							}
+						} else {
+							?>
+								<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+							<?php
+						}
+					?>
+				</table>
+			</div>
 			  
 			<div class="table-bottom-space"></div>
 
@@ -137,12 +151,16 @@
 					</div><br><br>
 
 					<div>
-						<input  style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="password" id="password" placeholder="Password">
+						<input style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="password_1" id="password_1" placeholder="Password">
+					</div><br><br>
+					
+					<div>
+						<input style="font-size: 14px; color: #737373; padding: 10px;" type="password" name="password_2" id="password_2" placeholder="Password">
                     </div><br><br>
 
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create Account">
+						<input class="button-primary" name="admin-create-user" type="submit" value="Create Account">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

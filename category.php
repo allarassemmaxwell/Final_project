@@ -53,54 +53,54 @@
 			
 
 			
-	
-			<table>
-				<?php 
-					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM ProductServiceCategory WHERE user_id = '$user_id'  ORDER BY created_at DESC";
-					$results = mysqli_query($con, $query);
-					if ($results->num_rows > 0) {
-						?>
-							<tr style="height: 65px; font-size: 15px;">
-								<th style="color: #737373;">Name</th>
-								<th style="color: #737373;">Date</th>
-								<th style="color: #737373;">Action</th>
-							</tr>
-						<?php
-						while($row = $results->fetch_assoc()) {
+			<div style="overflow-x:auto;">
+				<table>
+					<?php 
+						$user_id = $_SESSION['user_id'];
+						$query   = "SELECT * FROM ProductServiceCategory WHERE user_id = '$user_id'  ORDER BY created_at DESC";
+						$results = mysqli_query($con, $query);
+						if ($results->num_rows > 0) {
 							?>
-								<tr>
-									<td><?php echo $row['name'] ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
-										<!-- DELETE -->
-										<form action="" method="POST" style="margin-left:-40px;">
-											<input hidden name="category_id" value="<?php echo $row['category_id'] ?>"></input>
-											<button name="delete-category">
-												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-											</button>&nbsp;&nbsp;&nbsp;
-										</form>
-										<!-- UPDATE -->
-										<div style="margin-left:30px; margin-top:-20px">
-											<button>
-												<a href="category-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['category_id']; ?>&name=<?php echo $row['name'] ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
-												</a>
-											</button>
-										</div>
-									</td>
+								<tr style="height: 65px; font-size: 15px;">
+									<th style="color: #737373;">Name</th>
+									<th style="color: #737373;">Date</th>
+									<th style="color: #737373;">Action</th>
 								</tr>
 							<?php
+							while($row = $results->fetch_assoc()) {
+								?>
+									<tr>
+										<td><?php echo $row['name'] ?></td>
+										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+										<td> 
+											<!-- DELETE -->
+											<form action="" method="POST" style="margin-left:-40px;">
+												<input hidden name="category_id" value="<?php echo $row['category_id'] ?>"></input>
+												<button name="delete-category">
+													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												</button>&nbsp;&nbsp;&nbsp;
+											</form>
+											<!-- UPDATE -->
+											<div style="margin-left:30px; margin-top:-20px">
+												<button>
+													<a href="category-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['category_id']; ?>&name=<?php echo $row['name'] ?>">
+														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+													</a>
+												</button>
+											</div>
+										</td>
+									</tr>
+								<?php
+							}
+						} else {
+							?>
+								<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+							<?php
 						}
-					} else {
-						?>
-							<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
-						<?php
-					}
-				?>
-				
-			</table>
-
+					?>
+					
+				</table>
+			</div>
 			<div class="table-bottom-space"></div>
 
 

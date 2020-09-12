@@ -1,26 +1,31 @@
 <?php 
-	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
+	require_once('../config/db_connection.php');
+	require_once('config/query.php');
 	
-	if (!isset($_SESSION['user_email'])) {
+	if (!isset($_SESSION['is_admin'])) {
 		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
+		header('location: ../login.php');
 	}
-
 ?>
 
 <!DOCTYPE html>
 <html>
-	<head>
+<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+    <meta name="description" content="Family Expense Manager System">
+    <meta name="author" content="Allarassem N Maxime">
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="../images/logo.png">
+	
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Update Source || FEM</title>
-		<link rel="stylesheet" href="css/dashboard.css">
+		<title>Source || FEM</title>
+		<link rel="stylesheet" href="../css/dashboard.css">
 
-		    <!-- Web Fonts  -->
-			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
+		<!-- Web Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
+			
         <!-- IMPORT FONT AWSOME -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
@@ -40,19 +45,40 @@
 
 			<div class="table-top-space"></div>
               
-            <form class="add-source-form edit-page" method="POST">
+            <form class="update-source-validation edit-page" method="POST">
 				<div>
-					<?php include('errors.php'); ?><br>
+					<?php include('../errors.php'); ?><br>
 				</div>
 
+				<div>
+					<select id="user" name="user"  style="font-size: 14px; color: #737373; padding:10px;">
+						<option value="">Select User</option>
+                        <?php 
+
+							$query_user   = "SELECT * FROM User ORDER BY created_at DESC";
+							$results_user = mysqli_query($con, $query_user);
+
+							if (mysqli_num_rows($results_user) > 0) {
+								while($row = mysqli_fetch_assoc($results_user)) {
+                                    if($row['user_id'] == $user_id) {
+										echo '<option value="' . $row['user_id'] . '" selected>' . $row['user_email'] . '</option>';
+									}
+									echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
+								}
+							} else {
+								// echo "0 results";
+							}
+						?>
+					</select>
+                </div><br><br>
+
                 <div>
-					<input  style="font-size: 14px; color: #737373; padding:15px;" type="text" value="<?php echo $name; ?>" name="name" id="name" placeholder="Name">
+					<input  style="font-size: 14px; color: #737373; padding:15px" type="text" value="<?php echo $name; ?>" name="name" id="name" placeholder="Name">
                     <input type="text" hidden name="source_id" value="<?php echo $source_id; ?>">
-					<input type="text" hidden name="user_id" value="<?php echo $user_id; ?>">
 				</div><br><br>
 				
                 <div>
-                    <input class="button-primary" name="update-source" type="submit" value="Update Source">
+                    <input class="button-primary" name="admin-update-source" type="submit" value="Update Source">
                 </div>
             </form>  
 
@@ -63,24 +89,20 @@
 
 
 
-		
-
-		<?php include_once("footer.php"); ?>
-		
-
-		
+        <?php include_once("../footer.php"); ?>
 		
         <!-- JAVASCRIPT -->
-		<script
+		 <script
 			src="https://code.jquery.com/jquery-3.4.1.min.js"
 			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 			crossorigin="anonymous">
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="js/dashboard.js"></script>
+        <script src="js/validation.js"></script>
+        
 
-		<style>
+        <style>
 			.edit-page {
 				width: 55%;
 				margin: auto;

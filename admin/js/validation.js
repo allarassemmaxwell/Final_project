@@ -34,9 +34,45 @@ $(document).ready(function() {
 	});
 
 
+	// EXPENSE ADD VALIDATION
+	$(".update-expense-validation").validate({
+		rules: {
+            user: 'required',
+			category: 'required',
+			product_or_service: 'required',
+			price: {
+				required: true,
+				number: true
+			}
+		}
+	});
+
+
+
+	// SOURCE ADD VALIDATION
+	$(".update-source-validation").validate({
+		rules: {
+            user: 'required',
+			name: 'required'
+		}
+	});
+
+
 
 	// INCOME ADD VALIDATION
 	$(".add-income-validation").validate({
+		rules: {
+            user: 'required',
+			source: 'required',
+			amount: {
+				required: true,
+				number: true
+			}
+		}
+	});
+
+	// INCOME ADD VALIDATION
+	$(".update-income-validation").validate({
 		rules: {
             user: 'required',
 			source: 'required',
@@ -58,6 +94,15 @@ $(document).ready(function() {
 	});
 
 
+	// CATEGORY ADD VALIDATION
+	$(".update-category-validation").validate({
+		rules: {
+            user: 'required',
+			name: 'required'
+		}
+	});
+
+
 
 	// INCOME ADD VALIDATION
 	$(".product-service-validation").validate({
@@ -66,7 +111,44 @@ $(document).ready(function() {
 			category: 'required',
 			name: 'required'
 		}
-    });
+	});
+	
+
+	// INCOME ADD VALIDATION
+	$(".update-product-service-validation").validate({
+		rules: {
+            user: 'required',
+			category: 'required',
+			name: 'required'
+		}
+	});
+	
+
+	$(".update-user-validation").validate({
+		rules: {
+			first_name: 'required',
+			last_name: 'required',
+			is_admin: 'required',
+			email: { 
+				required: true,
+				email: true
+			}
+		}
+	});
+
+
+	$(".update-contact-validation").validate({
+		rules: {
+			first_name: 'required',
+			last_name: 'required',
+			subject: 'required',
+			message: 'required',
+			email: { 
+				required: true,
+				email: true
+			}
+		}
+	});
     
 
 
@@ -76,12 +158,19 @@ $(document).ready(function() {
 		rules: {
 			first_name: 'required',
 			last_name: 'required',
+			is_admin: 'required',
 			email: { 
 				required: true,
 				email: true
+			},
+			password_1: {
+                required: true,
+                minlength: 6
             },
-            is_admin: 'required',
-            password: 'required'
+            password_2: {
+                required: true,
+                equalTo : "#password_1"
+			}
 		}
 	});
 
@@ -118,6 +207,46 @@ $(document).ready(function() {
 				required: true,
 				equalTo : "#new_password"
 			}
+		}
+	});
+
+
+
+		// CHANGE PASSWORD VALIDATION
+		$(".admin-change-password-validation").validate({
+			rules: {
+				new_password: { 
+					required: true,
+					minlength: 6
+				},
+				c_password: { 
+					required: true,
+					equalTo : "#new_password"
+				}
+			}
+		});
+
+
+	// CHANGE PASSWORD VALIDATION
+	$(".change-admin-password-form").validate({
+		rules: {
+			old_password: 'required',
+			new_password: { 
+				required: true,
+				minlength: 6
+			},
+			c_password: { 
+				required: true,
+				equalTo : "#new_password"
+			}
+		}
+	});
+
+
+	// DELETE ACCOUNT VALIDATION
+	$(".delete-account-form").validate({
+		rules: {
+			c_password: 'required'
 		}
 	});
 

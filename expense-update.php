@@ -78,7 +78,7 @@
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" name="update-expense" type="submit" value="Create">
+                    <input class="button-primary" name="update-expense" type="submit" value="Update Expense">
                 </div>
 			</form>  
 			

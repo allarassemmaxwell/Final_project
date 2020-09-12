@@ -1,5 +1,6 @@
 <?php 
 	require_once('../config/db_connection.php');
+	require_once('config/query.php');
 
 	if (!isset($_SESSION['is_admin'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -10,6 +11,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+    <meta name="description" content="Family Expense Manager System">
+    <meta name="author" content="Allarassem N Maxime">
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="../images/logo.png">
+	
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,63 +56,71 @@
 			<div>
 				<?php include('../success.php'); ?><br>
 			</div>
-			<table style="color: #737373; font-size: 14px;">
-				<tr style="height: 65px; font-size: 15px;">
-					<th style="color: #737373;">User</th>
-					<th style="color: #737373;">Category</th>
-					<th style="color: #737373;">Product/Service</th>
-					<th style="color: #737373;">Date</th>
-					<th style="color: #737373;">Action</th>
-				</tr>
-				<?php 
-                    $query   = "SELECT * FROM ProductService ORDER BY created_at DESC";
-                    $results = mysqli_query($con, $query);
-                    if (mysqli_num_rows($results) > 0) {
-                        while($row = $results->fetch_assoc()) {
-							// GET USER
-							$user_id = $row['user_id'];
-							$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$user_data = $result2->fetch_assoc();		
-							}
-							// GET SOURCE
-							$category_id = $row['product_service_category_id'];
-							$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$category_id'";
-							$result3 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result3) == 1) {
-								$source_data = $result3->fetch_assoc();		
-							}
+			<div style="overflow-x:auto;">
+				<table style="color: #737373; font-size: 14px;">
+					
+					<?php 
+						$query   = "SELECT * FROM ProductService ORDER BY created_at DESC";
+						$results = mysqli_query($con, $query);
+						if (mysqli_num_rows($results) > 0) {
 							?>
-								<tr>
-									<td><?php echo $user_data['user_email'] ?></td>
-									<td><?php echo $source_data['name'] ?></td>
-									<td><?php echo $row['name'] ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
-										<!-- DELETE -->
-										<form action="" method="POST" style="margin-left:-40px;">
-											<input hidden name="user_id" value="<?php echo $row['user_id'] ?>"></input>
-											<button name="delete-expense">
-												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-											</button>&nbsp;&nbsp;&nbsp;
-										</form>
-										<!-- UPDATE -->
-										<div style="margin-left:30px; margin-top:-20px">
-											<button>
-												<a href="expense-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['expense_id'] ?>&id3=<?php echo $product_service_data['product_service_id'] ?>&price=<?php echo $row['price'] ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
-												</a>
-											</button>
-										</div>
-									</td>
+								<tr style="height: 65px; font-size: 15px;">
+									<th style="color: #737373;">User</th>
+									<th style="color: #737373;">Category</th>
+									<th style="color: #737373;">Product/Service</th>
+									<th style="color: #737373;">Date</th>
+									<th style="color: #737373;">Action</th>
 								</tr>
 							<?php
+							while($row = $results->fetch_assoc()) {
+								// GET USER
+								$user_id = $row['user_id'];
+								$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
+								$result2 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result2) == 1) {
+									$user_data = $result2->fetch_assoc();		
+								}
+								// GET SOURCE
+								$category_id = $row['product_service_category_id'];
+								$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$category_id'";
+								$result3 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result3) == 1) {
+									$source_data = $result3->fetch_assoc();		
+								}
+								?>
+									<tr>
+										<td><?php echo $user_data['user_email'] ?></td>
+										<td><?php echo $source_data['name'] ?></td>
+										<td><?php echo $row['name'] ?></td>
+										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+										<td> 
+											<!-- DELETE -->
+											<form action="" method="POST" style="margin-left:-40px;">
+												<input hidden name="product_service_id" value="<?php echo $row['product_service_id'] ?>"></input>
+												<button name="delete-admin-product-or-service">
+													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												</button>&nbsp;&nbsp;&nbsp;
+											</form>
+											<!-- UPDATE -->
+											<div style="margin-left:30px; margin-top:-20px">
+												<button>
+													<a href="product-service-update.php?id1=<?php echo $row['user_id'] ?>&id2=<?php echo $row['product_service_id'] ?>&id3=<?php echo $source_data['category_id']; ?>&name=<?php echo $row['name'] ?>">
+														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+													</a>
+												</button>
+											</div>
+										</td>
+									</tr>
+								<?php
+							}
+						} else {
+							?>
+								<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+							<?php
 						}
-					}
-				?>
-			</table>
-
+					?>
+				</table>
+			</div>
 			<div class="table-bottom-space"></div> 
 		</div>
 
@@ -141,12 +156,20 @@
 					</div><br><br>
 
 					<div>
-						<select id="category" name="category"  style="font-size: 14px; color: #737373; padding: 10px;">
+						<select id="category" name="category"  style="font-size: 14px; color: #737373;  padding: 10px;">
 							<option value="">Select Category</option>
-							<option value="">1</option>
-							<option value="">2</option>
-							<option value="">3</option>
-							<option value="">4</option>
+							<?php 
+								$query_users   = "SELECT * FROM ProductServiceCategory ORDER BY created_at DESC";
+								$user_result = mysqli_query($con, $query_users);
+
+								if (mysqli_num_rows($user_result) > 0) {
+									while($row = mysqli_fetch_assoc($user_result)) {
+										echo '<option value="' . $row['category_id'] . '">' . $row['name'] . '</option>';
+									}
+								} else {
+									// echo "0 results";
+								}
+							?>
 						</select>
 					</div><br><br>
 
@@ -155,7 +178,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-expense" type="submit" value="Create Product/Service">
+						<input class="button-primary" name="add-admin-product-or-service" type="submit" value="Create Product/Service">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

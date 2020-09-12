@@ -53,64 +53,65 @@
 			
 			
 
-			<table>
-				<?php 
-					$user_id = $_SESSION['user_id'];
-					$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
-					$results = mysqli_query($con, $query);
-					if (mysqli_num_rows($results) > 0) {
-						?>
-							<tr style="height: 65px; font-size: 15px;">
-								<th style="color: #737373;">Category</th>
-								<th style="color: #737373;">Product/Service</th>
-								<th style="color: #737373;">Date</th>
-								<th style="color: #737373;">Action</th>
-							</tr>
-						<?php
-						while($row = $results->fetch_assoc()) {
-							// GET SOURCE NAME
-							$category_id = $row['product_service_category_id'];
-							$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$category_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$category_data = $result2->fetch_assoc();		
-							}
-
-							// DISPLAY DATA
+			<div style="overflow-x:auto;">
+				<table>
+					<?php 
+						$user_id = $_SESSION['user_id'];
+						$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
+						$results = mysqli_query($con, $query);
+						if (mysqli_num_rows($results) > 0) {
 							?>
-								<tr>
-									<td><?php echo $category_data['name']; ?></td>
-									<td><?php echo $row['name'] ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
-										<!-- DELETE -->
-										<form action="" method="POST" style="margin-left:-40px;">
-											<input hidden name="product_service_id" value="<?php echo $row['product_service_id'] ?>"></input>
-											<button name="delete-product-or-service">
-												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-											</button>&nbsp;&nbsp;&nbsp;
-										</form>
-											<!-- UPDATE -->
-										<div style="margin-left:30px; margin-top:-20px">
-											<button>
-												<a href="product-service-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['product_service_id'] ?>&id3=<?php echo $category_data['category_id']; ?>&name=<?php echo $row['name'] ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
-												</a>
-											</button>
-										</div>
-									</td>
+								<tr style="height: 65px; font-size: 15px;">
+									<th style="color: #737373;">Category</th>
+									<th style="color: #737373;">Product/Service</th>
+									<th style="color: #737373;">Date</th>
+									<th style="color: #737373;">Action</th>
 								</tr>
 							<?php
-						}
-					} else {
-						?>
-							<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
-						<?php
-					}
-				?>
-				
-			</table>
+							while($row = $results->fetch_assoc()) {
+								// GET SOURCE NAME
+								$category_id = $row['product_service_category_id'];
+								$query   = "SELECT * FROM ProductServiceCategory WHERE category_id = '$category_id'";
+								$result2 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result2) == 1) {
+									$category_data = $result2->fetch_assoc();		
+								}
 
+								// DISPLAY DATA
+								?>
+									<tr>
+										<td><?php echo $category_data['name']; ?></td>
+										<td><?php echo $row['name'] ?></td>
+										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+										<td> 
+											<!-- DELETE -->
+											<form action="" method="POST" style="margin-left:-40px;">
+												<input hidden name="product_service_id" value="<?php echo $row['product_service_id'] ?>"></input>
+												<button name="delete-product-or-service">
+													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												</button>&nbsp;&nbsp;&nbsp;
+											</form>
+												<!-- UPDATE -->
+											<div style="margin-left:30px; margin-top:-20px">
+												<button>
+													<a href="product-service-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['product_service_id'] ?>&id3=<?php echo $category_data['category_id']; ?>&name=<?php echo $row['name'] ?>">
+														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+													</a>
+												</button>
+											</div>
+										</td>
+									</tr>
+								<?php
+							}
+						} else {
+							?>
+								<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+							<?php
+						}
+					?>
+					
+				</table>
+			</div>
 			<div class="table-bottom-space"></div>
 
 

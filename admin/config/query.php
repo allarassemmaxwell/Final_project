@@ -1,132 +1,15 @@
-<?php
+<?php 
+    require_once('../config/db_connection.php');
 
-
-
-    session_start();
-
-    // initializing variables
-    $user_email   = "";
-    $user_id   = "";
-    $errors = array(); 
-
-    // connect to the database
-    $host     = "localhost"; 
-    $user     = "root"; 
-    $password = ""; 
-    $dbname   = "fem"; 
-
-    $con = mysqli_connect($host, $user, $password,$dbname);
-    if (!$con) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-
-    // CREATE ACCOUNT
-    if (isset($_POST['register_submit'])) {
-        $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
-        $last_name  = mysqli_real_escape_string($con, $_POST['last_name']);
-        $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
-        $password_1 = mysqli_real_escape_string($con, $_POST['password_1']);
-        $password_2 = mysqli_real_escape_string($con, $_POST['password_2']);
-      
-        if (empty($first_name)) { array_push($errors, "First name is required"); }
-        if (empty($last_name))  { array_push($errors, "Last name is required"); }
-        if (empty($user_email)) { array_push($errors, "Email is required"); }
-        if (empty($password_1)) { array_push($errors, "Password is required"); }
-        if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
-
-        $user_check_query = "SELECT * FROM User WHERE user_email='$user_email' LIMIT 1";
-        $result           = mysqli_query($con, $user_check_query);
-        $user             = mysqli_fetch_assoc($result);
         
-        if ($user) { 
-            if ($user['user_email'] === $user_email) { array_push($errors, "Email already exists"); }
-        }
-      
-        if (count($errors) == 0) {
-            $user_password = md5($password_1);
-      
-            $query = "INSERT INTO User (first_name, last_name, user_email, user_password) VALUES('$first_name', '$last_name', '$user_email', '$user_password')";
-            mysqli_query($con, $query);
-            $_SESSION['success'] = "Account created successfully.";
-            header('Location: login.php');
-        }
-    }
-
-
-
-    // LOG IN
-    if (isset($_POST['login_submit'])) {
-        $user_email     = mysqli_real_escape_string($con, $_POST['user_email']);
-        $user_password  = mysqli_real_escape_string($con, $_POST['user_password']);
-      
-        if (empty($user_email))    { array_push($errors, "Email is required"); }
-        if (empty($user_password)) { array_push($errors, "Password is required"); }
-
-        if (count($errors) == 0) {
-            $user_password = md5($user_password);
-
-            $query   = "SELECT * FROM User WHERE user_email='$user_email' AND user_password='$user_password' LIMIT 1";
-            $results = mysqli_query($con, $query);
-
-            if (mysqli_num_rows($results) == 1) {
-                $user_data = mysqli_fetch_assoc($results);
-                if ($user_data['is_admin'] == '1') {
-                    $_SESSION['is_admin']   = $user_data['is_admin'];
-                    $_SESSION['user_id']    = $user_data['user_id'];
-                    $_SESSION['user_email'] = $user_data['user_email'];
-                    header('location: admin/dashboard.php');		  
-                }else{
-                    $_SESSION['user_id'] = $user_data['user_id'];
-                    $_SESSION['user_email'] = $user_data['user_email'];
-                    header('Location: dashboard.php');
-                }		
-            }else {
-                array_push($errors, "Wrong email/password combination");
-            }
-        }
-    }
-
-
-
-
-    
-    // UPDATE USER PROFILE
-    if(isset($_POST['update_profile'])) {
-        $first_name    = mysqli_real_escape_string($con, $_POST['first_name']);
-        $last_name     = mysqli_real_escape_string($con, $_POST['last_name']);
-        $user_email    = $_SESSION['user_email'];
-        $user_id       = $_SESSION['user_id'];
-
-        if(empty($first_name)) { array_push($errors, "First Name is required"); }
-        if(empty($last_name))  { array_push($errors, "Last Name is required"); }
-        if(empty($user_email)) { array_push($errors, "Email is required"); }
-
-        if (count($errors) == 0) {
-            $query   = "UPDATE User SET first_name='$first_name', last_name='$last_name' WHERE user_id = '$user_id'";
-            $results = mysqli_query($con, $query);
-
-            if ($results) {
-                $_SESSION['success'] = "Profile updated successfully.";
-            } else {
-                array_push($errors, "Could update your profile: $query");
-            }
-        }
-    }
-
-
-
-
-// ADDING SECTION      ADDING SECTION       ADDING SECTION       ADDING SECTION     ADDING SECTION
-    
-
+    // CREATE      CREATE      CREATE      CREATE
     // ADDING EXPENSE
-    if(isset($_POST['add-expense'])) {
-        $income_id  = mysqli_real_escape_string($con, $_POST['income']);
+    if(isset($_POST['add-admin-expense'])) {
+        $user_id  = mysqli_real_escape_string($con, $_POST['user']);
+        $income_id  = mysqli_real_escape_string($con, $_POST['category']);
         $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
         $price   = mysqli_real_escape_string($con, $_POST['price']);
         $totole_expenses = $_SESSION['total_expenses'] + $price;
-        $user_id = $_SESSION['user_id'];
 
         if (empty($income_id)) { array_push($errors, "Income is required"); }
         if (empty($product_service_id)) { array_push($errors, "Product/Service is required"); }
@@ -158,11 +41,12 @@
 
 
     // ADDING SOURCE
-    if(isset($_POST['add-source'])) {
+    if(isset($_POST['add-admin-source'])) {
+        $user_id = mysqli_real_escape_string($con, $_POST['user']);
         $name    = mysqli_real_escape_string($con, $_POST['name']);
-        $user_id = $_SESSION['user_id'];
 
-        if (empty($name))       { array_push($errors, "Name is required"); }
+        if (empty($user_id)) { array_push($errors, "User is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
 
         $user_check_query = "SELECT * FROM Source WHERE user_id='$user_id' AND name='$name' LIMIT 1";
         $result1          = mysqli_query($con, $user_check_query);
@@ -184,14 +68,14 @@
     }
 
 
-
     // ADDING INCOME
-    if(isset($_POST['add-income'])) {
+    if(isset($_POST['add-admin-income'])) {
+        $user_id            = mysqli_real_escape_string($con, $_POST['user']);
         $source_id          = mysqli_real_escape_string($con, $_POST['source']);
         $amount             = mysqli_real_escape_string($con, $_POST['amount']);
         $remaining_amount   = mysqli_real_escape_string($con, $_POST['amount']);
-        $user_id = $_SESSION['user_id'];
 
+        if (empty($user_id))   { array_push($errors, "User is required"); }
         if (empty($source_id)) { array_push($errors, "Source is required"); }
         if (empty($amount))    { array_push($errors, "Amount is required"); }
 
@@ -207,12 +91,14 @@
     }
 
 
-    // ADDING CATEGORY
-    if(isset($_POST['add-category'])) {
-        $name    = mysqli_real_escape_string($con, $_POST['name']);
-        $user_id = $_SESSION['user_id'];
 
-        if (empty($name)) { array_push($errors, "Name is required"); }
+    // ADDING CATEGORY
+    if(isset($_POST['add-admin-category'])) {
+        $user_id    = mysqli_real_escape_string($con, $_POST['user']);
+        $name    = mysqli_real_escape_string($con, $_POST['name']);
+
+        if (empty($user_id)) { array_push($errors, "User is required"); }
+        if (empty($name))    { array_push($errors, "Name is required"); }
 
         $user_check_query = "SELECT * FROM ProductServiceCategory WHERE user_id='$user_id' AND name='$name' LIMIT 1";
         $result1          = mysqli_query($con, $user_check_query);
@@ -235,13 +121,22 @@
 
 
     // ADDING PRODUCT OR SERVICE
-    if(isset($_POST['add-product-or-service'])) {
+    if(isset($_POST['add-admin-product-or-service'])) {
+        $user_id  = mysqli_real_escape_string($con, $_POST['user']);
         $category_id  = mysqli_real_escape_string($con, $_POST['category']);
         $name  = mysqli_real_escape_string($con, $_POST['name']);
-        $user_id = $_SESSION['user_id'];
 
+        if (empty($user_id))     { array_push($errors, "User is required"); }
         if (empty($category_id)) { array_push($errors, "Category is required"); }
-        if (empty($name))    { array_push($errors, "Name is required"); }
+        if (empty($name))        { array_push($errors, "Name is required"); }
+
+        $check_name_query = "SELECT * FROM ProductService WHERE user_id='$user_id' AND name='$name' LIMIT 1";
+        $result1          = mysqli_query($con, $check_name_query);
+        $value            = mysqli_fetch_assoc($result1);
+        
+        if ($value) { 
+            if ($value['name'] === $name) { array_push($errors, "Name already exists"); }
+        }
 
         if (count($errors) == 0) {
             $query = "INSERT INTO ProductService (product_service_category_id, name, user_id) VALUES('$category_id', '$name', '$user_id')";
@@ -255,30 +150,35 @@
     }
 
 
-
-
-    // ADDING CONTACT
-    if(isset($_POST['add-contact'])) {
+    // CREATE ACCOUNT
+    if (isset($_POST['admin-create-user'])) {
         $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
         $last_name  = mysqli_real_escape_string($con, $_POST['last_name']);
-        $email      = mysqli_real_escape_string($con, $_POST['email']);
-        $subject    = mysqli_real_escape_string($con, $_POST['subject']);
-        $message    = mysqli_real_escape_string($con, $_POST['message']);
-
+        $user_email = mysqli_real_escape_string($con, $_POST['email']);
+        $is_admin   = mysqli_real_escape_string($con, $_POST['is_admin']);
+        $password_1 = mysqli_real_escape_string($con, $_POST['password_1']);
+        $password_2 = mysqli_real_escape_string($con, $_POST['password_2']);
+      
         if (empty($first_name)) { array_push($errors, "First name is required"); }
         if (empty($last_name))  { array_push($errors, "Last name is required"); }
-        if (empty($email))      { array_push($errors, "Email is required"); }
-        if (empty($subject))    { array_push($errors, "Subject is required"); }
-        if (empty($message))    { array_push($errors, "Messageis required"); }
+        if (empty($user_email)) { array_push($errors, "Email is required"); }
+        if (empty($password_1)) { array_push($errors, "Password is required"); }
+        if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
 
+        $user_check_query = "SELECT * FROM User WHERE user_email='$user_email' LIMIT 1";
+        $result           = mysqli_query($con, $user_check_query);
+        $user             = mysqli_fetch_assoc($result);
+        
+        if ($user) { 
+            if ($user['user_email'] === $user_email) { array_push($errors, "Email already exists"); }
+        }
+      
         if (count($errors) == 0) {
-            $query = "INSERT INTO Contact (first_name, last_name, email, subject, message) VALUES('$first_name', '$last_name', '$email', '$subject', '$message')";
-            $result = mysqli_query($con, $query);
-            if (!$result) { 
-                array_push($errors, "Error: Connection failed: $query");
-            } else {
-                $_SESSION['success'] = "Your message has been sent successfully. We will get back to you as soon as possible";
-            }
+            $user_password = md5($password_1);
+      
+            $query = "INSERT INTO User (first_name, last_name, user_email, is_admin, user_password) VALUES('$first_name', '$last_name', '$user_email', '$is_admin', '$user_password')";
+            mysqli_query($con, $query);
+            $_SESSION['success'] = "Account created successfully.";
         }
     }
 
@@ -286,54 +186,10 @@
 
 
 
-    // CHANGE USER PASSWORD
-    if (isset($_POST['change_password'])) {
-        $old_password    = $_POST['old_password'];
-        $new_password    = $_POST['new_password'];
-        $c_password      = $_POST['c_password'];
-        $user_id         = $_SESSION['user_id'];
-        
-        if (empty($old_password)) { array_push($errors, "Old password is required"); }
-        if (empty($new_password)) { array_push($errors, "New password is required"); }
-        if (empty($c_password))   { array_push($errors, "Confirm password is required"); }
-        if ($new_password != $c_password) { array_push($errors, "The two passwords do not match"); }
-
-        if (count($errors) == 0) {
-            $user_password    = md5($new_password);
-            $current_password = md5($old_password);
-
-            $result = mysqli_query($con, "SELECT * FROM User WHERE user_id = '$user_id'");
-            $row    = mysqli_fetch_array($result);
-
-            if ($current_password == $row["user_password"]) {
-                mysqli_query($con, "UPDATE User SET user_password='$user_password' WHERE user_id = '$user_id'");
-                $_SESSION['success'] = "Password Changed successfully.";
-                unset($_SESSION["user_id"]);
-                unset($_SESSION["user_email"]);
-                header('Location: login.php');
-            } else {
-                array_push($errors, "Current Password is not correct");
-            }
-        } 
-    }
-
-
-
-
-
-
-    
-
-
-
-// DELETE SECTION      DELETE SECTION       DELETE SECTION       DELETE SECTION     DELETE SECTION
-
-    // DELETE ACCOUNT
-
-
+    // DELETE SECTION      DELETE SECTION       DELETE SECTION       DELETE SECTION     DELETE SECTION
 
     // DELETE EXPENSE
-    if(isset($_POST['delete-expense'])) {
+    if(isset($_POST['delete-admin-expense'])) {
         $expense_id = $_POST['expense_id'];
 
         if (empty($expense_id)) { array_push($errors, "An expense is required"); }
@@ -364,7 +220,7 @@
 
 
     // DELETE SOURCE
-    if(isset($_POST['delete-source'])) {
+    if(isset($_POST['delete-admin-source'])) {
         $source_id = $_POST['source_id'];
 
         if (empty($source_id)) { array_push($errors, "Source is required"); }
@@ -403,9 +259,8 @@
     }
 
 
-
     // DELETE INCOME
-    if(isset($_POST['delete-income'])) {
+    if(isset($_POST['delete-admin-income'])) {
         $income_id = $_POST['income_id'];
 
         if (empty($income_id)) { array_push($errors, "Income is required"); }
@@ -436,9 +291,8 @@
     }
 
 
-
     // DELETE CATEGORY
-    if(isset($_POST['delete-category'])) {
+    if(isset($_POST['delete-admin-category'])) {
         $category_id = $_POST['category_id'];
 
         if (empty($category_id)) { array_push($errors, "Category is required"); }
@@ -470,9 +324,8 @@
     }
 
 
-
     // DELETE PRODUCT OR SERVICE
-    if(isset($_POST['delete-product-or-service'])) {
+    if(isset($_POST['delete-admin-product-or-service'])) {
         $product_service_id = $_POST['product_service_id'];
 
         if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
@@ -496,7 +349,70 @@
 
 
     // DELETE USER ACCOUNT
-    if(isset($_POST['delete_user_account'])) {
+    if(isset($_POST['delete-admin-user-account'])) {
+        $user_id = $_POST['user_id'];
+        $current_user_id = $_SESSION['user_id'];
+
+        if (empty($user_id)) { array_push($errors, "User is required"); }
+
+        
+        if (count($errors) == 0) {
+            $expense_query  = "DELETE FROM Expense WHERE user_id='$user_id'";
+            mysqli_query($con, $expense_query);
+
+            $saving_query  = "DELETE FROM Saving WHERE user_id='$user_id'";
+            mysqli_query($con, $saving_query);
+
+            $income_query  = "DELETE FROM Income WHERE user_id='$user_id'";
+            mysqli_query($con, $income_query);
+
+            $source_query  = "DELETE FROM Source WHERE user_id='$user_id'";
+            mysqli_query($con, $source_query);
+
+            $product_query  = "DELETE FROM ProductService WHERE user_id='$user_id'";
+            mysqli_query($con, $product_query);
+
+            $product_category_query  = "DELETE FROM ProductServiceCategory WHERE user_id='$user_id'";
+            $product_category_result = mysqli_query($con, $product_category_query);
+
+            $user_query  = "DELETE FROM User WHERE user_id='$user_id'";
+            $user_result = mysqli_query($con, $user_query);
+    
+            if (!$user_result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                if($user_id == $current_user_id) {
+                    session_destroy();
+                    header('Location: ../login.php');
+                }else {
+                    $_SESSION['success'] = "Account deleted successfully.";
+                }
+            }
+        }
+    }
+
+
+
+    // DELETE CONTACT
+    if(isset($_POST['delete-admin-contact'])) {
+        $contact_id = $_POST['contact_id'];
+
+        if (empty($contact_id)) { array_push($errors, "Contact is required"); }
+
+        if (count($errors) == 0) {
+            $contact_query  = "DELETE FROM Contact WHERE contact_id='$contact_id'";
+            $contact_result = mysqli_query($con, $contact_query);
+            if (!$contact_result) { 
+                array_push($errors, "Error: Connection failed: $product_query");
+            } else {
+                $_SESSION['success'] = "Contact deleted successfully.";
+            }
+        }
+    }
+
+
+    // DELETE USER ACCOUNT
+    if(isset($_POST['delete_admin_user_account'])) {
         $password = $_POST['c_password'];
         $user_id  = $_SESSION['user_id'];
         $user_password = md5($password);
@@ -535,7 +451,7 @@
                                     if($user) {
                                         session_destroy();
                                         // $_SESSION['success'] = "Account deleted successfully.";
-                                        header('Location: login.php');
+                                        header('Location: ../login.php');
                                     } else {
                                         array_push($errors, "Error in User: $query");
                                     }
@@ -565,14 +481,52 @@
 
 
 
-    // UPDATE SECTION  UPDATE SECTION   UPDATE SECTION   UPDATE SECTION    UPDATE SECTION   UPDATE SECTION
 
+
+    // UPDATE      UPDATE      UPDATE      UPDATE      UPDATE 
+    // CHANGE USER PASSWORD
+    if (isset($_POST['change_admin_password'])) {
+        $old_password    = $_POST['old_password'];
+        $new_password    = $_POST['new_password'];
+        $c_password      = $_POST['c_password'];
+        $user_id         = $_SESSION['user_id'];
+        
+        if (empty($old_password)) { array_push($errors, "Old password is required"); }
+        if (empty($new_password)) { array_push($errors, "New password is required"); }
+        if (empty($c_password))   { array_push($errors, "Confirm password is required"); }
+        if ($new_password != $c_password) { array_push($errors, "The two passwords do not match"); }
+
+        if (count($errors) == 0) {
+            $user_password    = md5($new_password);
+            $current_password = md5($old_password);
+
+            $result = mysqli_query($con, "SELECT * FROM User WHERE user_id = '$user_id'");
+            $row    = mysqli_fetch_array($result);
+
+            if ($current_password == $row["user_password"]) {
+                mysqli_query($con, "UPDATE User SET user_password='$user_password' WHERE user_id = '$user_id'");
+                $_SESSION['success'] = "Password Changed successfully.";
+                unset($_SESSION["user_id"]);
+                unset($_SESSION["user_email"]);
+                header('Location: ../login.php');
+            } else {
+                array_push($errors, "Current Password is not correct");
+            }
+        } 
+    }
+
+
+
+
+
+
+    // ADDING SECTION      ADDING SECTION       ADDING SECTION       ADDING SECTION     ADDING SECTION
     // UPDATE EXPENSE
-    if(isset($_POST['update-expense'])) {
+    if(isset($_POST['admin-update-expense'])) {
         $expense_id          = mysqli_real_escape_string($con, $_POST['expense_id']);
         $price               = mysqli_real_escape_string($con, $_POST['price']);
         $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
-        $user_id             = mysqli_real_escape_string($con, $_POST['user_id']);
+        $user_id             = mysqli_real_escape_string($con, $_POST['user']);
 
         if (empty($expense_id)) { array_push($errors, "Expense is required"); }
         if (empty($price))    { array_push($errors, "Price is required"); }
@@ -611,14 +565,11 @@
             
         }
     }
-
-
-
     // UPDATE SOURCE
-    if(isset($_POST['update-source'])) {
-        $source_id          = mysqli_real_escape_string($con, $_POST['source_id']);
-        $name               = mysqli_real_escape_string($con, $_POST['name']);
-        $user_id             = mysqli_real_escape_string($con, $_POST['user_id']);
+    if(isset($_POST['admin-update-source'])) {
+        $source_id = mysqli_real_escape_string($con, $_POST['source_id']);
+        $name      = mysqli_real_escape_string($con, $_POST['name']);
+        $user_id   = mysqli_real_escape_string($con, $_POST['user']);
 
         if (empty($source_id)) { array_push($errors, "Source is required"); }
         if (empty($name))    { array_push($errors, "Name is required"); }
@@ -637,11 +588,11 @@
 
 
     // UPDATE INCOME
-    if(isset($_POST['update-income'])) {
+    if(isset($_POST['admin-update-income'])) {
         $income_id = mysqli_real_escape_string($con, $_POST['income_id']);
         $amount    = mysqli_real_escape_string($con, $_POST['amount']);
         $source_id = mysqli_real_escape_string($con, $_POST['source']);
-        $user_id   = mysqli_real_escape_string($con, $_POST['user_id']);
+        $user_id   = mysqli_real_escape_string($con, $_POST['user']);
 
         if (empty($income_id)) { array_push($errors, "Income is required"); }
         if (empty($amount))    { array_push($errors, "Amount is required"); }
@@ -677,10 +628,10 @@
 
 
     // UPDATE CATEGORY
-    if(isset($_POST['update-category'])) {
+    if(isset($_POST['admin-update-category'])) {
         $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
         $name        = mysqli_real_escape_string($con, $_POST['name']);
-        $user_id     = mysqli_real_escape_string($con, $_POST['user_id']);
+        $user_id     = mysqli_real_escape_string($con, $_POST['user']);
 
         if (empty($category_id)) { array_push($errors, "Category is required"); }
         if (empty($name))    { array_push($errors, "Name is required"); }
@@ -698,12 +649,13 @@
     }
 
 
+
     // UPDATE PRODUCT/SERVICE
-    if(isset($_POST['update-product-service'])) {
+    if(isset($_POST['admin-update-product-service'])) {
         $product_service_id = mysqli_real_escape_string($con, $_POST['product_service_id']);
         $name      = mysqli_real_escape_string($con, $_POST['name']);
         $product_service_category_id = mysqli_real_escape_string($con, $_POST['category']);
-        $user_id   = mysqli_real_escape_string($con, $_POST['user_id']);
+        $user_id   = mysqli_real_escape_string($con, $_POST['user']);
 
         if (empty($product_service_id)) { array_push($errors, "Product/Sevice is required"); }
         if (empty($name))    { array_push($errors, "Name is required"); }
@@ -720,9 +672,103 @@
             }
         }
     }
-            
 
 
+
+    // UPDATE USER PROFILE
+    if(isset($_POST['admin-update-user'])) {
+        $first_name    = mysqli_real_escape_string($con, $_POST['first_name']);
+        $last_name     = mysqli_real_escape_string($con, $_POST['last_name']);
+        $user_email    = mysqli_real_escape_string($con, $_POST['email']);
+        $user_id       = mysqli_real_escape_string($con, $_POST['user_id']);
+        $is_admin      = mysqli_real_escape_string($con, $_POST['is_admin']);
+
+        if(empty($first_name)) { array_push($errors, "First Name is required"); }
+        if(empty($last_name))  { array_push($errors, "Last Name is required"); }
+        if(empty($user_email)) { array_push($errors, "Email is required"); }
+
+        if (count($errors) == 0) {
+            $query   = "UPDATE User SET first_name='$first_name', last_name='$last_name', user_email='$user_email', is_admin='$is_admin' WHERE user_id = '$user_id'";
+            $results = mysqli_query($con, $query);
+
+            if ($results) {
+                $_SESSION['success'] = "User updated successfully.";
+                header('Location: users.php');
+            } else {
+                array_push($errors, "Could update your profile: $query");
+            }
+        }
+    }
+
+
+
+
+
+    // UPDATE USER PROFILE
+    // if(isset($_POST['admin-update-contact'])) {
+    //     $contact_id    = mysqli_real_escape_string($con, $_POST['contact_id']);
+    //     $first_name    = mysqli_real_escape_string($con, $_POST['first_name']);
+    //     $last_name     = mysqli_real_escape_string($con, $_POST['last_name']);
+    //     $user_email    = mysqli_real_escape_string($con, $_POST['email']);
+    //     $subject       = mysqli_real_escape_string($con, $_POST['subject']);
+    //     $message       = mysqli_real_escape_string($con, $_POST['message']);
+
+    //     if(empty($contact_id)) { array_push($errors, " Contact is required"); }
+    //     if(empty($first_name))  { array_push($errors, "First Name is required"); }
+    //     if(empty($last_name)) { array_push($errors, "Last Name is required"); }
+    //     if(empty($user_email)) { array_push($errors, "Email is required"); }
+    //     if(empty($subject))  { array_push($errors, "Subject is required"); }
+    //     if(empty($message)) { array_push($errors, "Message is required"); }
+
+    //     if (count($errors) == 0) {
+    //         $query   = "UPDATE Contact SET first_name='$first_name', last_name='$last_name', email='$user_email', subject='$subject', message='$message' WHERE user_id = '$user_id'";
+    //         $results = mysqli_query($con, $query);
+
+    //         if ($results) {
+    //             $_SESSION['success'] = "Contact updated successfully.";
+    //             header('Location: contact.php');
+    //         } else {
+    //             array_push($errors, "Could update your profile: $query");
+    //         }
+    //     }
+    // }
+
+
+
+    // CHANGE USER PASSWORD
+    if (isset($_POST['admin-change-user-password'])) {
+        $new_password    = mysqli_real_escape_string($con, $_POST['new_password']);
+        $c_password      = mysqli_real_escape_string($con, $_POST['c_password']);
+        $user_id         = mysqli_real_escape_string($con, $_POST['user_id']);
+        
+        if (empty($new_password)) { array_push($errors, "New password is required"); }
+        if (empty($c_password))   { array_push($errors, "Confirm password is required"); }
+        if (empty($user_id))      { array_push($errors, "User is required"); }
+
+        if (count($errors) == 0) {
+            $user_password    = md5($new_password);
+
+            $result = mysqli_query($con, "SELECT * FROM User WHERE user_id = '$user_id' LIMIT 1");
+            $row    = mysqli_fetch_array($result);
+            if($result) {
+                if ($row["user_password"] == 1) {
+                    mysqli_query($con, "UPDATE User SET user_password='$user_password' WHERE user_id = '$user_id'");
+                    $_SESSION['success'] = "Password Changed successfully.";
+                    unset($_SESSION["user_id"]);
+                    unset($_SESSION["user_email"]);
+                    header('Location: ../login.php');
+                } else {
+                    mysqli_query($con, "UPDATE User SET user_password='$user_password' WHERE user_id = '$user_id'");
+                    $_SESSION['success'] = "Password Changed successfully.";
+                    header('Location: users.php');
+                }
+            }
+        } 
+    }
+
+
+
+
+    
 
 ?>
-

@@ -38,49 +38,49 @@
 	</head>
 	<body>
 		
-<style>
-	.profile-page {
-		width: 50%;
-		margin: auto;
-	}
-	@media only screen and (min-width: 300px) {
-		.profile-page {
-			width: 100%;
-			margin: auto;
-		}
-		.profile {
-			margin-right: 8%;
-		}
-	}
-	@media only screen and (min-width: 600px) {
-		.profile-page {
-			width: 90%;
-			margin: auto;
-		}
-		.profile {
-			margin-right: 12%;
-		}
-	}
-	@media only screen and (min-width: 800px) {
-		.profile-page {
-			width: 80%;
-			margin: auto;
-		}
-		.profile {
-			margin-right: 15%;
-		}
-	}
-	@media screen and (min-width: 1024px) {
-		.profile-page {
-			width: 50%;
-			margin: auto;
-		}
-		.profile {
-			margin-right: 27.5%;
-		}
-	}
+		<style>
+			.profile-page {
+				width: 50%;
+				margin: auto;
+			}
+			@media only screen and (min-width: 300px) {
+				.profile-page {
+					width: 100%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 8%;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				.profile-page {
+					width: 90%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 12%;
+				}
+			}
+			@media only screen and (min-width: 800px) {
+				.profile-page {
+					width: 80%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 15%;
+				}
+			}
+			@media screen and (min-width: 1024px) {
+				.profile-page {
+					width: 50%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 27.5%;
+				}
+			}
 
-</style>
+		</style>
 
 		<?php include('header.php'); ?>
 
@@ -110,10 +110,6 @@
 
 				<div>
 					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="email" name="email" placeholder="Email" disabled value="<?php echo $profile_data['user_email']; ?>">
-				</div><br><br>
-
-				<div>
-					<input  style="font-size: 14px; color: #737373; padding-left: 10px; padding-right: 10px;" type="number" name="family_number" placeholder="Family Number">
 				</div><br><br>
 
                 <div>

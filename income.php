@@ -53,76 +53,76 @@
 			
 			
 
-			
-			<table>
-				<?php 
-					$total_amount = 0;
-					$user_id      = $_SESSION['user_id'];
-					$query        = "SELECT * FROM Income WHERE user_id = '$user_id' ORDER BY created_at DESC";
-					$results      = mysqli_query($con, $query);
-					if (mysqli_num_rows($results) > 0) {
-						?>
-							<tr style="height: 65px; font-size: 15px;">
-								<th style="color: #737373;">Source</th>
-								<th style="color: #737373;">Amount</th>
-								<th style="color: #737373;">Remaining</th>
-								<th style="color: #737373;">Date</th>
-								<th style="color: #737373;">Action</th>
-							</tr>
-						<?php
-						while($row = $results->fetch_assoc()) {
-							$total_amount += $row['amount'];
-
-							// GET SOURCE NAME
-							$source_id = $row['source_id'];
-							$query   = "SELECT * FROM Source WHERE source_id = '$source_id'";
-							$result2 = mysqli_query($con, $query);
-							if (mysqli_num_rows($result2) == 1) {
-								$source_data = $result2->fetch_assoc();		
-							}
-
-							// DISPLAY DATA
+			<div style="overflow-x:auto;">
+				<table>
+					<?php 
+						$total_amount = 0;
+						$user_id      = $_SESSION['user_id'];
+						$query        = "SELECT * FROM Income WHERE user_id = '$user_id' ORDER BY created_at DESC";
+						$results      = mysqli_query($con, $query);
+						if (mysqli_num_rows($results) > 0) {
 							?>
-								<tr>
-									<td><?php echo $source_data['name']; ?></td>
-									<td><?php echo number_format($row['amount'], 2); ?></td>
-									<td><?php echo number_format($row['remaining_amount'], 2); ?></td>
-									<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
-									<td> 
-										<!-- DELETE -->
-										<form action="" method="POST" style="margin-left:-40px;">
-											<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
-											<button name="delete-income">
-												<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
-											</button>&nbsp;&nbsp;&nbsp;
-										</form>
-										<!-- UPDATE -->
-										<?php
-											if(date('Y', strtotime($row['created_at'])) == date("Y") && date('m', strtotime($row['created_at'])) == date("m")) {
-												?>
-													<div style="margin-left:30px; margin-top:-20px">
-														<button>
-															<a href="income-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['income_id'] ?>&id3=<?php echo $source_data['source_id']; ?>&amount=<?php echo $row['amount']; ?>">
-																<i class="fa fa-pencil icon-edit" title="Edit"></i>
-															</a>
-														</button>
-													</div>
-												<?php
-											}
-										?>
-											
-									</td>
+								<tr style="height: 65px; font-size: 15px;">
+									<th style="color: #737373;">Source</th>
+									<th style="color: #737373;">Amount</th>
+									<th style="color: #737373;">Remaining</th>
+									<th style="color: #737373;">Date</th>
+									<th style="color: #737373;">Action</th>
 								</tr>
 							<?php
-						}
-					}else {
-						?>
-							<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
-						<?php
-					}
-				?>
-			</table>
+							while($row = $results->fetch_assoc()) {
+								$total_amount += $row['amount'];
 
+								// GET SOURCE NAME
+								$source_id = $row['source_id'];
+								$query   = "SELECT * FROM Source WHERE source_id = '$source_id'";
+								$result2 = mysqli_query($con, $query);
+								if (mysqli_num_rows($result2) == 1) {
+									$source_data = $result2->fetch_assoc();		
+								}
+
+								// DISPLAY DATA
+								?>
+									<tr>
+										<td><?php echo $source_data['name']; ?></td>
+										<td><?php echo number_format($row['amount'], 2); ?></td>
+										<td><?php echo number_format($row['remaining_amount'], 2); ?></td>
+										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
+										<td> 
+											<!-- DELETE -->
+											<form action="" method="POST" style="margin-left:-40px;">
+												<input hidden name="income_id" value="<?php echo $row['income_id'] ?>"></input>
+												<button name="delete-income">
+													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												</button>&nbsp;&nbsp;&nbsp;
+											</form>
+											<!-- UPDATE -->
+											<?php
+												if(date('Y', strtotime($row['created_at'])) == date("Y") && date('m', strtotime($row['created_at'])) == date("m")) {
+													?>
+														<div style="margin-left:30px; margin-top:-20px">
+															<button>
+																<a href="income-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['income_id'] ?>&id3=<?php echo $source_data['source_id']; ?>&amount=<?php echo $row['amount']; ?>">
+																	<i class="fa fa-pencil icon-edit" title="Edit"></i>
+																</a>
+															</button>
+														</div>
+													<?php
+												}
+											?>
+												
+										</td>
+									</tr>
+								<?php
+							}
+						}else {
+							?>
+								<div style="font-size: 15px; color: #737373; margin-top: 50px; text-align: center;">No data</div>
+							<?php
+						}
+					?>
+				</table>
+			</div>
 			<!-- <div class="table-bottom-space"></div> -->
 
 			<?php 
@@ -130,7 +130,7 @@
 					  ?>
 					<div class='table-bottom-space'></div>
 					<div class='table-total'>
-						<button class='button-error-total'>Total Ksh: <?php echo number_format($total_amount, 2); ?></button>
+						<button class='button-error-total'>Total Income: Ksh <?php echo number_format($total_amount, 2); ?></button>
 					</div>
 					<?php
 				}
