@@ -178,7 +178,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-admin-product-or-service" type="submit" value="Create Product/Service">
+						<input class="button-primary" name="add-admin-product-or-service" type="submit" value="Add Product/Service">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

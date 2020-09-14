@@ -29,7 +29,9 @@
             <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
-            <a href="index.php" style="color:white;">F E M</a>
+            <a href="index.php" style="color:white;">
+                <img src="images/logo.png" style="width:90px; margin-top:10px;" alt="logo">
+            </a>
         </label>
         <ul>
             <li><a class="active" href="index.php">Home</a></li>
@@ -59,21 +61,19 @@
 
     <div class="row" style="background-color: #F7F7F7; padding-bottom: 40px; margin-top: 30px;">
         <h1 style="margin-bottom: 45px; text-align: center;  padding-top: 100px; color: #00ace0;">HOW IT WORKS</h1>
-        <div class="column" style="background-color:#fff;">
-            <!-- <img src="images/how-to-create-an-expense-budget.jpg" alt=""> -->
+        <div class="column" style="background-color:#fff; border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
             <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>RECORD YOUR EXPENSES</h2>
             <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
             Including those that can be easily forgotten, with just one tap. You can set your expenses, pending, recurring or repeated.
             </p>
         </div>
-        <div class="column" style="background-color:#fff;">
-            <!-- <img src="images/img.jpg" alt=""> -->
+        <div class="column" style="background-color:#fff; border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
             <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>TRACK YOUR BALANCE</h2>
             <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
             Check your balance in the dashboard and know where your money is going.
             </p>
         </div>
-        <div class="column" style="background-color: #fff;">
+        <div class="column" style="background-color: #fff;border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
             <!-- <img src="images/img.jpg" alt=""> -->
             <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>SAVE MONEY</h2>
             <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">

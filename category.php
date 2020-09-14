@@ -109,7 +109,7 @@
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close">&times;</span>
-					<p style="text-align: center; font-size:15px; color: #737373;">Add Category</p>
+					<p style="text-align: center; font-size:15px; color: #737373;">Category of the products/services</p>
 					<form class="add-category-form" method="POST">
 						<div>
 							<?php include('errors.php'); ?><br>
@@ -119,7 +119,7 @@
 						</div><br><br>
 
 						<div>
-							<input class="button-primary" name="add-category" type="submit" value="Create">
+							<input class="button-primary" name="add-category" type="submit" value="Add Category">
 						</div>
 					</form>    
 					<div class="table-bottom-space"></div>

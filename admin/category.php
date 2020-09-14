@@ -151,7 +151,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-admin-category" type="submit" value="Create Category">
+						<input class="button-primary" name="add-admin-category" type="submit" value="Add Category">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

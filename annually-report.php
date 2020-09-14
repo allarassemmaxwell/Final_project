@@ -44,18 +44,26 @@
 			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Annually Report
 			</div>
-
-            
-			<div class="report-title">
-                <div>Full Name: <?php echo $profile_data['first_name']; ?>&nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
-                <div>Email: <?php echo $profile_data['user_email']; ?></div>
-				<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
-            </div>
-
+			<div class="title-right" id="myBtn">
+				<div class="add">
+					<i class="fa fa-file"></i> 
+					<a style="font-size: 15px;" type="button" id="btnExport">Export pdf</a>
+				</div>
+			</div>
 
 
+    
 
-			<div style="overflow-x:auto;">
+
+
+
+			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
+				<div class="report-title">
+					<div style="font-size:18px; text-align:center;">Annually Report</div>
+					<div>Full Name: <?php echo $profile_data['first_name']; ?>&nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
+					<div>Email: <?php echo $profile_data['user_email']; ?></div>
+					<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
+				</div>
 				<table style="margin-top: 15px;">
 					<?php
 						$total_expenditure = 0;
@@ -110,7 +118,7 @@
 								?>
 									<tr>
 										<td><?php echo $source_data['name'] ?></td>
-										<td><?php echo $income_data['amount'] ?></td>
+										<td><?php echo number_format($income_data['amount'], 2) ?></td>
 										<td><?php echo $product_category_data['name'] ?></td>
 										<td><?php echo $product_service_data['name'] ?></td>
 										<td><?php echo number_format($row['price'], 2) ?></td>
@@ -125,10 +133,8 @@
 						}
 					?>	
 				</table>
-			</div>
-			  
 
-			<div class="table-bottom-space"></div>
+				<div class="table-bottom-space"></div>
 			<?php 
 			  	if (mysqli_num_rows($results) > 0) {
 					?>
@@ -182,17 +188,21 @@
 					}
 					?>
 						<div class="table-total">
-							<button class="button-primary-total">Save: ksh <?php echo number_format($total_saving, 2); ?></button>
+							<button class="button-primary-total">Save: Ksh <?php echo number_format($total_saving, 2); ?></button>
 						</div>
 					<?php
 				} else {
 					?>
 						<div class="table-total">
-							<button class="button-primary-total">Save: ksh 0</button>
+							<button class="button-primary-total">Save: Ksh 0</button>
 						</div>
 					<?php
 				}
 			?>
+			</div>
+			  
+
+			
 
 			
 			
@@ -213,8 +223,27 @@
 			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 			crossorigin="anonymous">
 		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/dashboard.js"></script>
+
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+		<script type="text/javascript">
+			$("body").on("click", "#btnExport", function () {
+				html2canvas($('#tblCustomers')[0], {
+					onrendered: function (canvas) {
+						var data = canvas.toDataURL();
+						var docDefinition = {
+							content: [{
+								image: data,
+								width: 500
+							}]
+						};
+						pdfMake.createPdf(docDefinition).download("Annually-Report.pdf");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

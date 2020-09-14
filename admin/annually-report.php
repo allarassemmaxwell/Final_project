@@ -43,20 +43,26 @@
 			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Annually Report
 			</div>
+			<div class="title-right" id="myBtn">
+				<div class="add">
+					<i class="fa fa-file"></i> 
+					<a style="font-size: 15px;" type="button" id="btnExport">Export pdf</a>
+				</div>
+			</div>
 
             
             
             <!-- <div class="table-top-space"></div> -->
-			<div class="report-title">
-				<div>Admin Name: <?php echo $profile_data['first_name']; ?> &nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
-				<div>Admin Email: <?php echo $profile_data['user_email']; ?></div>
-                <div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
-            </div>
 
 
 
 			<!-- <div class="table-top-space"></div> -->
-			<div style="overflow-x:auto;">
+			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
+				<div class="report-title">
+					<div>Admin Name: <?php echo $profile_data['first_name']; ?> &nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
+					<div>Admin Email: <?php echo $profile_data['user_email']; ?></div>
+					<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
+				</div>
 				<table style="margin-top: 15px;">
 					<?php
 						$total_expenditure = 0;
@@ -120,7 +126,7 @@
 									<tr>
 										<td><?php echo $user_data['user_email'] ?></td>
 										<td><?php echo $source_data['name'] ?></td>
-										<td><?php echo $income_data['amount'] ?></td>
+										<td><?php echo number_format($income_data['amount'], 2) ?></td>
 										<td><?php echo $product_category_data['name'] ?></td>
 										<td><?php echo $product_service_data['name'] ?></td>
 										<td><?php echo number_format($row['price'], 2) ?></td>
@@ -135,42 +141,64 @@
 						}
 					?>	
 				</table>
-			</div>
+
 			  
 
-			<div class="table-bottom-space"></div>
-			<?php 
-			  	if (mysqli_num_rows($results) > 0) {
-					?>
-						<div class="table-total">
-							<button class="button-error-total">Expenses: ksh <?php echo number_format($total_expenditure, 2); ?></button>
-						</div>
-					<?php
-				}
-			?>
-
-			<?php
-				$total_income = 0;
-				$this_year  = date("Y");
-				$total_income_query     = "SELECT * FROM Income WHERE user_id = '$user_id' AND YEAR(created_at) = '$this_year' ORDER BY created_at DESC";
-				$total_income_result 	= mysqli_query($con, $total_income_query);
-				if (mysqli_num_rows($total_income_result) > 0) {
-					while($income_row = $total_income_result->fetch_assoc()) {
-						$total_income += $income_row['amount'];
+				<div class="table-bottom-space"></div>
+				<?php 
+					if (mysqli_num_rows($results) > 0) {
+						?>
+							<div class="table-total">
+								<button class="button-error-total">Expenses: ksh <?php echo number_format($total_expenditure, 2); ?></button>
+							</div>
+						<?php
 					}
-					?>
-						<div class="table-total">
-							<button class="button-light-total">Income: ksh <?php echo number_format($total_income, 2); ?></button>
-						</div>
-					<?php
-				} else {
+				?>
 
-				}
-			?>
-			  <div class="table-total">
-				<button class="button-primary-total">Save: ksh 40.000</button>
+				<?php
+					$total_income = 0;
+					$this_year  = date("Y");
+					$total_income_query     = "SELECT * FROM Income WHERE YEAR(created_at) = '$this_year' ORDER BY created_at DESC";
+					$total_income_result 	= mysqli_query($con, $total_income_query);
+					if (mysqli_num_rows($total_income_result) > 0) {
+						while($income_row = $total_income_result->fetch_assoc()) {
+							$total_income += $income_row['amount'];
+						}
+						?>
+							<div class="table-total">
+								<button class="button-light-total">Income: ksh <?php echo number_format($total_income, 2); ?></button>
+							</div>
+						<?php
+					} else {
+						?>
+							<div class="table-total">
+								<button class="button-light-total">Income: ksh <?php echo number_format($total_income, 2); ?></button>
+							</div>
+						<?php
+					}
+				?>
+				<?php
+					$total_saving = 0;
+					$total_saving_query     = "SELECT * FROM Saving WHERE YEAR(created_at) = '$this_year' ORDER BY created_at DESC";
+					$total_saving_result 	= mysqli_query($con, $total_saving_query);
+					if (mysqli_num_rows($total_saving_result) > 0) {
+						while($saving_row = $total_saving_result->fetch_assoc()) {
+							$total_saving += $saving_row['amount'];
+						}
+						?>
+							<div class="table-total">
+								<button class="button-primary-total">Save: ksh <?php echo number_format($total_saving, 2); ?></button>
+							</div>
+						<?php
+					} else {
+						?>
+							<div class="table-total">
+								<button class="button-primary-total">Save: ksh <?php echo number_format($total_saving, 2); ?></button>
+							</div>
+						<?php
+					}
+				?>
 			</div>
-              
 		</div>
 
 
@@ -188,5 +216,25 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="../js/dashboard.js"></script>
+
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+		<script type="text/javascript">
+			$("body").on("click", "#btnExport", function () {
+				html2canvas($('#tblCustomers')[0], {
+					onrendered: function (canvas) {
+						var data = canvas.toDataURL();
+						var docDefinition = {
+							content: [{
+								image: data,
+								width: 500
+							}]
+						};
+						pdfMake.createPdf(docDefinition).download("Admin-Annually-Report.pdf");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

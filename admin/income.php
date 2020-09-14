@@ -62,6 +62,7 @@
 					
 					<?php 
 						$total_amount = 0;
+						$remaining    = 0;
 						$query   = "SELECT * FROM Income ORDER BY created_at DESC";
 						$results = mysqli_query($con, $query);
 						if (mysqli_num_rows($results) > 0) {
@@ -77,6 +78,7 @@
 							<?php
 							while($row = $results->fetch_assoc()) {
 								$total_amount += $row['amount'];
+								$remaining    += $row['remaining_amount'];
 								// GET USER
 								$user_id = $row['user_id'];
 								$query   = "SELECT * FROM User WHERE user_id = '$user_id'";
@@ -95,8 +97,8 @@
 									<tr>
 										<td><?php echo $user_data['user_email'] ?></td>
 										<td><?php echo $source_data['name'] ?></td>
-										<td><?php echo $row['amount'] ?></td>
-										<td><?php echo $row['remaining_amount'] ?></td>
+										<td><?php echo number_format($row['amount'], 2) ?></td>
+										<td><?php echo number_format($row['remaining_amount'], 2) ?></td>
 										<td><?php echo date('M d Y',strtotime($row['created_at'])) ?></td>
 										<td> 
 											<!-- DELETE -->
@@ -134,13 +136,22 @@
 			</div>
 
 			  
-			  <?php 
+			<?php 
 			  	if (mysqli_num_rows($results) > 0) {
 					  ?>
-					<div class='table-bottom-space'></div>
-					<div class='table-total'>
-						<button class='button-error-total'>Total Income: Ksh <?php echo number_format($total_amount, 2); ?></button>
-					</div>
+						<div class='table-bottom-space'></div>
+						<div class='table-total'>
+							<button class='button-error-total'>Remaining: Ksh <?php echo number_format($remaining, 2); ?></button>
+						</div>
+					<?php
+				}
+			?>
+			<?php 
+				if (mysqli_num_rows($results) > 0) {
+					?>
+						<div class="table-total">
+							<button class="button-primary-total">Income: Ksh <?php echo number_format($total_amount, 2); ?></button>
+						</div>
 					<?php
 				}
 			?>
@@ -200,7 +211,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-admin-income" type="submit" value="Create Income">
+						<input class="button-primary" name="add-admin-income" type="submit" value="Add Income">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

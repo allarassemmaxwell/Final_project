@@ -28,7 +28,9 @@
         <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
-            <a href="index.php" style="color:white;">F E M</a>
+            <a href="index.php" style="color:white;">
+                <img src="images/logo.png" style="width:90px; margin-top:10px;" alt="logo">
+            </a>
         </label>
         <ul>
             <li><a href="index.php">Home</a></li>

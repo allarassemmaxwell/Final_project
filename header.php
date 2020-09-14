@@ -1,8 +1,7 @@
 <div class="header" id="header">
 	<a href="expense.php" style="text-decoration: none;">
 		<div class="logo">
-			<i class="fa fa-tachometer"></i>
-			<span>FEM</span>
+			<img src="images/logo-dashboard.png" style="width: 50px; margin-top:-5px;" alt="logo">
 		</div>
 	</a>
 		<a href="#" class="nav-trigger"><span></span></a>
@@ -10,18 +9,16 @@
 	<div class="side-nav">
 		<a href="expense.php" style="text-decoration: none;">
 			<div class="logo">
-				<i class="fa fa-tachometer"></i>
-				<span>FEM</span>
+				<i class="fa">
+					<img src="images/logo-dashboard.png" style="width:50px; margin-left:-10px; margin-top:-5px" alt="logo">
+				</i>
+				<span>
+					<img src="images/logo-dashboard.png" style="width:50px;" alt="logo">
+				</span>
 			</div>
 		</a>
 		<nav>
 			<ul>
-				<li onclick="window.location.href='expense.php'">
-					<a href="expense.php">
-						<span><i class="fa fa-exchange"></i></span>
-						<span>Expense</span>
-					</a>
-				</li>
 				<li onclick="window.location.href='source.php'">
 					<a href="source.php">
 						<span><i class="fa fa-database"></i></span>
@@ -44,6 +41,12 @@
 					<a href="product-service.php">
 						<span><i class="fa fa-product-hunt"></i></span>
 						<span>Product/Service</span>
+					</a>
+				</li>
+				<li onclick="window.location.href='expense.php'">
+					<a href="expense.php">
+						<span><i class="fa fa-exchange"></i></span>
+						<span>Expense</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='daily-report.php'">

@@ -42,18 +42,24 @@
 			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Weekly Report
 			</div>
+			<div class="title-right" id="myBtn">
+				<div class="add">
+					<i class="fa fa-file"></i> 
+					<a style="font-size: 15px;" type="button" id="btnExport">Export pdf</a>
+				</div>
+			</div>
 
             
             
             <!-- <div class="table-top-space"></div> -->
-			<div class="report-title">
-				<div>Admin Name: <?php echo $profile_data['first_name']; ?> &nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
-				<div>Admin Email: <?php echo $profile_data['user_email']; ?></div>
-                <div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
-            </div>
 
 
-			<div style="overflow-x:auto;">
+			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
+				<div class="report-title">
+					<div>Admin Name: <?php echo $profile_data['first_name']; ?> &nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
+					<div>Admin Email: <?php echo $profile_data['user_email']; ?></div>
+					<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
+				</div>
 				<table style="margin-top: 15px;">
 					<?php
 						$total_expenditure = 0;
@@ -115,7 +121,7 @@
 									<tr>
 										<td><?php echo $user_data['user_email'] ?></td>
 										<td><?php echo $source_data['name'] ?></td>
-										<td><?php echo $income_data['amount'] ?></td>
+										<td><?php echo number_format($income_data['amount'], 2) ?></td>
 										<td><?php echo $product_category_data['name'] ?></td>
 										<td><?php echo $product_service_data['name'] ?></td>
 										<td><?php echo number_format($row['price'], 2) ?></td>
@@ -131,17 +137,47 @@
 					?>
 
 				</table>
+				<div class="table-bottom-space"></div>
+				<!-- <?php 
+					if (mysqli_num_rows($results) > 0) {
+						?>
+							<div class="table-total">
+								<button class="button-error-total">Total Expenses: Ksh <?php echo number_format($total_expenditure, 2); ?></button>
+							</div>
+						<?php
+					}
+				?> -->
+
+
+				<?php 
+					$remaining = 0;
+					$income    = 0;
+					$remaining_query  = "SELECT * FROM Income WHERE YEARWEEK(created_at) = YEARWEEK(NOW()) ORDER BY created_at DESC";
+					$remaining_result = mysqli_query($con, $remaining_query);
+					if (mysqli_num_rows($remaining_result) > 0) {
+						while($row = $remaining_result->fetch_assoc()) {
+							$remaining    += $row['remaining_amount'];
+							$income    += $row['amount'];
+						}
+					}
+					if (mysqli_num_rows($remaining_result) > 0) {
+						?>
+							<div class="table-total">
+								<button class="button-error-total">Remaining: Ksh <?php echo number_format($remaining, 2); ?></button>
+							</div>
+
+							<div class="table-total">
+								<button class="button-light-total">Expenses: ksh <?php echo number_format($total_expenditure, 2); ?></button>
+							</div>
+
+							<div class="table-total">
+								<button class="button-primary-total">Income: Ksh <?php echo number_format($income, 2); ?></button>
+							</div>
+						<?php
+					}
+				?>
 			</div>
-            <div class="table-bottom-space"></div>
-			<?php 
-			  	if (mysqli_num_rows($results) > 0) {
-					?>
-						<div class="table-total">
-							<button class="button-error-total">Total Expenses: Ksh <?php echo number_format($total_expenditure, 2); ?></button>
-						</div>
-					<?php
-				}
-			?>
+            
               
 		</div>
 
@@ -160,5 +196,25 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/dashboard.js"></script>
+
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+		<script type="text/javascript">
+			$("body").on("click", "#btnExport", function () {
+				html2canvas($('#tblCustomers')[0], {
+					onrendered: function (canvas) {
+						var data = canvas.toDataURL();
+						var docDefinition = {
+							content: [{
+								image: data,
+								width: 500
+							}]
+						};
+						pdfMake.createPdf(docDefinition).download("Admin-Weekly-Report.pdf");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

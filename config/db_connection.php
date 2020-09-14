@@ -724,5 +724,69 @@
 
 
 
+    // RESET USER PASSWORD
+    if (isset($_POST['reset-password'])) {
+        $user_email = mysqli_real_escape_string($con, $_POST['email']);
+
+        if (empty($user_email)) { array_push($errors, "Email is required"); }
+
+        $query = "SELECT user_email FROM User WHERE user_email='$user_email'";
+        $results = mysqli_query($con, $query);
+
+        if(mysqli_num_rows($results) <= 0) {
+            array_push($errors, "Sorry, no user exists on our system with that email");
+        }
+        
+        $user_token = bin2hex(random_bytes(50));
+
+        if (count($errors) == 0) {
+            $sql = "INSERT INTO PasswordReset(user_email, user_token) VALUES ('$user_email', '$user_token')";
+            $results = mysqli_query($con, $sql);
+            $to      = $user_email;
+            $subject = "Reset your password on family-expense-manager.com";
+            $msg     = "Hi there, click on this <a href=\"new-password.php?token=" . $user_token . "\">link</a> to reset your password on our site";
+            $msg     = wordwrap($msg,70);
+            $headers = "From: info@family-manager.com";
+            $retval = mail($to, $subject, $msg, $headers);
+            if( $retval == true ) {
+                // echo "Message sent successfully...";
+                header('location: pending.php?email=' . $user_email);
+             }else {
+                echo "Message could not be sent...";
+             }
+
+        }
+
+
+    }
+
+
+    // NEW PASSWORD
+    if (isset($_POST['new-password'])) {
+        $new_password = mysqli_real_escape_string($con, $_POST['new_password']);
+        $c_password   = mysqli_real_escape_string($con, $_POST['c_password']);
+
+        if (empty($new_password)) { array_push($errors, "New password is required"); }
+        if (empty($c_password)) { array_push($errors, "Confirm password is required"); }
+
+        $user_token = $_SESSION['user_token'];
+        if (count($errors) == 0) {
+            $sql     = "SELECT user_email FROM PasswordReset WHERE user_token='$user_token' LIMIT 1";
+            $results = mysqli_query($con, $sql);
+            $user_email   = mysqli_fetch_assoc($results)['user_email'];
+
+            if ($user_email) {
+                $user_password = md5($new_password);
+                $sql = "UPDATE User SET user_password='$user_password' WHERE user_email='$user_email'";
+                $results = mysqli_query($con, $sql);
+                header('location: login.php');
+            }
+        }
+
+    }
+
+
+
+
 ?>
 

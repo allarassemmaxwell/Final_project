@@ -28,7 +28,9 @@
         <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
-            <a href="index.php" style="color:white;">F E M</a>
+            <a href="index.php" style="color:white;">
+                <img src="images/logo.png" style="width:90px; margin-top:10px;" alt="logo">
+            </a>
         </label>
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -89,9 +91,9 @@
     <div style="background-color: #F7F7F7; PADDING-bottom: 20px;">
         <h1 style="margin-bottom: 100px; text-align: center; padding-top: 40px; margin-top: -20px; color: #00ace0;">Our team</h1>
         <div class="row">
-            <div class="column" style="background-color:#fff; height: 120px">
+            <div class="column" style="background-color:#fff; height: 150px; border-bottom: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
                 <img src="images/ceo.jpeg" style="width: 100px;  height: 100px; border-radius: 50%; margin-top: -70px; margin-left: 40%;" alt="">
-                <h2 style='text-align: center; margin-bottom: 30px; color: #00ace0; margin-top: 0px; font-size: 17px;'>Allarassem N Maxime</h2>
+                <h2 style='text-align: center; margin-bottom: 30px; color: #00ace0; margin-top: 15px; font-size: 17px;'>Allarassem N Maxime</h2>
                 <h4 style="margin-top: -20px; text-align: center; color: #00ace0;">CEO</h4>
                 <!-- <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.

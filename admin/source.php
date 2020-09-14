@@ -157,7 +157,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-admin-source" type="submit" value="Create Source">
+						<input class="button-primary" name="add-admin-source" type="submit" value="Add Source">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>

@@ -6,12 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta name="keywords" content="Family Expense Manager, Family Budget" />
+<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
         <link rel="shortcut icon" href="images/logo.png">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -28,20 +27,24 @@
 <body>
     <div class="container" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <div class="row">
-            <p class="title">Password Reset</p>
-            <form class="reset-password-form" method="POST">
+            <p class="title">Reset Your Password</p>
+            <form class="reset-password-new-password-form" method="POST">
                 <div>
                     <?php include('errors.php'); ?><br>
                 </div>
                 <div>
-                    <input name="email" id="email" type="email" placeholder="Email">
+                    <input name="new_password" id="new_password" type="password" placeholder="New password">
+                </div><br><br>
+                
+                <div>
+                    <input name="c_password" id="c_password" type="password" placeholder="Conform password">
                 </div><br>
                 <div class="space"></div>
                 <div>
-                    <button name="reset-password" class="reset-password-submit" type="submit">Reset Password</button>
+                    <button name="new-password" class="reset-password-submit" type="submit">Reset Password</button>
                 </div>
                 
-                <p class="create-account">Already have account?<a href="login.php"> Login</p>
+                <!-- <p class="create-account">Already have account?<a href="login.php"> Login</p> -->
             </form>             
         </div>
     </div> 

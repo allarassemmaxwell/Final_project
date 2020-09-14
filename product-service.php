@@ -121,7 +121,7 @@
 			<div id="myModal" class="modal">
 					<div class="modal-content">
 						<span class="close">&times;</span>
-						<p style="text-align: center; font-size:15px; color: #737373">Add Product/Sevice</p>
+						<p style="text-align: center; font-size:15px; color: #737373">Product or Sevice</p>
 						<form class="product-service-form" method="POST">
 				<div>
 					<?php include('errors.php'); ?><br>
@@ -151,7 +151,7 @@
 				</div><br><br>
 
                 <div>
-                    <input class="button-primary" name="add-product-or-service" type="submit" value="Create">
+                    <input class="button-primary" name="add-product-or-service" type="submit" value="Add product/service">
                 </div>
             </form>
 						<div class="table-bottom-space"></div>

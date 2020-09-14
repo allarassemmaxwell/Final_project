@@ -1,17 +1,20 @@
 <div class="header" id="header">
-	<a href="expense.php" style="text-decoration: none;">
+<a href="expense.php" style="text-decoration: none;">
 		<div class="logo">
-			<i class="fa fa-tachometer"></i>
-			<span>FEM</span>
+			<img src="../images/logo-dashboard.png" style="width: 50px; margin-top:-5px;" alt="logo">
 		</div>
 	</a>
 		<a href="#" class="nav-trigger"><span></span></a>
 	</div>
 	<div class="side-nav">
-		<a href="dashboard.php" style="text-decoration: none;">
+	<a href="expense.php" style="text-decoration: none;">
 			<div class="logo">
-				<i class="fa fa-tachometer"></i>
-				<span>FEM</span>
+				<i class="fa">
+					<img src="../images/logo-dashboard.png" style="width:50px; margin-left:-10px; margin-top:-5px" alt="logo">
+				</i>
+				<span>
+					<img src="../images/logo-dashboard.png" style="width:50px;" alt="logo">
+				</span>
 			</div>
 		</a>
 		<nav>

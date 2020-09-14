@@ -63,6 +63,23 @@ $(document).ready(function() {
 
 
 
+    // CREATE ACCOUNT VALIDATION
+    $(".reset-password-new-password-form").validate({
+        rules: {
+            new_password: {
+                required: true,
+                minlength: 6
+            },
+            c_password: {
+                required: true,
+                equalTo : "#new_password"
+            }
+        }
+        // submitHandler: function() { alert("Submitted!") }
+    });
+
+
+
 
     
 });

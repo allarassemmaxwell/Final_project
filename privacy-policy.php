@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Expense Manager</title>
+    <title>Privacy and policy || Family Expense Manager</title>
     <link rel="stylesheet" href="css/index.css">
 
     <!-- Web Fonts  -->
@@ -28,7 +28,9 @@
         <i class="fa fa-bars"></i>
         </label>
         <label class="logo">
-            <a href="index.php" style="color:white;">F E M</a>
+            <a href="index.php" style="color:white;">
+                <img src="images/logo.png" style="width:90px; margin-top:10px;" alt="logo">
+            </a>
         </label>
         <ul>
             <li><a class="active" href="index.php">Home</a></li>

@@ -121,7 +121,7 @@
 								?>
 									<tr>
 										<td><?php echo $source_data['name'] ?></td>
-										<td><?php echo $income_data['amount'] ?></td>
+										<td><?php echo number_format($income_data['amount'], 2) ?></td>
 										<td><?php echo $product_category_data['name'] ?></td>
 										<td><?php echo $product_service_data['name'] ?></td>
 										<td><?php echo number_format($row['price'], 2) ?></td>
@@ -159,11 +159,13 @@
 					?>
 						<div class='table-bottom-space'></div>
 						<div class='table-total'>
-							<button class='button-error-total'>Total Expenses: Ksh <?php echo number_format($_SESSION['total_expenses'], 2); ?></button>
+							<button class='button-error-total'>Expenses: Ksh <?php echo number_format($_SESSION['total_expenses'], 2); ?></button>
 						</div>
 					<?php
 				}
 			?>
+
+			
 
 
 
@@ -232,7 +234,7 @@
 						</div><br><br>
 
 						<div>
-							<input class="button-primary" name="add-expense" type="submit" value="Create">
+							<input class="button-primary" name="add-expense" type="submit" value="Add Expense">
 						</div>
 					</form>  
 					<div class="table-bottom-space"></div>

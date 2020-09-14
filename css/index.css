@@ -118,7 +118,9 @@ input[type='text'], input[type='password'], input[type='email'], textarea{
     color:white; 
     text-align: center; 
     padding-top: 170px; 
-    font-weight: bold
+    font-weight: bold;
+    /* border-top-color: #00C2FF; */
+    /* border-color: red; */
 }
 
 .contact-form {

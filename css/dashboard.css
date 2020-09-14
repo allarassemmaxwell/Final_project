@@ -224,6 +224,7 @@ tr:nth-child(even) {
 }
 .logo  i {
 	font-size: 22px;
+	display: none;
 }
 .logo span {
 	margin-left: 5px;
@@ -477,6 +478,7 @@ footer .content {
 	text-decoration: none;
 	cursor: pointer;
 }
+
 /* Enf Of Modal   Enf Of Modal    Enf Of Modal */
 
 
@@ -535,9 +537,11 @@ footer .content {
 	}
 	.side-nav .logo i {
 		padding-left: 12px;
+		display: none;
 	}
 	.side-nav .logo span {
-		display: none;
+		/* display: none; */
+		visibility: visible;
 	}
 	.side-nav ul li i {
 		font-size: 26px;
