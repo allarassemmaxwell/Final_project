@@ -86,7 +86,7 @@ a.active,a:hover {
     height: 100vh;
 }
 .banner {
-    background: url("../images/image.png") no-repeat;
+    background: url("../images/banner.png") no-repeat;
 	background-size: cover;
 	height: calc(100vh - 80px);
 	height: 370px;
@@ -115,7 +115,7 @@ input[type='text'], input[type='password'], input[type='email'], textarea{
 
 .banner-title {
     font-size: 40px; 
-    color:white; 
+    color:#00C2FF; 
     text-align: center; 
     padding-top: 170px; 
     font-weight: bold;
@@ -211,7 +211,7 @@ input[type='text'], input[type='password'], input[type='email'], textarea{
         font-size: 16px;
 	}
 	.banner {
-		background: url("../images/image.png") no-repeat;
+		background: url("../images/banner.png") no-repeat;
 		background-size: cover;
 		height: calc(100vh - 80px);
 		height: 200px;
@@ -268,7 +268,7 @@ input[type='text'], input[type='password'], input[type='email'], textarea{
         left: 0;
 	}
 	.banner {
-		background: url("../images/image.png") no-repeat;
+		background: url("../images/banner.png") no-repeat;
 		background-size: cover;
 		height: calc(100vh - 80px);
 		height: 200px;

@@ -19,11 +19,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
-    <meta name="description" content="Family Expense Manager System">
-    <meta name="author" content="Allarassem N Maxime">
-    <!-- Favicon -->
-	<link rel="shortcut icon" href="../images/logo.png">
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+		<meta name="author" content="Allarassem N Maxime">
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="../images/logo.png">
 	
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,49 +38,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
-	<style>
-			.profile-page {
-				width: 50%;
-				margin: auto;
-			}
-			@media only screen and (min-width: 300px) {
-				.profile-page {
-					width: 100%;
-					margin: auto;
-				}
-				.profile {
-					margin-right: 8%;
-				}
-			}
-			@media only screen and (min-width: 600px) {
-				.profile-page {
-					width: 90%;
-					margin: auto;
-				}
-				.profile {
-					margin-right: 12%;
-				}
-			}
-			@media only screen and (min-width: 800px) {
-				.profile-page {
-					width: 80%;
-					margin: auto;
-				}
-				.profile {
-					margin-right: 15%;
-				}
-			}
-			@media screen and (min-width: 1024px) {
-				.profile-page {
-					width: 50%;
-					margin: auto;
-				}
-				.profile {
-					margin-right: 27.5%;
-				}
-			}
-
-		</style>
+		
 		
 
 		<?php include('header.php'); ?>
@@ -188,8 +146,11 @@
 
 
 
+		<br><br><br>
 		<?php include_once("../footer.php"); ?>
-	
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
 
         <!-- JAVASCRIPT -->
@@ -226,5 +187,50 @@
 				}
 			}
 		</script>
+
+
+		<style>
+			.profile-page {
+				width: 50%;
+				margin: auto;
+			}
+			@media only screen and (min-width: 300px) {
+				.profile-page {
+					width: 100%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 8%;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				.profile-page {
+					width: 90%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 12%;
+				}
+			}
+			@media only screen and (min-width: 800px) {
+				.profile-page {
+					width: 80%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 15%;
+				}
+			}
+			@media screen and (min-width: 1024px) {
+				.profile-page {
+					width: 50%;
+					margin: auto;
+				}
+				.profile {
+					margin-right: 27.5%;
+				}
+			}
+
+		</style>
 	</body>
 </html>

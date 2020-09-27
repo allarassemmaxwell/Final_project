@@ -55,24 +55,44 @@
 						<span>Product/Service</span>
 					</a>
 				</li>
-				<li onclick="window.location.href='daily-report.php'">
-					<a href="daily-report.php">
-						<span><i class="fa fa-calendar-o"></i></span>
-						<span>Daily Report</span>
+				<li onclick="window.location.href='projected-expense.php'">
+					<a href="projected-expense.php">
+						<span><i class="fa fa-balance-scale"></i></span>
+						<span>Projected Expense</span>
 					</a>
 				</li>
-				<li onclick="window.location.href='weekly-report.php'">
-					<a href="weekly-report.php">
-						<span><i class="fa fa-bars"></i></span>
-						<span>Weekly Report</span>
+				<li class="report-list">
+					<a>
+						<span><i class="fa fa-bar-chart"></i></span>
+						<span>Expenses Report</span>
 					</a>
 				</li>
-				<li onclick="window.location.href='annually-report.php'">
-					<a href="annually-report.php">
-						<span><i class="fa fa-list-ol"></i></span>
-						<span>Annually Report</span>
-					</a>
-				</li>
+				<div class="report">
+					<li onclick="window.location.href='daily-report.php'">
+						<a href="daily-report.php" style="margin-left: 10px;">
+							<span><i class="fa fa-calendar-o"></i></span>
+							<span>Daily Report</span>
+						</a>
+					</li>
+					<li onclick="window.location.href='weekly-report.php'">
+						<a href="weekly-report.php" style="margin-left: 10px;">
+							<span><i class="fa fa-bars"></i></span>
+							<span>Weekly Report</span>
+						</a>
+					</li>
+					<li onclick="window.location.href='monthly-report.php'">
+						<a href="monthly-report.php" style="margin-left: 10px;">
+							<span><i class="fa fa-bars"></i></span>
+							<span>Monthly Report</span>
+						</a>
+					</li>
+					<li onclick="window.location.href='annually-report.php'">
+						<a href="annually-report.php" style="margin-left: 10px;">
+							<span><i class="fa fa-list-ol"></i></span>
+							<span>Annual Report</span>
+						</a>
+					</li>
+				</div>
 				<li class="" onclick="window.location.href='users.php'">
 					<a href="users.php">
 						<span><i class="fa fa-users"></i></span>

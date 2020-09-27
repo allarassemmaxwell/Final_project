@@ -34,6 +34,17 @@ $(document).ready(function() {
 	});
 
 
+	// SOURCE ADD VALIDATION
+	$(".add-projected-expense-validation").validate({
+		rules: {
+            user: 'required',
+			projected_date: 'required',
+			product_service_id: 'required',
+			projected_amount: 'required'
+		}
+	});
+
+
 	// EXPENSE ADD VALIDATION
 	$(".update-expense-validation").validate({
 		rules: {
@@ -44,6 +55,16 @@ $(document).ready(function() {
 				required: true,
 				number: true
 			}
+		}
+	});
+
+	// SOURCE ADD VALIDATION
+	$(".update-projected-expense-validation").validate({
+		rules: {
+            user: 'required',
+			projected_date: 'required',
+			product_service_id: 'required',
+			projected_amount: 'required'
 		}
 	});
 

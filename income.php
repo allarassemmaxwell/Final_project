@@ -1,6 +1,5 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -190,9 +189,12 @@
 				</div>
 			</div>
 		</div>
+		<br><br><br><br>
 
 		<?php include_once("footer.php"); ?>
-		
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
 		
 

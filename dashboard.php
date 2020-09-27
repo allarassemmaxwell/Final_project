@@ -1,6 +1,5 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
 
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -241,8 +240,15 @@
 		</div>
 
 
-		<?php include_once("footer.php"); ?>
+
+
+
 		
+		<br><br><br>
+		<?php include_once("footer.php"); ?>
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
 		
         <!-- JAVASCRIPT -->
@@ -254,14 +260,16 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/dashboard.js"></script>
+
+
 		<script>
 			var modal  = document.getElementById("myModal");
 
-	var btn = document.getElementById("myBtn");
-	var span = document.getElementsByClassName("close")[1];
-	span.onclick = function() {
-		modal.style.display = "none";
-	}
+			var btn = document.getElementById("myBtn");
+			var span = document.getElementsByClassName("close")[1];
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
 		</script>
 	</body>
 </html>

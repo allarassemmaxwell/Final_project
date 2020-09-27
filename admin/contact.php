@@ -110,17 +110,19 @@
 				</table>
 			</div>
 			  
-			<div class="table-bottom-space"></div>
-
-			  
+			<div class="table-bottom-space"></div>  
 		</div>
 
 
 
 
-		
+		<br><br><br>
 		<?php include_once("../footer.php"); ?>
-		
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
+
+
         <!-- JAVASCRIPT -->
 		 <script
 			src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -130,5 +132,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/validation.js"></script>
+		<script src="../js/dashboard.js"></script>
 	</body>
 </html>

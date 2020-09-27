@@ -1,6 +1,5 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -109,7 +108,7 @@
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close">&times;</span>
-					<p style="text-align: center; font-size:15px; color: #737373;">Category of the products/services</p>
+					<p style="text-align: center; font-size:15px; color: #737373;">Product or Service Category</p>
 					<form class="add-category-form" method="POST">
 						<div>
 							<?php include('errors.php'); ?><br>
@@ -127,8 +126,11 @@
 			</div>
 		</div>
 
+<br><br><br>
         <?php include_once("footer.php"); ?>
-		
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
 		
 

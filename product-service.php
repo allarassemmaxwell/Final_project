@@ -1,6 +1,6 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
+	// require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -30,6 +30,7 @@
 	</head>
 	<body>
 		
+
 		<?php include('header.php'); ?>
 
 		<div class="main-content">
@@ -159,10 +160,12 @@
 				</div>
             
 		</div>
-
+		<br><br><br>
         <?php include_once("footer.php"); ?>
 		
-		
+		<button id="goUpBtn" title="Go to top">
+		<i class="fa fa-arrow-up" aria-hidden="true"></i>
+	</button>
 		
         <!-- JAVASCRIPT -->
 		 <script
@@ -173,5 +176,10 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/dashboard.js"></script>
+
+
+		<script>
+
+</script>
 	</body>
 </html>

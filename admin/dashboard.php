@@ -360,10 +360,18 @@
 
 
 
-		
 
-		<?php include_once("../footer.php"); ?>
+
+
 		
+		
+		<br><br><br><br><br>
+		<?php include_once("../footer.php"); ?>
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
+
+
         <!-- JAVASCRIPT -->
 		 <script
 			src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -454,7 +462,7 @@
 				}
 				}
 
-</style>
+		</style>
 
 	</body>
 </html>

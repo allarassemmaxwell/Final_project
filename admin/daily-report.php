@@ -12,6 +12,17 @@
 	if (mysqli_num_rows($results) == 1) {
 		$profile_data = $results->fetch_assoc();		
 	}
+
+	$jsonArray = array();
+	$this_year   = date("Y");
+	$this_month  = date("m");
+	$this_day    = date("d");
+	if (isset($_POST['filterByDate'])) {
+		$projected_date = mysqli_real_escape_string($con, $_POST['projected_date']);
+		$this_year = date("Y",strtotime($projected_date));
+		$this_month = date("m",strtotime($projected_date));
+		$this_day = date("d",strtotime($projected_date));
+	}
 ?>
 
 <!DOCTYPE html>
@@ -59,16 +70,24 @@
 			<!-- <div class="table-top-space"></div> -->
 			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
 				<div class="report-title">
+				<div class="report-filter" style="font-size:18px; text-align:center;">Daily Report</div>
+					<form class="filter-by-form" action="" method="POST">
+						<div class="filter">
+							<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" value="<?php echo $projected_date; ?>" type="date" name="projected_date" id="projected_date">
+							<input type="submit" name="filterByDate" style="color: #00C2FF;" value="Filter">
+						</div>
+					</form>
 					<div>Admin Name: <?php echo $profile_data['first_name']; ?> &nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
 					<div>Admin Email: <?php echo $profile_data['user_email']; ?></div>
 					<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
 				</div>
+
+				<div id="chartContainer" style="height: 350px; width: 95%; margin-left: auto; margin-right: auto;"></div>
+
 				<table style="margin-top: 15px;">
 					<?php
 						$total_price = 0;
-						$this_month  = date("m");
-						$this_year   = date("Y");
-						$query1      = "SELECT * FROM Expense WHERE YEAR(created_at) = '$this_year' AND MONTH(created_at) = '$this_month' AND date(created_at)=curdate() ORDER BY created_at DESC";
+						$query1      = "SELECT * FROM Expense WHERE YEAR(created_at) = '$this_year' AND MONTH(created_at) = '$this_month' AND DAY(created_at)='$this_day' ORDER BY created_at DESC";
 						$results     = mysqli_query($con, $query1);
 						if (mysqli_num_rows($results) > 0) {
 							?>
@@ -122,6 +141,12 @@
 								if (mysqli_num_rows($source_result) == 1) {
 									$source_data = $source_result->fetch_assoc();		
 								}
+
+								$jsonArrayItem = array();
+								$jsonArrayItem['label'] = $product_category_data['name'];
+								$jsonArrayItem['y'] = $row['price'];
+								array_push($jsonArray, $jsonArrayItem);
+								
 								?>
 									<tr>
 										<td><?php echo $user_data['user_email'] ?></td>
@@ -156,7 +181,7 @@
 				<?php 
 					$remaining = 0;
 					$income    = 0;
-					$remaining_query  = "SELECT * FROM Income WHERE YEAR(created_at) = '$this_year' AND MONTH(created_at) = '$this_month' AND date(created_at)=curdate() ORDER BY created_at DESC";
+					$remaining_query  = "SELECT * FROM Income WHERE YEAR(created_at) = '$this_year' AND MONTH(created_at) = '$this_month' AND DAY(created_at)='$this_day' ORDER BY created_at DESC";
 					$remaining_result = mysqli_query($con, $remaining_query);
 					if (mysqli_num_rows($remaining_result) > 0) {
 						while($row = $remaining_result->fetch_assoc()) {
@@ -192,8 +217,12 @@
 
 
 
-
+		<br><br><br><br><br>
 		<?php include_once("../footer.php"); ?>
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
+
 		
         <!-- JAVASCRIPT -->
 		 <script
@@ -203,7 +232,7 @@
 		</script>   
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="js/dashboard.js"></script>
+		<script src="../js/dashboard.js"></script>
 
 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
@@ -223,6 +252,77 @@
 					}
 				});
 			});
+		</script>
+
+
+
+
+		<!-- CHART -->
+		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				var dataPoints = <?php echo json_encode($jsonArray, JSON_NUMERIC_CHECK); ?>;
+				console.log("=====JAVASCRIPT======");
+				console.log(dataPoints);
+				var labelArr = [];
+				var totalArr = [];
+				for (let index = 0; index < dataPoints.length; index++) {
+					const element = dataPoints[index].label;
+					if(labelArr.includes(element)) {
+						// DO NOTHING
+					} else {
+						labelArr.push(element);
+					}
+				}
+
+
+				for (let index = 0; index < labelArr.length; index++) {
+					var price = [];
+					const element = labelArr[index];
+
+					console.log("=====ELEMENT======");
+					console.log(element);
+					for (let i = 0; i < dataPoints.length; i++) {
+						const p = dataPoints[i];
+						if(p.label === element) {
+							price.push(p.y);
+							console.log("===== P.Y ======");
+							console.log(p.y);
+						}
+						
+					}
+					console.log("===== PRICE HERE ======");
+					console.log(price);
+
+					var total = price.reduce((a, b) => {
+						return a+b;
+					})
+					console.log("===== TOTAL ======");
+					console.log(total);
+					totalArr.push({label:element, y:total});
+
+				}
+
+				console.log("===== TOTAL ARR ======");
+				console.log(totalArr);
+
+				var options = {
+					title: {
+						text: "Statistics"
+					},
+					data: [{
+						type: "pie",
+						startAngle: 45,
+						showInLegend: "true",
+						legendText: "{label}",
+						indexLabel: "{label} ({y})",
+						yValueFormatString:"#,##0.#"%"",
+						dataPoints: totalArr
+					}]
+				};
+				$("#chartContainer").CanvasJSChart(options);
+			}
 		</script>
 	</body>
 </html>

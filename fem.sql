@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2020 at 01:59 AM
+-- Generation Time: Sep 27, 2020 at 04:34 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -110,6 +110,21 @@ CREATE TABLE `ProductServiceCategory` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ProjectedExpense`
+--
+
+CREATE TABLE `ProjectedExpense` (
+  `projected_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_service_id` int(11) NOT NULL,
+  `projected_date` date NOT NULL,
+  `projected_amount` decimal(10,0) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Saving`
 --
 
@@ -200,6 +215,14 @@ ALTER TABLE `ProductServiceCategory`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `ProjectedExpense`
+--
+ALTER TABLE `ProjectedExpense`
+  ADD PRIMARY KEY (`projected_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_service_id` (`product_service_id`);
+
+--
 -- Indexes for table `Saving`
 --
 ALTER TABLE `Saving`
@@ -234,13 +257,13 @@ ALTER TABLE `Contact`
 -- AUTO_INCREMENT for table `Expense`
 --
 ALTER TABLE `Expense`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `Income`
 --
 ALTER TABLE `Income`
-  MODIFY `income_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `income_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `PasswordReset`
@@ -252,13 +275,19 @@ ALTER TABLE `PasswordReset`
 -- AUTO_INCREMENT for table `ProductService`
 --
 ALTER TABLE `ProductService`
-  MODIFY `product_service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `product_service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `ProductServiceCategory`
 --
 ALTER TABLE `ProductServiceCategory`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+
+--
+-- AUTO_INCREMENT for table `ProjectedExpense`
+--
+ALTER TABLE `ProjectedExpense`
+  MODIFY `projected_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `Saving`
@@ -270,13 +299,13 @@ ALTER TABLE `Saving`
 -- AUTO_INCREMENT for table `Source`
 --
 ALTER TABLE `Source`
-  MODIFY `source_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `source_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
@@ -309,6 +338,13 @@ ALTER TABLE `ProductService`
 --
 ALTER TABLE `ProductServiceCategory`
   ADD CONSTRAINT `productservicecategory_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
+
+--
+-- Constraints for table `ProjectedExpense`
+--
+ALTER TABLE `ProjectedExpense`
+  ADD CONSTRAINT `projectedexpense_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`),
+  ADD CONSTRAINT `projectedexpense_ibfk_2` FOREIGN KEY (`product_service_id`) REFERENCES `ProductService` (`product_service_id`);
 
 --
 -- Constraints for table `Saving`

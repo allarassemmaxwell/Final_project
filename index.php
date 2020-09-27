@@ -74,10 +74,16 @@
             </p>
         </div>
         <div class="column" style="background-color: #fff;border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
-            <!-- <img src="images/img.jpg" alt=""> -->
             <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>SAVE MONEY</h2>
             <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
                 Keep saving money with the best expense tracker and find financial peace of mind.
+            </p>
+        </div>
+
+        <div class="column" style="background-color:#fff; border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14); margin-top: 20px;">
+            <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>VIEW YOUR REPORT</h2>
+            <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
+                View your Daily, Weekly, Monthly and Annual Report.
             </p>
         </div>
     </div>
@@ -128,57 +134,55 @@
             margin-right: auto;
             margin-top: 30px;
         }
-    @media only screen and (min-width: 300px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 85%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
+
+        @media only screen and (min-width: 300px) {
+            .faq-container {
+                border-radius: 5px; 
+                padding: 20px; 
+                width: 85%; 
+                margin-left: auto; 
+                margin-right: auto; 
+                margin-top: 50px; 
+                margin-bottom: 20px;
+            }
         }
-    }
 
-
-    @media only screen and (min-width: 600px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 80%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
+        @media only screen and (min-width: 600px) {
+            .faq-container {
+                border-radius: 5px; 
+                padding: 20px; 
+                width: 80%; 
+                margin-left: auto; 
+                margin-right: auto; 
+                margin-top: 50px; 
+                margin-bottom: 20px;
+            }
         }
-    }
 
-
-    @media only screen and (min-width: 800px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 65%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
+        @media only screen and (min-width: 800px) {
+            .faq-container {
+                border-radius: 5px; 
+                padding: 20px; 
+                width: 65%; 
+                margin-left: auto; 
+                margin-right: auto; 
+                margin-top: 50px; 
+                margin-bottom: 20px;
+            }
         }
-    }
 
-
-    @media screen and (min-width: 1024px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 50%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
+        @media screen and (min-width: 1024px) {
+            .faq-container {
+                border-radius: 5px; 
+                padding: 20px; 
+                width: 50%; 
+                margin-left: auto; 
+                margin-right: auto; 
+                margin-top: 50px; 
+                margin-bottom: 20px;
+            }
         }
-    }
-</style>
+    </style>
 
     <script src="js/scrolling.js"></script>
 </body>

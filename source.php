@@ -1,12 +1,13 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_email'])) {
 		$_SESSION['msg'] = "You must log in first";
 		header('location: login.php');
 	}
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -116,7 +117,7 @@
 						</div><br><br>
 						
 						<div>
-							<input class="button-primary" name="add-source" type="submit" value="Add Source">
+							<input class="button-primary" name="add-source" type="submit" value="Add Income Source">
 						</div>
 					</form>  
 					<div class="table-bottom-space"></div>
@@ -126,8 +127,13 @@
 			<div class="table-bottom-space"></div>
 		</div>
 		
+
+
+		<br><br><br>
 		<?php include_once("footer.php"); ?>
-		
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
 		
         <!-- JAVASCRIPT -->

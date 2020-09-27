@@ -40,6 +40,30 @@
     }
 
 
+    // ADDING PROJECTED EXPENSE
+    if(isset($_POST['admin-add-projected-expense'])) {
+        $product_service_id = mysqli_real_escape_string($con, $_POST['product_service_id']);
+        $projected_date     = mysqli_real_escape_string($con, $_POST['projected_date'].'-1');
+        $projected_amount   = mysqli_real_escape_string($con, $_POST['projected_amount']);
+        $user_id            = mysqli_real_escape_string($con, $_POST['user']);
+
+        if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
+        if (empty($projected_date))     { array_push($errors, "Projected date is required"); }
+        if (empty($projected_amount))   { array_push($errors, "Projected amount is required"); }
+        if (empty($user_id))            { array_push($errors, "User is required"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO ProjectedExpense (user_id, product_service_id, projected_date, projected_amount) VALUES('$user_id', '$product_service_id', '$projected_date', '$projected_amount')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $_SESSION['success'] = "Projected Expense created successfully.";
+            }
+        }
+    }
+
+
     // ADDING SOURCE
     if(isset($_POST['add-admin-source'])) {
         $user_id = mysqli_real_escape_string($con, $_POST['user']);
@@ -219,6 +243,24 @@
     }
 
 
+    // DELETE PROJECTED EXPENSE
+    if(isset($_POST['admin-delete-projected-expense'])) {
+        $projected_id = $_POST['projected_id'];
+
+        if (empty($projected_id)) { array_push($errors, "An projected expense is required"); }
+
+        if (count($errors) == 0) {
+            $delete_projected_expense_query  = "DELETE FROM ProjectedExpense WHERE projected_id='$projected_id'";
+            $delete_projected_expense_result = mysqli_query($con, $delete_projected_expense_query);
+            if (!$delete_projected_expense_result) { 
+                array_push($errors, "Error: Connection failed: $delete_projected_expense_query");
+            } else {
+                $_SESSION['success'] = "Projected Expense deleted successfully.";
+            }
+        }
+    }
+
+
     // DELETE SOURCE
     if(isset($_POST['delete-admin-source'])) {
         $source_id = $_POST['source_id'];
@@ -308,6 +350,13 @@
                 $delete_expense_query  = "DELETE FROM Expense WHERE expense_id='$expense_id'";
                 mysqli_query($con, $delete_expense_query);
             }
+            $check_projected_expense_query = "SELECT * FROM ProjectedExpense WHERE product_service_id='$product_service_id'";
+            $projected_expense_result      = mysqli_query($con, $check_projected_expense_query);
+            while($projected_expense_data = $projected_expense_result->fetch_assoc()) {
+                $projected_id = $projected_expense_data['projected_id'];
+                $delete_projected_id  = "DELETE FROM ProjectedExpense WHERE projected_id='$projected_id'";
+                mysqli_query($con, $delete_projected_id);
+            }
             $delete_product_query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
             mysqli_query($con, $delete_product_query);
         }
@@ -335,6 +384,11 @@
         if (!$expense_result) { 
             array_push($errors, "Error: Connection failed: $expense_query");
         }
+        $projected_expense_query  = "DELETE FROM ProjectedExpense WHERE product_service_id='$product_service_id'";
+        $projected_expense_result = mysqli_query($con, $projected_expense_query);
+        if (!$projected_expense_result) { 
+            array_push($errors, "Error: Connection failed: $projected_expense_query");
+        }
         if (count($errors) == 0) {
             $product_query  = "DELETE FROM ProductService WHERE product_service_id='$product_service_id'";
             $product_result = mysqli_query($con, $product_query);
@@ -359,6 +413,9 @@
         if (count($errors) == 0) {
             $expense_query  = "DELETE FROM Expense WHERE user_id='$user_id'";
             mysqli_query($con, $expense_query);
+
+            $projected_expense_query  = "DELETE FROM ProjectedExpense WHERE user_id='$user_id'";
+            mysqli_query($con, $projected_expense_query);
 
             $saving_query  = "DELETE FROM Saving WHERE user_id='$user_id'";
             mysqli_query($con, $saving_query);
@@ -559,12 +616,38 @@
                        
                     }
                 }
-            }
-
-
-            
+            }  
         }
     }
+
+
+    // UPDATE PROJECTED EXPENSE
+    if(isset($_POST['admin-update-projected-expense'])) {
+        $projected_id        = mysqli_real_escape_string($con, $_POST['projected_id']);
+        $projected_amount    = mysqli_real_escape_string($con, $_POST['projected_amount']);
+        $product_service_id  = mysqli_real_escape_string($con, $_POST['product_service_id']);
+        $projected_date      = mysqli_real_escape_string($con, $_POST['projected_date'].'-1');
+        $user_id             = mysqli_real_escape_string($con, $_POST['user_id']);
+
+        if (empty($projected_id)) { array_push($errors, "Projected expense is required"); }
+        if (empty($projected_amount)) { array_push($errors, "Projected amount is required"); }
+        if (empty($product_service_id)) { array_push($errors, "Product/Service is required"); }
+        if (empty($projected_date))    { array_push($errors, "Projected date is required"); }
+        if (empty($user_id))    { array_push($errors, "User is required"); }
+
+        if (count($errors) == 0) {
+            $update_projected_expense_query = "UPDATE ProjectedExpense SET product_service_id = '$product_service_id', projected_date = '$projected_date', projected_amount = '$projected_amount' WHERE projected_id='$projected_id'";
+            $update_projected_expense_result = mysqli_query($con, $update_projected_expense_query);
+            if($update_projected_expense_result) {
+                $_SESSION['success'] = "Projected Expense updated successfully.";
+                header('Location: projected-expense.php');
+            }else {
+                array_push($errors, "Error: Connection failed: $update_projected_expense_query");
+            }
+        }
+    }
+
+
     // UPDATE SOURCE
     if(isset($_POST['admin-update-source'])) {
         $source_id = mysqli_real_escape_string($con, $_POST['source_id']);
@@ -606,14 +689,7 @@
                 $expense_price += $row['price'];
             }
 
-            $income_query = "SELECT * FROM Income WHERE income_id='$income_id' LIMIT 1";
-            $income_result = mysqli_query($con, $income_query);
-            $check_income   = mysqli_fetch_assoc($income_result);
-            if ($check_income) { 
-                $previous_amount = $check_income['amount'];
-                $previous_remaining = $check_income['remaining_amount'];
-                $remaining = $previous_amount - $amount;
-
+            if ($amount > $expense_price) {
                 $query = "UPDATE Income SET amount='$amount', remaining_amount='$amount' - '$expense_price', source_id='$source_id' WHERE income_id='$income_id' AND user_id='$user_id'";
                 $result = mysqli_query($con, $query);
                 if (!$result) { 
@@ -622,9 +698,13 @@
                     $_SESSION['success'] = "Income updated successfully.";
                     header('Location: income.php');
                 }
+            } else {
+                array_push($errors, "Your income is less than the expenses");
             }
         }
     }
+
+
 
 
     // UPDATE CATEGORY
@@ -699,39 +779,6 @@
             }
         }
     }
-
-
-
-
-
-    // UPDATE USER PROFILE
-    // if(isset($_POST['admin-update-contact'])) {
-    //     $contact_id    = mysqli_real_escape_string($con, $_POST['contact_id']);
-    //     $first_name    = mysqli_real_escape_string($con, $_POST['first_name']);
-    //     $last_name     = mysqli_real_escape_string($con, $_POST['last_name']);
-    //     $user_email    = mysqli_real_escape_string($con, $_POST['email']);
-    //     $subject       = mysqli_real_escape_string($con, $_POST['subject']);
-    //     $message       = mysqli_real_escape_string($con, $_POST['message']);
-
-    //     if(empty($contact_id)) { array_push($errors, " Contact is required"); }
-    //     if(empty($first_name))  { array_push($errors, "First Name is required"); }
-    //     if(empty($last_name)) { array_push($errors, "Last Name is required"); }
-    //     if(empty($user_email)) { array_push($errors, "Email is required"); }
-    //     if(empty($subject))  { array_push($errors, "Subject is required"); }
-    //     if(empty($message)) { array_push($errors, "Message is required"); }
-
-    //     if (count($errors) == 0) {
-    //         $query   = "UPDATE Contact SET first_name='$first_name', last_name='$last_name', email='$user_email', subject='$subject', message='$message' WHERE user_id = '$user_id'";
-    //         $results = mysqli_query($con, $query);
-
-    //         if ($results) {
-    //             $_SESSION['success'] = "Contact updated successfully.";
-    //             header('Location: contact.php');
-    //         } else {
-    //             array_push($errors, "Could update your profile: $query");
-    //         }
-    //     }
-    // }
 
 
 

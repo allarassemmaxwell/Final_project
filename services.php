@@ -68,6 +68,12 @@
                 Keep saving money with the best expense tracker and find financial peace of mind.
             </p>
         </div>
+        <div class="column" style="background-color:#fff; border-top: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14); margin-top: 20px;">
+            <h2 style='text-align: center; margin-bottom: 35px; color: white; margin-top: 50px; color: #00ace0;'>EXPENSES REPORT</h2>
+            <p style="color: #737373; margin: 10px; font-size: 15px; text-align: center; ">
+                Check your Report Daily, Wekly, Monthly and Annually.
+            </p>
+        </div>
     </div>
     
 

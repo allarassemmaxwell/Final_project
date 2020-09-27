@@ -1,6 +1,5 @@
 <?php 
 	require_once('config/db_connection.php');
-	require_once('config/add_save_money.php');
 	
 	if (!isset($_SESSION['user_id'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -13,7 +12,16 @@
 	if (mysqli_num_rows($results) == 1) {
 		$profile_data = $results->fetch_assoc();		
 	}
+
+	$jsonArray = array();
+	$the_year   = date("Y");
+	if (isset($_POST['filterByDate'])) {
+		$projected_date = mysqli_real_escape_string($con, $_POST['projected_date']);
+		$the_year = $projected_date;
+	}
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -47,28 +55,36 @@
 			<div class="title-right" id="myBtn">
 				<div class="add">
 					<i class="fa fa-file"></i> 
-					<a style="font-size: 15px;" type="button" id="btnExport">Export pdf</a>
+					<a style="font-size: 15px;" type="button" id="btnExport">Export Data</a>
 				</div>
 			</div>
 
 
     
 
-
+			
 
 
 			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
 				<div class="report-title">
-					<div style="font-size:18px; text-align:center;">Annually Report</div>
+					<div class="report-filter" style="font-size:18px; text-align:center;">Annually Report</div>
+					<form class="filter-by-form" action="" method="POST">
+						<div class="filter">
+							<input type="number" placeholder="YYYY" min="2017" max="2020" style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" value="<?php echo $projected_date; ?>" name="projected_date" id="projected_date">
+							<input type="submit" name="filterByDate" style="color: #00C2FF;" value="Filter">
+						</div>
+					</form>
 					<div>Full Name: <?php echo $profile_data['first_name']; ?>&nbsp;&nbsp; <?php echo $profile_data['last_name']; ?></div>
 					<div>Email: <?php echo $profile_data['user_email']; ?></div>
 					<div>Date: <?php echo  date("M"); ?>/<?php echo  date("d"); ?>/<?php echo  date("Y"); ?></div>
 				</div>
+
+				<div id="chartContainer" style="height: 350px; width: 95%; margin-left: auto; margin-right: auto;"></div>
+
 				<table style="margin-top: 15px;">
 					<?php
 						$total_expenditure = 0;
-						$this_year  = date("Y");
-						$query1     = "SELECT * FROM Expense WHERE user_id = '$user_id' AND YEAR(created_at) = '$this_year' ORDER BY created_at DESC";
+						$query1     = "SELECT * FROM Expense WHERE user_id = '$user_id' AND YEAR(created_at) = '$the_year' ORDER BY created_at DESC";
 						$results 	= mysqli_query($con, $query1);
 						if (mysqli_num_rows($results) > 0) {
 							?>
@@ -115,6 +131,11 @@
 									$source_data = $source_result->fetch_assoc();		
 								}
 
+								$jsonArrayItem = array();
+								$jsonArrayItem['label'] = $product_category_data['name'];
+								$jsonArrayItem['y'] = $row['price'];
+								array_push($jsonArray, $jsonArrayItem);
+
 								?>
 									<tr>
 										<td><?php echo $source_data['name'] ?></td>
@@ -153,8 +174,7 @@
 
 			<?php
 				$total_income = 0;
-				$this_year  = date("Y");
-				$total_income_query     = "SELECT * FROM Income WHERE user_id = '$user_id' AND YEAR(created_at) = '$this_year' ORDER BY created_at DESC";
+				$total_income_query     = "SELECT * FROM Income WHERE user_id = '$user_id' AND YEAR(created_at) = '$the_year' ORDER BY created_at DESC";
 				$total_income_result 	= mysqli_query($con, $total_income_query);
 				if (mysqli_num_rows($total_income_result) > 0) {
 					while($income_row = $total_income_result->fetch_assoc()) {
@@ -178,9 +198,7 @@
 
 			<?php
 				$total_saving  = 0;
-				$this_month    = date("m");
-				$this_year     = date("Y");
-				$saving_query  = "SELECT * FROM Saving WHERE user_id = '$user_id' AND YEAR(created_at) = '$this_year'";
+				$saving_query  = "SELECT * FROM Saving WHERE user_id = '$user_id' AND YEAR(created_at) = '$the_year'";
 				$saving_result = mysqli_query($con, $saving_query);
 				if (mysqli_num_rows($saving_result) > 0) {
 					while($saving_row = $saving_result->fetch_assoc()) {
@@ -199,23 +217,22 @@
 					<?php
 				}
 			?>
-			</div>
-			  
-
-			
-
-			
-			
-			
-
-			
+			</div>	
               
 		</div>
 
 
+
+
+
+
+
+		<br><br><br><br>
 		<?php include_once("footer.php"); ?>
 		
-		
+		<button id="goUpBtn" title="Go to top">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		</button>
 		
         <!-- JAVASCRIPT -->
 		 <script
@@ -244,6 +261,75 @@
 					}
 				});
 			});
+		</script>
+
+
+		<!-- CHART -->
+		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				var dataPoints = <?php echo json_encode($jsonArray, JSON_NUMERIC_CHECK); ?>;
+				console.log("=====JAVASCRIPT======");
+				console.log(dataPoints);
+				var labelArr = [];
+				var totalArr = [];
+				for (let index = 0; index < dataPoints.length; index++) {
+					const element = dataPoints[index].label;
+					if(labelArr.includes(element)) {
+						// DO NOTHING
+					} else {
+						labelArr.push(element);
+					}
+				}
+
+
+				for (let index = 0; index < labelArr.length; index++) {
+					var price = [];
+					const element = labelArr[index];
+
+					console.log("=====ELEMENT======");
+					console.log(element);
+					for (let i = 0; i < dataPoints.length; i++) {
+						const p = dataPoints[i];
+						if(p.label === element) {
+							price.push(p.y);
+							console.log("===== P.Y ======");
+							console.log(p.y);
+						}
+						
+					}
+					console.log("===== PRICE HERE ======");
+					console.log(price);
+
+					var total = price.reduce((a, b) => {
+						return a+b;
+					})
+					console.log("===== TOTAL ======");
+					console.log(total);
+					totalArr.push({label:element, y:total});
+
+				}
+
+				console.log("===== TOTAL ARR ======");
+				console.log(totalArr);
+
+				var options = {
+					title: {
+						text: "Statistics"
+					},
+					data: [{
+						type: "pie",
+						startAngle: 45,
+						showInLegend: "true",
+						legendText: "{label}",
+						indexLabel: "{label} ({y})",
+						yValueFormatString:"#,##0.#"%"",
+						dataPoints: totalArr
+					}]
+				};
+				$("#chartContainer").CanvasJSChart(options);
+			}
 		</script>
 	</body>
 </html>

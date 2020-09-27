@@ -48,9 +48,9 @@
 
 
     <section class="faq-container">
-        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">Meet us</h1>
+        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">MEET US</h1>
         <p style="margin-left: 15px; margin-right: 15px; text-align: center; color: #737373;">
-        Family Expense Manager System is a simple personal finance manager. It was created on 2020 by Allarassem Ndotoumbaye Maxime
+        <b>Family Expense Manager System</b> is a simple personal finance manager. It was created on 2020 by Allarassem Ndotoumbaye Maxime
         a technology student passionate for simple solutions to daily problems. 
         The company is localized in Nairobi, Kenya.<br><br>
 
@@ -62,7 +62,7 @@
 
 
     <section class="faq-container" style="margin-top: -20px;">
-        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">Vision</h1>
+        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">VISION</h1>
         <p style="margin-left: 15px; margin-right: 15px; text-align: center; color: #737373;">
         Become the best and most complete personal finance website and financial education platform.
         </p>
@@ -70,17 +70,9 @@
 
 
     <section class="faq-container" style="margin-top: -20px;">
-        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">Mission</h1>
+        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">MISSION</h1>
         <p style="margin-left: 15px; margin-right: 15px; text-align: center; color: #737373;">
         We dedicate our time on helping people. We make their dreams come true by making a financial plan and manage their personal finances.
-        </p>
-    </section>
-
-
-    <section class="faq-container" style="margin-top: -20px;">
-        <h1 style="margin-bottom: 35px; text-align: center;  padding-top: 25px; color: #00ace0;">Mission</h1>
-        <p style="margin-left: 15px; margin-right: 15px; text-align: center; color: #737373;">
-        Quality, security, people values, work as a team in a collaborative way and a cool work place.
         </p>
     </section><br><br>
 
@@ -89,32 +81,13 @@
 
 
     <div style="background-color: #F7F7F7; PADDING-bottom: 20px;">
-        <h1 style="margin-bottom: 100px; text-align: center; padding-top: 40px; margin-top: -20px; color: #00ace0;">Our team</h1>
+        <h1 style="margin-bottom: 100px; text-align: center; padding-top: 40px; margin-top: -20px; color: #00ace0;">OUR TEAM</h1>
         <div class="row">
             <div class="column" style="background-color:#fff; height: 150px; border-bottom: 5px solid #00C2FF; box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);">
                 <img src="images/ceo.jpeg" style="width: 100px;  height: 100px; border-radius: 50%; margin-top: -70px; margin-left: 40%;" alt="">
                 <h2 style='text-align: center; margin-bottom: 30px; color: #00ace0; margin-top: 15px; font-size: 17px;'>Allarassem N Maxime</h2>
                 <h4 style="margin-top: -20px; text-align: center; color: #00ace0;">CEO</h4>
-                <!-- <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-                </p> -->
             </div>
-            <!-- <div class="column" style="background-color:#96D1CD;">
-                <img src="images/user.png" style="width: 100px;  height: 100px; border-radius: 50%; margin-top: -70px; margin-left: 40%;" alt="">
-                <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-                <h4 style="margin-top: -20px; text-align: center; color: white;">Developer</h4>
-                <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-                </p>
-            </div>
-            <div class="column" style="background-color: #00C2FF;">
-                <img src="images/user.png" style="width: 100px;  height: 100px; border-radius: 50%; margin-top: -70px; margin-left: 40%;" alt="">
-                <h2 style='text-align: center; margin-bottom: 30px; color: white; margin-top: 0px;'>Mobile and responsive</h2>
-                <h4 style="margin-top: -20px; text-align: center; color: white;">Marketer</h4>
-                <p style="color: white; margin: 10px; font-size: 15px; text-align: center; ">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, vero explicabo beatae odio tempora debitis necessitatibus. Nam accusamus ut cum. Quaerat enim quae corporis esse eos nulla exercitationem accusamus. Exercitationem.
-                </p>
-            </div> -->
         </div>
     </div>
 
