@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
@@ -36,12 +36,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Annually Report || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		<!-- Web Fonts  -->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
-			
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 
@@ -52,25 +46,19 @@
 			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Annually Report
 			</div>
-			<div class="title-right" id="myBtn">
-				<div class="add">
-					<i class="fa fa-file"></i> 
-					<a style="font-size: 15px;" type="button" id="btnExport">Export Data</a>
-				</div>
-			</div>
-
-
-    
 
 			
 
 
 			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
 				<div class="report-title">
-					<div class="report-filter" style="font-size:18px; text-align:center;">Annually Report</div>
-					<form class="filter-by-form" action="" method="POST">
-						<div class="filter">
-							<input type="number" placeholder="YYYY" min="2017" max="2020" style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" value="<?php echo $projected_date; ?>" name="projected_date" id="projected_date">
+				<div style="font-size:18px; text-align:center;">Annual Report</div>
+					<div class="report-filter" onclick="shoFilterByAnnual()" style="float: right; margin-top: -35px; font-size: 15px;">
+						<button style=" color: #00C2FF; height: 30px;  cursor: pointer; border: 1px solid #00C2FF;">Filter by Year</button>
+					</div>
+					<form name="filterByForm" method="POST" onsubmit="return filterByValidation()">
+						<div id="filter">
+							<input type="number" placeholder="YYYY" min="2017" max="2020" style="font-size: 14px; color: #737373; padding: 25px; height: 15px;" value="<?php echo $projected_date; ?>" name="projected_date" id="projected_date">
 							<input type="submit" name="filterByDate" style="color: #00C2FF;" value="Filter">
 						</div>
 					</form>
@@ -226,42 +214,31 @@
 		<br><br><br><br><br>
 		<?php include_once("../footer.php"); ?>
 		
-		<button id="goUpBtn" title="Go to top">
-				<i class="fa fa-arrow-up" aria-hidden="true"></i>
-			</button>
+		<style>
+			#filter {
+				display: none;
+			}
+		</style>
+		<!-- SHOW AND HIDE FILTER FORM -->
+		<script>
+			function shoFilterByAnnual() {
+				var filter = document.getElementById("filter");
+				if(filter.style.display === "block") {
+					filter.style.display = "none";
+				} else {
+					filter.style.display = "block";
+				}
+			}
+		</script>
+
 		
         <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
-
-
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-		<script type="text/javascript">
-			$("body").on("click", "#btnExport", function () {
-				html2canvas($('#tblCustomers')[0], {
-					onrendered: function (canvas) {
-						var data = canvas.toDataURL();
-						var docDefinition = {
-							content: [{
-								image: data,
-								width: 500
-							}]
-						};
-						pdfMake.createPdf(docDefinition).download("Annually-Report.pdf");
-					}
-				});
-			});
-		</script>
+		<script src="../js/import-jquery.js"></script>
+    	<script src="js/validation.js"></script>
 
 
 		<!-- CHART -->
-		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+		<script src="../js/canvas.js"></script>
 		<script type="text/javascript">
 			window.onload = function() {
 

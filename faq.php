@@ -5,27 +5,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="keywords" content="Family Expense Manager, Family Budget" />
-		<meta name="description" content="Family Expense Manager System">
-        <meta name="author" content="Allarassem N Maxime">
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="images/logo.png">
+    <meta name="keywords" content="Family Expense Manager, Family Budget" />
+    <meta name="description" content="Family Expense Manager System">
+    <meta name="author" content="Allarassem N Maxime">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ || Family Expense Manager</title>
-    <link rel="stylesheet" href="css/index.css">
-
-    <!-- Web Fonts  -->
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
-    <!-- IMPORT FONT AWSOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/index.css">   
 </head>
 <body>
     <nav id="nav">
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
-        <i class="fa fa-bars"></i>
+            <img src="images/icons/menu.svg" style="width: 25px;">
         </label>
         <label class="logo">
             <a href="index.php" style="color:white;">
@@ -46,105 +40,7 @@
         <div class="banner-title">FAQ</div>
     </section>
 
-    
-    <style>
-        .faq-container {
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 30px;
-        }
-        .accordion {
-        background-color: #F7F7F7;
-        color: #00ace0;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
-        }
 
-        .active2, .accordion:hover {
-        background-color: #00ace0;
-        color: white;
-        }
-
-        .accordion:after {
-        content: '\002B';
-        color: #777;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-        }
-
-        .active2:after {
-        content: "\2212";
-        }
-
-        .panel {
-        padding: 0 18px;
-        background-color: white;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-        }
-
-
-
-    @media only screen and (min-width: 300px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 85%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
-        }
-    }
-
-
-    @media only screen and (min-width: 600px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 80%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
-        }
-    }
-
-
-    @media only screen and (min-width: 800px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 65%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
-        }
-    }
-
-
-    @media screen and (min-width: 1024px) {
-        .faq-container {
-            border-radius: 5px; 
-            padding: 20px; 
-            width: 50%; 
-            margin-left: auto; 
-            margin-right: auto; 
-            margin-top: 50px; 
-            margin-bottom: 20px;
-        }
-    }
-</style>
 
 
     <section class="faq-container" style="margin-bottom: 50px;">
@@ -196,7 +92,10 @@
                 </p>
         
                 <p>
-                Copyright © 2020 F-E-M. All rights reserved.
+                    Copyright © 2020 F-E-M. All rights reserved.
+                </p>
+                <p>
+                    Icons made by <a style="color:white;" href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a style="color:white;" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
                 </p>
             </div>
         </div>
@@ -204,7 +103,7 @@
     <!-- END OF FOOTER -->
 
 
-
+    <script src="js/scrolling.js"></script>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -220,8 +119,7 @@
             } 
         });
         }
-</script>
-<script src="js/scrolling.js"></script>
+    </script>
 </body>
 </html>
 

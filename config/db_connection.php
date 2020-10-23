@@ -15,7 +15,7 @@
     $password = ""; 
     $dbname   = "fem"; 
 
-    $con = mysqli_connect($host, $user, $password,$dbname);
+    $con = mysqli_connect($host, $user, $password, $dbname);
     if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -127,6 +127,7 @@
         $price   = mysqli_real_escape_string($con, $_POST['price']);
         $totole_expenses = $_SESSION['total_expenses'] + $price;
         $user_id = $_SESSION['user_id'];
+
 
         if (empty($income_id)) { array_push($errors, "Income is required"); }
         if (empty($product_service_id)) { array_push($errors, "Product/Service is required"); }
@@ -266,10 +267,16 @@
         $projected_amount   = mysqli_real_escape_string($con, $_POST['projected_amount']);
         $user_id            = $_SESSION['user_id'];
 
+        $curent_month = date("Y-m");
+
         if (empty($product_service_id)) { array_push($errors, "Product or Service is required"); }
         if (empty($projected_date))     { array_push($errors, "Projected date is required"); }
         if (empty($projected_amount))   { array_push($errors, "Projected amount is required"); }
         if (empty($user_id))            { array_push($errors, "User is required"); }
+
+        if (date('Y-m', strtotime($projected_date)) < $curent_month) {
+            array_push($errors, "You can not plan for the previous months.");
+        }
 
         if (count($errors) == 0) {
             $query = "INSERT INTO ProjectedExpense (user_id, product_service_id, projected_date, projected_amount) VALUES('$user_id', '$product_service_id', '$projected_date', '$projected_amount')";
@@ -642,26 +649,31 @@
             $expense_result  = mysqli_query($con, $expense_query);
             $check_expense   = mysqli_fetch_assoc($expense_result);
             if ($check_expense) { 
-                $expense_price     = $check_expense['price'];
+                $last_expense_price     = $check_expense['price'];
                 $income_id = $check_expense['income_id'];
 
-                $update_income_query = "UPDATE Income SET remaining_amount = remaining_amount + '$expense_price' WHERE income_id='$income_id'";
-                $update_income_result = mysqli_query($con, $update_income_query);
-                if ($update_income_result) {
-                    $query = "UPDATE Expense SET price='$price', product_service_id='$product_service_id' WHERE expense_id='$expense_id' AND user_id='$user_id'";
-                    $result = mysqli_query($con, $query);
-                    if (!$result) { 
-                        array_push($errors, "Error: Connection failed: $query");
+                $check_amount_query   = "SELECT * FROM Income WHERE income_id='$income_id' LIMIT 1";
+                $check_amount_result  = mysqli_query($con, $check_amount_query);
+                $check_amount_value   = mysqli_fetch_assoc($check_amount_result);
+                $initial_remaining    = $check_amount_value['remaining_amount'] + $last_expense_price;
+                
+                if ($check_amount_value) { 
+                    if ($initial_remaining < $price) { 
+                        array_push($errors, "You don't have enough money in your income"); 
                     } else {
-                        $update_income_query2 = "UPDATE Income SET remaining_amount = remaining_amount - '$price' WHERE income_id='$income_id'";
-                        $update_income_result2 = mysqli_query($con, $update_income_query2);
-                        if($update_income_result2) {
-                            $_SESSION['success'] = "Expense updated successfully.";
-                            header('Location: expense.php');
-                        }else {
-                            array_push($errors, "Error: Connection failed: $query");
+                        $remain = $initial_remaining - $price;
+                        $new_query  = "UPDATE Income SET remaining_amount='$remain' WHERE income_id='$income_id'";
+                        $check = mysqli_query($con, $new_query);
+                        if ($check) {
+                            $query = "UPDATE Expense SET price='$price', product_service_id='$product_service_id' WHERE expense_id='$expense_id'";
+                            $result = mysqli_query($con, $query);
+                            if ($result) { 
+                                $_SESSION['success'] = "Expense updated successfully.";
+                                header('Location: expense.php');
+                            } else {
+                                array_push($errors, "Error: Connection failed: $query"); 
+                            }
                         }
-                       
                     }
                 }
             }
@@ -826,14 +838,12 @@
             $subject = "Reset your password on family-expense-manager.com";
             $msg     = "Hi there, click on this <a href=\"new-password.php?token=" . $user_token . "\">link</a> to reset your password on our site";
             $msg     = wordwrap($msg,70);
-            $headers = "From: info@family-manager.com";
-            $retval = mail($to, $subject, $msg, $headers);
+            $retval = mail($to, $subject, $msg);
             if( $retval == true ) {
-                // echo "Message sent successfully...";
                 header('location: pending.php?email=' . $user_email);
-             }else {
+            }else {
                 echo "Message could not be sent...";
-             }
+            }
 
         }
 
@@ -863,6 +873,32 @@
             }
         }
 
+    }
+
+    // ADDING PRODUCT OR SERVICE
+    if(isset($_POST['feedback'])) {
+        $message  = mysqli_real_escape_string($con, $_POST['message']);
+        $user_id = $_SESSION['user_id'];
+
+        if (empty($message)) { array_push($errors, "Please write something"); }
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO Help (user_id, message) VALUES('$user_id', '$message')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $to      = "admin@gmail.com";
+                $subject = "Help from F-E-M";
+                $msg     = $message;
+                $result  = mail($to, $subject, $msg);
+                if( $result == true ) {
+                    $_SESSION['success'] = "Your message has been sent successfully. We will get back to you as soon as possible.";
+                }else {
+                    echo "Message could not be sent...";
+                }
+            }
+        }
     }
 
 

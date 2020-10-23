@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
@@ -36,12 +36,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Projected Expense || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		<!-- Web Fonts  -->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 
@@ -54,7 +48,6 @@
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
-					<i class="fa fa-plus"></i> 
 					<a style="font-size: 15px;">Add Projected</a>
 				</div>
 			</div>
@@ -73,10 +66,13 @@
 
 			<div style="overflow-x:auto;">
 				<div class="report-title" style="margin-bottom: 10px;">
-					<div class="report-filter" style="font-size:18px; text-align:center;">Projected Expense</div>
-					<form class="filter-by-form" action="" method="POST">
-						<div class="filter">
-							<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" value="<?php echo $projected_date; ?>" type="month" name="projected_date" id="projected_date">
+				<div style="font-size:18px; text-align:center;">Projected Expense</div>
+					<div class="report-filter" onclick="shoWprojectedFilter()" style="float: right; margin-top: -35px; font-size: 15px;">
+						<button style=" color: #00C2FF; height: 30px;  cursor: pointer; border: 1px solid #00C2FF;">Filter by Month</button>
+					</div>
+					<form name="filterByForm" method="POST" onsubmit="return filterByValidation()">
+						<div id="filter">
+							<input style="font-size: 14px; color: #737373; padding: 25px; height: 15px;" value="<?php echo $projected_date; ?>" type="month" name="projected_date" id="projected_date">
 							<input type="submit" name="filterByDate" style="color: #00C2FF;" value="Filter">
 						</div>
 					</form>
@@ -151,14 +147,14 @@
 											<form action="" method="POST" style="margin-left:-40px;">
 												<input hidden name="projected_id" value="<?php echo $row['projected_id'] ?>"></input>
 												<button name="admin-delete-projected-expense">
-													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+													<img src="../images/icons/delete.svg" style="width: 15px;">
 												</button>&nbsp;&nbsp;&nbsp;
 											</form>
 											<!-- UPDATE -->
-											<div style="margin-left:30px; margin-top:-20px">
+											<div style="margin-left:30px; margin-top:-25px">
 												<button>
 													<a href="projected-expense-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['projected_id'] ?>&id3=<?php echo $row['projected_date'] ?>&id4=<?php echo $product_service_data['product_service_id'] ?>&amount=<?php echo $row['projected_amount'] ?>">
-														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+														<img src="../images/icons/edit.svg" style="width: 15px;">
 													</a>
 												</button>
 											</div>
@@ -187,7 +183,7 @@
 				<div class="modal-content">
 					<span class="close">&times;</span>
 					<p style="text-align: center; font-size: 15px; color: #737373">Add Projected Expense</p>
-					<form class="add-projected-expense-validation" method="POST">
+					<form name="projectedExpenseForm" method="POST" onsubmit="return projectedExpenseValidation()">
 						<div>
 							<?php include('../errors.php'); ?><br>
 						</div>
@@ -203,8 +199,6 @@
 										while($row = mysqli_fetch_assoc($user_result)) {
 											echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
 										}
-									} else {
-										// echo "0 results";
 									}
 								?>
 							</select>
@@ -226,8 +220,6 @@
 										while($row = mysqli_fetch_assoc($results)) {
 											echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
 										}
-									} else {
-										// echo "0 results";
 									}
 								?>
 							</select>
@@ -250,30 +242,24 @@
 
 		<br><br><br><br><br>
 		<?php include_once("../footer.php"); ?>
-		<button id="goUpBtn" title="Go to top">
-			<i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</button>
-		
-        <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
-		<script src="js/validation.js"></script>
 
-		<script>
-			var modal  = document.getElementById("myModal");
-
-			var btn = document.getElementById("myBtn");
-			var span = document.getElementsByClassName("close")[1];
-			span.onclick = function() {
-				modal.style.display = "none";
+	        
+		<style>
+			#filter {
+				display: none;
 			}
-		</script>
+		</style>
+
+		
+
+
+		<!-- JAVASCRIPT -->
+		<script src="../js/import-jquery.js"></script>
+		<script src="../js/modal.js"></script>
+		<script src="js/validation.js"></script>
+		
+
+
 	</body>
 </html>
 

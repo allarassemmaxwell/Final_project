@@ -24,18 +24,11 @@
 		<meta name="author" content="Allarassem N Maxime">
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="../images/logo.png">
-	
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Profile || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		<!-- Web Fonts  -->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		
@@ -50,7 +43,7 @@
 				</div>
             <div class="table-top-space"></div>
             
-            <form class="profile-edit-form profile-page" method="POST" style="font-size: 14px;">
+            <form style="font-size: 14px;" name="profileForm" class="profile-page" method="POST" onsubmit="return profileValidation()">
 				<div>
 					<?php include('../errors.php'); ?><br>
 				</div>
@@ -95,7 +88,7 @@
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<p style="text-align: center; font-size: 15px; color:#737373">Change password</p>
-				<form class="change-password-form" method="POST">
+				<form name="changePasswordForm" method="POST" onsubmit="return changePasswordValidation()">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
@@ -126,7 +119,7 @@
 			<div class="modal-content">
 				<span class="close close2">&times;</span>
 				<p style="text-align: center; font-size: 15px; color:#737373">Confirm Account</p>
-				<form class="delete-account-form" method="POST">
+				<form name="deleteAccountForm" method="POST" onsubmit="return deleteAccountValidation()">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
@@ -148,39 +141,27 @@
 
 		<br><br><br>
 		<?php include_once("../footer.php"); ?>
-		<button id="goUpBtn" title="Go to top">
-			<i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</button>
-		
-
-        <!-- JAVASCRIPT -->
-        <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
 
 		
 
+        
+		
+
+		<!-- JAVASCRIPT -->
+		<script src="js/validation.js"></script>
+		<script src="../js/modal.js"></script>
+
+		<!-- MODAL -->
 		<script>
-			//   START OF MODAL 	START OF MODAL 		START OF MODAL 		START OF MODAL
 			var modal1  = document.getElementById("myModal1"); 
-
 			var btn1 = document.getElementById("myBtn1");
-
 			var span2 = document.getElementsByClassName("close2")[0];
-
 			btn1.onclick = function() {
 				modal1.style.display = "block";
 			}
 			span2.onclick = function() {
 				modal1.style.display = "none";
 			}
-	
-
 			window.onclick = function(event) {
 				if (event.target == modal1) {
 					modal1.style.display = "none";

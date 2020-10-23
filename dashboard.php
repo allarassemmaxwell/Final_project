@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
@@ -20,12 +20,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dashboard || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
-
-		    <!-- Web Fonts  -->
-			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 
@@ -40,17 +34,11 @@
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
-					<i class="fa fa-plus"></i> 
 					<a style="font-size: 15px;">Add Expense</a>
 				</div>
 			</div>
 			
 			
-
-
-
-			<!-- <div class="table-top-space"></div> -->
-
 			<div>
 				<?php include('errors.php'); ?><br>
 			</div>
@@ -129,15 +117,15 @@
 											<!-- DELETE -->
 											<form action="" method="POST" style="margin-left:-40px;">
 												<input hidden name="expense_id" value="<?php echo $row['expense_id'] ?>"></input>
-												<button name="delete-expense">
-													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+												<button name="delete-expense" style="cursor: pointer;">
+													<img src="images/icons/delete.svg" style="width: 15px;">
 												</button>&nbsp;&nbsp;&nbsp;
 											</form>
 											<!-- UPDATE -->
-											<div style="margin-left:30px; margin-top:-20px">
+											<div style="margin-left:30px; margin-top:-25px">
 												<button>
 													<a href="expense-update.php?id1=<?php echo $_SESSION['user_id'] ?>&id2=<?php echo $row['expense_id'] ?>&id3=<?php echo $product_service_data['product_service_id'] ?>&price=<?php echo $row['price'] ?>">
-														<i class="fa fa-pencil icon-edit" title="Edit"></i>
+														<img src="images/icons/edit.svg" style="width: 15px;">
 													</a>
 												</button>
 											</div>
@@ -173,7 +161,7 @@
 				<div class="modal-content">
 					<span class="close">&times;</span>
 					<p style="text-align: center; font-size: 15px; color: #737373">Add Expense</p>
-					<form class="add-expense-form" method="POST">
+					<form name="expenseForm" method="POST" onsubmit="return expenseValidation()">
 						<div>
 							<?php include('errors.php'); ?><br>
 						</div>
@@ -199,9 +187,7 @@
 											}
 											echo '<option value="' . $income_row['income_id'] . '">' . $source_data['name'] . ' remain: '. $income_row['remaining_amount'] .', Date: ' . date('M Y',strtotime($source_data['created_at'])) . '</option>';
 										}
-									} else {
-										// echo "0 results";
-									}
+									} 
 								?>
 							</select>
 						</div><br><br>
@@ -219,9 +205,7 @@
 										while($row = mysqli_fetch_assoc($results)) {
 											echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
 										}
-									} else {
-										// echo "0 results";
-									}
+									} 
 								?>
 							</select>
 						</div><br><br>
@@ -246,31 +230,13 @@
 		
 		<br><br><br>
 		<?php include_once("footer.php"); ?>
-		<button id="goUpBtn" title="Go to top">
-			<i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</button>
+
 		
 		
         <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="js/dashboard.js"></script>
+		<script src="js/modal.js"></script>
+		<script src="js/validation.js"></script>
 
-
-		<script>
-			var modal  = document.getElementById("myModal");
-
-			var btn = document.getElementById("myBtn");
-			var span = document.getElementsByClassName("close")[1];
-			span.onclick = function() {
-				modal.style.display = "none";
-			}
-		</script>
 	</body>
 </html>
 

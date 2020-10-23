@@ -11,23 +11,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
-    <meta name="description" content="Family Expense Manager System">
-    <meta name="author" content="Allarassem N Maxime">
-    <!-- Favicon -->
-	<link rel="shortcut icon" href="../images/logo.png">
-	
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+		<meta name="author" content="Allarassem N Maxime">
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="../images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Category || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		<!-- Web Fonts  -->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
-			
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 
@@ -40,7 +33,6 @@
 
 			<div class="title-right" id="myBtn">
 				<div class="add">
-					<i class="fa fa-plus"></i> 
 					<a style="font-size: 15px;">Add Category</a>
 				</div>
 			</div>
@@ -48,8 +40,6 @@
 			
 
 
-
-			<!-- <div class="table-top-space"></div> -->
 			<div>
 				<?php include('../errors.php'); ?><br>
 			</div>
@@ -89,14 +79,14 @@
 											<form action="" method="POST" style="margin-left:-40px;">
 												<input hidden name="category_id" value="<?php echo $row['category_id'] ?>"></input>
 												<button name="delete-admin-category">
-													<i class="fa fa-trash-o icon-delete" id="delete" title="Delete"></i>
+													<img src="../images/icons/delete.svg" style="width: 15px;">
 												</button>&nbsp;&nbsp;&nbsp;
 											</form>
 											<!-- UPDATE -->
-											<div style="margin-left:30px; margin-top:-20px">
+											<div style="margin-left:30px; margin-top:-25px">
 											<button>
 												<a href="category-update.php?id1=<?php echo $row['user_id'] ?>&id2=<?php echo $row['category_id']; ?>&name=<?php echo $row['name'] ?>">
-													<i class="fa fa-pencil icon-edit" title="Edit"></i>
+												<img src="../images/icons/edit.svg" style="width: 15px;">
 												</a>
 											</button>
 										</div>
@@ -122,8 +112,8 @@
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<p style="text-align: center; font-size: 15px; color:#737373">Add Category</p>
-				<form class="add-category-validation" method="POST">
+				<p style="text-align: center; font-size: 15px; color:#737373">Add Product Category</p>
+				<form name="categoryForm" method="POST" onsubmit="return categoryValidation()">
 					<div>
 						<?php include('../errors.php'); ?><br>
 					</div>
@@ -151,7 +141,7 @@
 					</div><br><br>
 
 					<div>
-						<input class="button-primary" name="add-admin-category" type="submit" value="Add Category">
+						<input class="button-primary" name="add-admin-category" type="submit" value="Add Product Category">
 					</div>
 				</form>  
 				<div class="table-bottom-space"></div>
@@ -163,21 +153,10 @@
 
 		<br><br><br><br><br>
         <?php include_once("../footer.php"); ?>
-		<button id="goUpBtn" title="Go to top">
-			<i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</button>
-
 
 		
         <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 		<script src="js/validation.js"></script>
-		<script src="../js/dashboard.js"></script>
+		<script src="../js/modal.js"></script>
 	</body>
 </html>

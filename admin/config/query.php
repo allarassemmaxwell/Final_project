@@ -5,15 +5,15 @@
     // CREATE      CREATE      CREATE      CREATE
     // ADDING EXPENSE
     if(isset($_POST['add-admin-expense'])) {
-        $user_id  = mysqli_real_escape_string($con, $_POST['user']);
-        $income_id  = mysqli_real_escape_string($con, $_POST['category']);
+        $user_id    = mysqli_real_escape_string($con, $_POST['user']);
+        $income_id  = mysqli_real_escape_string($con, $_POST['income']);
         $product_service_id  = mysqli_real_escape_string($con, $_POST['product_or_service']);
-        $price   = mysqli_real_escape_string($con, $_POST['price']);
+        $price      = mysqli_real_escape_string($con, $_POST['price']);
         $totole_expenses = $_SESSION['total_expenses'] + $price;
 
-        if (empty($income_id)) { array_push($errors, "Income is required"); }
+        if (empty($income_id))          { array_push($errors, "Income is required"); }
         if (empty($product_service_id)) { array_push($errors, "Product/Service is required"); }
-        if (empty($price))    { array_push($errors, "Price is required"); }
+        if (empty($price))              { array_push($errors, "Price is required"); }
 
         $check_amount_query   = "SELECT * FROM Income WHERE user_id='$user_id' AND income_id='$income_id' LIMIT 1";
         $check_amount_result  = mysqli_query($con, $check_amount_query);
@@ -441,7 +441,7 @@
                 if($user_id == $current_user_id) {
                     session_destroy();
                     header('Location: ../login.php');
-                }else {
+                } else {
                     $_SESSION['success'] = "Account deleted successfully.";
                 }
             }
@@ -466,6 +466,83 @@
             }
         }
     }
+
+
+    // CONTACT RESPONSE
+    if(isset($_POST['contact-response'])) {
+        $message    = mysqli_real_escape_string($con, $_POST['message']);
+        $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
+        $contact_id = mysqli_real_escape_string($con, $_POST['contact_id']);
+        $staff_id   = $_SESSION['user_id'];
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO ContactResponse (contact_id, staff_id, message) VALUES('$contact_id', '$staff_id' , '$message')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $to      = $user_email;
+                $subject = "Help from F-E-M";
+                $msg     = $message;
+                $result  = mail($to, $subject, $msg);
+                if( $result == true ) {
+                    $_SESSION['success'] = "Your message has been sent successfully to the user.";
+                    header('Location: contact.php');
+                } else {
+                    echo "Message could not be sent...";
+                }
+            }
+        }
+    }
+
+
+    // DELETE HELP
+    if(isset($_POST['delete-admin-help'])) {
+        $help_id = $_POST['help_id'];
+
+        if (empty($help_id)) { array_push($errors, "Help is required"); }
+
+        if (count($errors) == 0) {
+            $help_query  = "DELETE FROM Help WHERE help_id='$help_id'";
+            $help_result = mysqli_query($con, $help_query);
+            if (!$help_result) { 
+                array_push($errors, "Error: Connection failed: $help_query");
+            } else {
+                $_SESSION['success'] = "Help deleted successfully.";
+            }
+        }
+    }
+
+
+    // HELP RESPONSE
+    if(isset($_POST['staff-feedback'])) {
+        $message    = mysqli_real_escape_string($con, $_POST['message']);
+        $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
+        $user_id    = mysqli_real_escape_string($con, $_POST['user_id']);
+        $staff_id   = $_SESSION['user_id'];
+
+
+        if (count($errors) == 0) {
+            $query = "INSERT INTO HelpResponse (user_id, staff_id, message) VALUES('$user_id', '$staff_id' , '$message')";
+            $result = mysqli_query($con, $query);
+            if (!$result) { 
+                array_push($errors, "Error: Connection failed: $query");
+            } else {
+                $to      = $user_email;
+                $subject = "Help from F-E-M";
+                $msg     = $message;
+                $result  = mail($to, $subject, $msg);
+                if( $result == true ) {
+                    $_SESSION['success'] = "Your message has been sent successfully to the user.";
+                    header('Location: help.php');
+                }else {
+                    echo "Message could not be sent...";
+                }
+            }
+        }
+    }
+
+    
 
 
     // DELETE USER ACCOUNT
@@ -587,6 +664,7 @@
 
         if (empty($expense_id)) { array_push($errors, "Expense is required"); }
         if (empty($price))    { array_push($errors, "Price is required"); }
+        if (empty($user_id))  { array_push($errors, "User is required"); }
         if (empty($product_service_id))    { array_push($errors, "Product/Service is required"); }
 
         if (count($errors) == 0) {
@@ -594,29 +672,34 @@
             $expense_result  = mysqli_query($con, $expense_query);
             $check_expense   = mysqli_fetch_assoc($expense_result);
             if ($check_expense) { 
-                $expense_price     = $check_expense['price'];
+                $last_expense_price     = $check_expense['price'];
                 $income_id = $check_expense['income_id'];
 
-                $update_income_query = "UPDATE Income SET remaining_amount = remaining_amount + '$expense_price' WHERE income_id='$income_id'";
-                $update_income_result = mysqli_query($con, $update_income_query);
-                if ($update_income_result) {
-                    $query = "UPDATE Expense SET price='$price', product_service_id='$product_service_id' WHERE expense_id='$expense_id' AND user_id='$user_id'";
-                    $result = mysqli_query($con, $query);
-                    if (!$result) { 
-                        array_push($errors, "Error: Connection failed: $query");
+                $check_amount_query   = "SELECT * FROM Income WHERE income_id='$income_id' LIMIT 1";
+                $check_amount_result  = mysqli_query($con, $check_amount_query);
+                $check_amount_value   = mysqli_fetch_assoc($check_amount_result);
+                $initial_remaining    = $check_amount_value['remaining_amount'] + $last_expense_price;
+                
+                if ($check_amount_value) { 
+                    if ($initial_remaining < $price) { 
+                        array_push($errors, "You don't have enough money in your income"); 
                     } else {
-                        $update_income_query2 = "UPDATE Income SET remaining_amount = remaining_amount - '$price' WHERE income_id='$income_id'";
-                        $update_income_result2 = mysqli_query($con, $update_income_query2);
-                        if($update_income_result2) {
-                            $_SESSION['success'] = "Expense updated successfully.";
-                            header('Location: expense.php');
-                        }else {
-                            array_push($errors, "Error: Connection failed: $query");
+                        $remain = $initial_remaining - $price;
+                        $new_query  = "UPDATE Income SET remaining_amount='$remain' WHERE income_id='$income_id'";
+                        $check = mysqli_query($con, $new_query);
+                        if ($check) {
+                            $query = "UPDATE Expense SET price='$price', product_service_id='$product_service_id' WHERE expense_id='$expense_id'";
+                            $result = mysqli_query($con, $query);
+                            if ($result) { 
+                                $_SESSION['success'] = "Expense updated successfully.";
+                                header('Location: expense.php');
+                            } else {
+                                array_push($errors, "Error: Connection failed: $query"); 
+                            }
                         }
-                       
                     }
                 }
-            }  
+            }
         }
     }
 
@@ -813,9 +896,5 @@
         } 
     }
 
-
-
-
-    
 
 ?>

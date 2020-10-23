@@ -18,8 +18,9 @@
 	$this_month  = date("m");
 	$this_day    = date("d");
 	if (isset($_POST['filterByDate'])) {
+
 		$projected_date = mysqli_real_escape_string($con, $_POST['projected_date']);
-		$this_year = date("Y",strtotime($projected_date));
+		$this_year = date("Y",strtotime($projected_date)); 
 		$this_month = date("m",strtotime($projected_date));
 		$this_day = date("d",strtotime($projected_date));
 	}
@@ -30,7 +31,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
@@ -40,12 +41,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Daily Report || FEM</title>
 		<link rel="stylesheet" href="css/dashboard.css">
-
-		    <!-- Web Fonts  -->
-			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		
@@ -55,21 +50,19 @@
 			<div class="title-left" style="font-size: 15px; color: #737373;">
 				Daily Report
 			</div>
-			<div class="title-right" id="myBtn">
-				<div class="add">
-					<i class="fa fa-file"></i> 
-					<a style="font-size: 15px;" type="button" id="btnExport">Export pdf</a>
-				</div>
-			</div>
+
 
 
 
 			<div style="overflow-x:auto;" id="tblCustomers" cellspacing="0" cellpadding="0">
 				<div class="report-title">
-					<div class="report-filter" style="font-size:18px; text-align:center;">Daily Report</div>
-					<form class="filter-by-form" action="" method="POST">
-						<div class="filter">
-							<input style="font-size: 14px; color: #737373;padding-left: 10px; padding-right: 10px;" value="<?php echo $projected_date; ?>" type="date" name="projected_date" id="projected_date">
+					<div style="font-size:18px; text-align:center;">Daily Report</div>
+					<div class="report-filter" onclick="shoFilterByDate()" style="float: right; margin-top: -35px; font-size: 15px;">
+						<button style=" color: #00C2FF; height: 30px;  cursor: pointer; border: 1px solid #00C2FF;">Filter by Date</button>
+					</div>
+					<form name="filterByForm" method="POST" onsubmit="return filterByValidation()">
+						<div id="filter">
+							<input style="font-size: 14px; color: #737373;padding: 25px; height: 15px;" value="<?php echo $projected_date; ?>" type="date" name="projected_date" id="projected_date">
 							<input type="submit" name="filterByDate" style="color: #00C2FF;" value="Filter">
 						</div>
 					</form>
@@ -79,7 +72,6 @@
 				</div>
 
 				<div id="chartContainer" style="height: 350px; width: 95%; margin-left: auto; margin-right: auto;"></div>
-
 				
 				<table style="margin-top: 15px;">
 					<?php
@@ -191,44 +183,30 @@
 
 		<br><br><br>
 		<?php include_once("footer.php"); ?>
-		<button id="goUpBtn" title="Go to top">
-			<i class="fa fa-arrow-up" aria-hidden="true"></i>
-		</button>
-		
+
+		<style>
+			#filter {
+				display: none;
+			}
+		</style>
+		<!-- SHOW AND HIDE FILTER FORM -->
+		<script>
+			function shoFilterByDate() {
+				var filter = document.getElementById("filter");
+				if(filter.style.display === "block") {
+					filter.style.display = "none";
+				} else {
+					filter.style.display = "block";
+				}
+			}
+		</script>
 		
         <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="js/dashboard.js"></script>
-		<script src="js/scrolling.js"></script>
+		<script src="js/import-jquery.js"></script>
+		<script src="js/validation.js"></script>
 
-
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-		<script type="text/javascript">
-			$("body").on("click", "#btnExport", function () {
-				html2canvas($('#tblCustomers')[0], {
-					onrendered: function (canvas) {
-						var data = canvas.toDataURL();
-						var docDefinition = {
-							content: [{
-								image: data,
-								width: 500
-							}]
-						};
-						pdfMake.createPdf(docDefinition).download("Daily-Report.pdf");
-					}
-				});
-			});
-		</script>
-
-
-<!-- CHART -->
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+		<!-- CHART -->
+		<script src="js/canvas.js"></script>
 		<script type="text/javascript">
 			window.onload = function() {
 

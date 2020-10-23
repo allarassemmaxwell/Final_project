@@ -10,24 +10,17 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
-    <meta name="description" content="Family Expense Manager System">
-    <meta name="author" content="Allarassem N Maxime">
-    <!-- Favicon -->
-	<link rel="shortcut icon" href="../images/logo.png">
-	
+	<head>
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="description" content="Family Expense Manager System">
+		<meta name="author" content="Allarassem N Maxime">
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="../images/logo.png">
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Update Expense || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		<!-- Web Fonts  -->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>	
-			
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		
@@ -115,13 +108,9 @@
         <?php include_once("../footer.php"); ?>
 		
         <!-- JAVASCRIPT -->
-		 <script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+		 <!-- JAVASCRIPT -->
+		<script src="../js/import-jquery.js"></script>
+    	<script src="../js/import-jquery-validate.js"></script>
 		<script src="js/validation.js"></script>
 		<script src="../js/dashboard.js"></script>
         

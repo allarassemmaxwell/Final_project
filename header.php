@@ -4,9 +4,9 @@
 			<img src="images/logo-dashboard.png" style="width: 50px; margin-top:-5px;" alt="logo">
 		</div>
 	</a>
-		<a href="#" class="nav-trigger"><span></span></a>
+		<a href="#" class="nav-trigger" id="nav-trigger" onclick="displayMenu()"><span></span></a>
 	</div>
-	<div class="side-nav">
+	<div class="side-nav" id="side-nav">
 		<a href="expense.php" style="text-decoration: none;">
 			<div class="logo">
 				<i class="fa">
@@ -21,47 +21,47 @@
 			<ul>
 				<li onclick="window.location.href='source.php'">
 					<a href="source.php">
-						<span><i class="fa fa-database"></i></span>
+						<img src="images/icons/money-bag-1.svg" style="width: 15px;">
 						<span>Income Source</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='income.php'">
 					<a href="income.php">
-						<span><i class="fa fa-money"></i></span>
+						<img src="images/icons/money-bills.svg" style="width: 15px;">
 						<span>Income</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='category.php'">
 					<a href="category.php">
-						<span><i class="fa fa-server"></i></span>
+						<img src="images/icons/list.svg" style="width: 15px;">
 						<span>Product Category</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='product-service.php'">
 					<a href="product-service.php">
-						<span><i class="fa fa-product-hunt"></i></span>
+						<img src="images/icons/basket.svg" style="width: 15px;">
 						<span>Product/Service</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='expense.php'">
 					<a href="expense.php">
-						<span><i class="fa fa-exchange"></i></span>
+						<img src="images/icons/accounting.svg" style="width: 15px;">
 						<span>Expense</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='projected-expense.php'">
 					<a href="projected-expense.php">
-						<span><i class="fa fa-balance-scale"></i></span>
+						<img src="images/icons/medical.svg" style="width: 15px;">
 						<span>Projected Expense</span>
 					</a>
 				</li>
-				<li class="report-list">
+				<li onclick="showReportList()">
 					<a>
-						<span><i class="fa fa-bar-chart"></i></span>
+						<img src="images/icons/report.svg" style="width: 15px;">
 						<span>Expenses Report</span>
 					</a>
 				</li>
-				<div class="report">
+				<div id="report">
 					<li onclick="window.location.href='daily-report.php'">
 						<a href="daily-report.php" style="margin-left: 10px;">
 							<span><i class="fa fa-calendar-o"></i></span>
@@ -87,15 +87,21 @@
 						</a>
 					</li>
 				</div>
+				<li onclick="window.location.href='help.php'">
+					<a href="help.php">
+						<img src="images/icons/feedback.svg" style="width: 15px;">
+						<span>Help</span>
+					</a>
+				</li>
 				<li onclick="window.location.href='profile.php'">
 					<a href="profile.php">
-						<span><i class="fa fa-user"></i></span>
+						<img src="images/icons/user-profile.svg" style="width: 15px;">
 						<span>Profile</span>
 					</a>
 				</li>
 				<li onclick="window.location.href='logout.php'">
 					<a href="logout.php">
-						<span><i class="fa fa-sign-out" style="color: #dc3545;"></i></span>
+						<img src="images/icons/log-out.svg" style="width: 15px;">
 						<span class="danger">Log out</span>
 					</a>
 				</li>
@@ -103,3 +109,30 @@
 		</nav>
 	</div>
 
+<style>
+#report{
+	display: none;
+}
+</style>
+ 
+<!-- SHOW AND HIDE REPORT LIST -->
+<script>
+	function showReportList() {
+		var report = document.getElementById("report");
+		if(report.style.display === "block") {
+			report.style.display = "none";
+		} else {
+			report.style.display = "block";
+		}
+	}
+
+	// DISPLAY MENU
+	function displayMenu() {
+		var sideNav = document.getElementById("side-nav");
+		if(sideNav.style.display === "block") {
+			sideNav.style.display = "none";
+		} else {
+			sideNav.style.display = "block";
+		}
+	}
+</script>

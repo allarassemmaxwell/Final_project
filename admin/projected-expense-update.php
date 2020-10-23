@@ -10,13 +10,14 @@
     $projected_id = $_GET['id2'];
     $projected_date = date("Y-m",strtotime($_GET['id3']));
     $product_service_id = $_GET['id4'];
-    $projected_amount = $_GET['amount'];
+	$projected_amount = $_GET['amount'];
+	
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta name="keywords" content="Family Expense Manager, Family Budget" />
+		<meta name="keywords" content="Family Expense Manager, Family Budget" />
 		<meta name="description" content="Family Expense Manager System">
         <meta name="author" content="Allarassem N Maxime">
         <!-- Favicon -->
@@ -26,12 +27,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Update Projected Expense || FEM</title>
 		<link rel="stylesheet" href="../css/dashboard.css">
-
-		    <!-- Web Fonts  -->
-			<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        
-        <!-- IMPORT FONT AWSOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 
@@ -44,7 +39,7 @@
             </div>
             <div class="table-top-space"></div>
             
-            <form class="update-projected-expense-validation" method="POST">
+            <form class="edit-page" name="projectedExpenseForm" method="POST" onsubmit="return projectedExpenseValidation()">
 				<div>
 					<?php include('../errors.php'); ?><br>
                 </div>
@@ -64,9 +59,7 @@
 									}
 									echo '<option value="' . $row['user_id'] . '">' . $row['user_email'] . '</option>';
 								}
-							} else {
-								// echo "0 results";
-							}
+							} 
 						?>
 					</select>
                 </div><br><br>
@@ -80,7 +73,7 @@
 						<option value="">Select Product/Service</option>
 						<?php 
 
-							$query   = "SELECT * FROM ProductService WHERE user_id = '$user_id' ORDER BY created_at DESC";
+							$query   = "SELECT * FROM ProductService ORDER BY created_at DESC";
 							$results = mysqli_query($con, $query);
 
 							if (mysqli_num_rows($results) > 0) {
@@ -90,8 +83,6 @@
 									}
 									echo '<option value="' . $row['product_service_id'] . '">' . $row['name'] . '</option>';
 								}
-							} else {
-								// echo "0 results";
 							}
 						?>
 					</select>
@@ -120,14 +111,9 @@
 		
 		
         <!-- JAVASCRIPT -->
-		<script
-			src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			crossorigin="anonymous">
-		</script>   
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-		<script src="../js/dashboard.js"></script>
 		<script src="js/validation.js"></script>
+
+
+
 	</body>
 </html>
